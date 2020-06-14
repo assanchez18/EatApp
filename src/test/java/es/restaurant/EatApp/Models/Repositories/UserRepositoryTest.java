@@ -18,6 +18,7 @@ public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepo;
+    
     @Test
     public void canFindTheUserAfterSave() {
         User user = new UserBuilder().sergio().build();        

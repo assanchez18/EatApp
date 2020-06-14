@@ -3,8 +3,8 @@ package es.restaurant.EatApp.GeneralControllers;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-public class StartController implements IController{
-	
+public class StartController {
+
 	@GetMapping("/")
 	public String control(Model model) {
 		return start();

@@ -1,78 +1,59 @@
 package es.restaurant.EatApp;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+
 
 import es.restaurant.EatApp.GeneralControllers.LoginController;
 import es.restaurant.EatApp.Models.User;
+import es.restaurant.EatApp.Models.UserBuilder;
 import es.restaurant.EatApp.Models.Repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
-@WebAppConfiguration
+@DataJpaTest
 public class LoginTest {
 
-	private MockMvc mockMvc;
-	
-	@Autowired
-	private UserRepository userRepositoryMock;
-	
-	@Test
-	public void existingUserLoginThenSuccessfull() throws Exception {
-		
-		mockMvc.perform(get("/"))
-			.andExpect(status().isOk())
-			.andExpect(view().name("index"))
-			.andExpect(forwardedUrl("/login/"));
-		
-	}
-	
-	
-	
-	
-	
-	
-	
+    @Autowired
+    private UserRepository userRepo;
+    
 	private LoginController controller;
-	private Model model;
+	private User user;
 	
-	/*@Before
+	@Before
 	public void setup() {
-		this.controller = new LoginController();
-		this.model.addAttribute("userName","Sergio");
-		this.model.addAttribute("password","mag1cPassW0rd!*");
-	}*/
-
-	@Test
-	public void existingUserLoginThenSuccessfull11() {
-		this.controller = new LoginController();
-		this.model.addAttribute("userName","Sergio");
-		this.model.addAttribute("password","mag1cPassW0rd!*");
-		
-		String result = this.controller.control(this.model);
-		assertEquals("Login unsuccesfull, Error raised!","login", result);
+		this.user = new UserBuilder().sergio().build();
+		userRepo.save(user);
+		this.controller = new LoginController(userRepo);
 	}
 	
-	@Test
-	public void notExistingUserLoginThenError() {
-		this.controller = new LoginController();
-		this.model.addAttribute("userName","Sergio");
-		this.model.addAttribute("password","mag1cPassW0rd!*");
-		
-		String result = this.controller.control(this.model);
-		assertEquals("Login error! Unkown user has login!",result);
-	}
+    @Test
+    public void existingUserLoginSuccessfull() throws Exception {
+        Model m = new ExtendedModelMap();
+        
+        m.addAttribute("email",this.user.getEmail());
+        m.addAttribute("password",this.user.getPassword());
+        
+        assertEquals("Error while login.","login", this.controller.control(m, user.getEmail(), user.getPassword()));
+    }
+	
+    @Test
+    public void notExistingUserLoginError() throws Exception {
+    	User u = new UserBuilder().build();
+        Model m = new ExtendedModelMap();
+               
+        m.addAttribute("email", u.getEmail());
+        m.addAttribute("password", u.getPassword());
+        
+        assertEquals("Error while login, the user does not exist, should not be able to login.",
+        		 	 "error", this.controller.control(m, u.getEmail(), u.getPassword()));
+    }	
 
 }
