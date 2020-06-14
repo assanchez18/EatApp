@@ -1,0 +1,3 @@
+Estudiar la persistencia de la bbdd
+Estudiar la sesion
+Estudiar la configuracion
