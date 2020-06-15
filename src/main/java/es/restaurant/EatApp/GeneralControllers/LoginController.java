@@ -31,13 +31,12 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public String control(Model model, @RequestParam String email, @RequestParam String password) {
-	
 		User user = new User(email, password);
 		if (findUser(user)) {
 			
 			//TODO: handle session creation
 			//createSession(user);
-			model.addAttribute("password", password);
+			model.addAttribute("email", email);
 			return login();
 		}
 		else {
@@ -50,7 +49,7 @@ public class LoginController {
 	}
 
 	private String login() {
-		return "login";
+		return "mainUserView";
 	}
 
 	private String error(Model model) {

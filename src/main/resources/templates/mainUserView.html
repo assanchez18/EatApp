@@ -1,0 +1,22 @@
+<html lang="es">
+<head>
+{{>base/head}}
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600'
+	rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	{{>base/navbar}}
+	<div class="page">
+		<main role="main" class="main container">
+			<div class="starter-template">
+				<h1>Hola {{email}}</h1>
+				<!--  TODO if con las opciones que tiene este usuario en funcion del tipo de usuario -->
+				<!--  Para ello hay que pasar tipo de usuario y nombre en vez de email -->
+			</div>
+		</main>
+	</div>
+	{{>base/footer}}
+	<script src="js/login.js"></script>
+</body>
+</html>

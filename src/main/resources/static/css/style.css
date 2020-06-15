@@ -4,9 +4,15 @@ body {
   padding-top: 5rem;
 }
 
+h1, h2 {
+  font-family: lobster;
+  color: #000000;
+}
+
 .page {
-  background: white;
+  background: #FFFFFF;
   height: 100%;
+  margin-top: 2%;
 }
 
 .main {
