@@ -1,35 +1,43 @@
 <html lang="es">
-	<head>
-		{{>head}}
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
-	</head>
-	
-	<body>
-		{{>navbar}}
-		<main role="main" class="container">
+<head>
+{{>base/head}}
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600'
+	rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	{{>base/navbar}}
+	<div class="page">
+		<main role="main" class="main container">
 			<div class="starter-template">
 				<div class="jumbotron jumbotron-fluid">
-				  <div class="container">
-				    <h1 class="display-4">EatApp</h1>
-				    <p class="lead">App for restaurants!!</p>
-				  </div>
+					<div class="container">
+						<h1 class="title display-4">EatApp</h1>
+						<p class="title lead">App for restaurants!!</p>
+					</div>
 				</div>
 				<div class="loginForm">
 					<form method="post" action="login">
 						<div class="box">
-							<h1>Inicia sesion</h1>
-							<input type="email" name="email" value="a@a.com" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" /> 
-							<input type="password" name="password" value="password" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" /> 
-							<!-- <a href="#"><div class="btnSignIn">Sign In</div></a> <!-- End Btn -->
-							<button class="btn btn-success" type="submit">Guardar</button>
-							<a href="#"><div id="btnSignUp">Sign Up</div></a> <!-- End Btn2 -->
-						</div> <!-- End Box -->
+							<h1>Bienvenido</h1>
+							<input type="email" name="email" placeholder="Email"
+								onFocus="field_focus(this, 'email');"
+								onblur="field_blur(this, 'email');" class="email" /> <input
+								type="password" name="password" placeholder="password"
+								onFocus="field_focus(this, 'email');"
+								onblur="field_blur(this, 'email');" class="password" />
+							<button class="btn btn-success" type="submit">Entrar</button>
+						</div>
+						<!-- End Box -->
 					</form>
-					<p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>					
+					<p>¿No estás registrado?</p>
+					<a href="#" class="btn btn-info" role="button">Registrar</a>
+					<!-- TODO <p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>-->
 				</div>
 			</div>
 		</main>
-		{{>footer}}
-		<script src="js/login.js"></script>	
-	</body>
+	</div>
+	{{>base/footer}}
+	<script src="js/login.js"></script>
+</body>
 </html>
