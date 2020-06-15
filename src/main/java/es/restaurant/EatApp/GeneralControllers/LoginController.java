@@ -1,6 +1,7 @@
 package es.restaurant.EatApp.GeneralControllers;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,18 +31,21 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String control(Model model, @RequestParam String email, @RequestParam String password) {
+	public String control(Model model, @RequestParam String email, @RequestParam String password, HttpSession session) {
 		User user = new User(email, password);
 		if (findUser(user)) {
-			
-			//TODO: handle session creation
-			//createSession(user);
+			createSession(session, user);
 			model.addAttribute("email", email);
 			return login();
 		}
 		else {
 			return error(model);
 		}
+	}
+
+	private void createSession(HttpSession session, User user) {
+		session.setAttribute("email", user.getEmail());
+		session.setMaxInactiveInterval(600); //In seconds
 	}
 
 	private boolean findUser(User user) {
@@ -55,5 +59,5 @@ public class LoginController {
 	private String error(Model model) {
 		return "error";
 	}
-	
+
 }
