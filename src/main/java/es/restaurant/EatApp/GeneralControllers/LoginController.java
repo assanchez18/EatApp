@@ -1,19 +1,18 @@
 package es.restaurant.EatApp.GeneralControllers;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import es.restaurant.EatApp.Models.User;
 import es.restaurant.EatApp.Models.Repositories.UserRepository;
+import es.restaurant.EatApp.Models.facades.WebMediator;
 
 @Controller
-public class LoginController {
+public class LoginController implements ControllerInterface {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -31,22 +30,23 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String control(Model model, @RequestParam String email, @RequestParam String password, HttpSession session) {
-		User user = new User(email, password);
+	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+
+		WebMediator mediator = new WebMediator(req, res, model);
+		
+		User user = new User(mediator.getEmail(), mediator.getPassword());
 		if (findUser(user)) {
-			createSession(session, user);
-			model.addAttribute("email", email);
+			mediator.modelAddEmail();
+			mediator.sessionAddEmail();
+			mediator.responseSetStatusOk();
 			return login();
 		}
 		else {
-			return error(model);
+			mediator.responseSetStatusLoginError();
+			return error();
 		}
 	}
 
-	private void createSession(HttpSession session, User user) {
-		session.setAttribute("email", user.getEmail());
-		session.setMaxInactiveInterval(600); //In seconds
-	}
 
 	private boolean findUser(User user) {
 		return (this.userRepository.findUserByNameAndPassword(user.getEmail(), user.getPassword()) != null);
@@ -56,7 +56,7 @@ public class LoginController {
 		return "mainUserView";
 	}
 
-	private String error(Model model) {
+	private String error() {
 		return "error";
 	}
 

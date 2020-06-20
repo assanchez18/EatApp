@@ -1,13 +1,17 @@
 package es.restaurant.EatApp;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-@SpringBootTest
-class EatAppApplicationTests {
+import es.restaurant.EatApp.Models.Repositories.RepositoriesTest;
+import es.restaurant.EatApp.Controllers.ControllersTest;
 
-	@Test
-	void contextLoads() {
-	}
+@RunWith(Suite.class)
+@SuiteClasses({
+	ControllersTest.class,
+	RepositoriesTest.class
+})
+public class EatAppApplicationTests {
 
 }
