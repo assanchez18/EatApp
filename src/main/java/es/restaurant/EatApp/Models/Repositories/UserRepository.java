@@ -6,13 +6,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.restaurant.EatApp.Models.User;
+import es.restaurant.EatApp.Models.UserJpa;
 
 @Repository
 @Transactional
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserJpa, Long> {
 
 	@Query(value = "SELECT * FROM USER u WHERE u.Email=(:email) AND u.Password=(:password)", nativeQuery = true)
-	User findUserByNameAndPassword(@Param("email") String email, @Param("password") String password);
+	UserJpa findUserByNameAndPassword(@Param("email") String email, @Param("password") String password);
 	
 }

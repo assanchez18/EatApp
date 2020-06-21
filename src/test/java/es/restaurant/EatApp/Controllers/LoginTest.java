@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,26 +19,20 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.GeneralControllers.LoginController;
 import es.restaurant.EatApp.Models.User;
 import es.restaurant.EatApp.Models.UserBuilder;
-import es.restaurant.EatApp.Models.Repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class LoginTest {
 
-    @Autowired
-    private UserRepository userRepo;
     
 	private LoginController controller;
-	private User user;
 	
 	private MockMvc mockMvc;
 	
 	
 	@Before
 	public void setup() {
-		this.user = new UserBuilder().sergio().build();
-		userRepo.save(user);
-		this.controller = new LoginController(userRepo);
+		this.controller = new LoginController();
 		
 		MockitoAnnotations.initMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
@@ -48,16 +41,17 @@ public class LoginTest {
 	
     @Test
     public void existingUserLogin() throws Exception {
+		User user = new UserBuilder().sergio().buildSQL();
         this.mockMvc.perform(
                 post("/login")
-                        .param("email", this.user.getEmail())
-                        .param("password", this.user.getPassword()))
+                        .param("email", user.getEmail())
+                        .param("password", user.getPassword()))
                 .andExpect(status().isOk());
     }
 	
     @Test
     public void notExistingUserLoginError() throws Exception {
-    	User u = new UserBuilder().build();
+    	User u = new UserBuilder().buildSQL();
                
         this.mockMvc.perform(
                 post("/login")

@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import es.restaurant.EatApp.Models.User;
+import es.restaurant.EatApp.Models.UserJpa;
 import es.restaurant.EatApp.Models.UserBuilder;
 
 @RunWith(SpringRunner.class)
@@ -21,10 +21,10 @@ public class UserRepositoryTest {
     
     @Test
     public void canFindTheUserAfterSave() {
-        User user = new UserBuilder().sergio().build();        
+        UserJpa user = new UserBuilder().sergio().buildJPA();        
         userRepo.save(user);
         
-        User found = userRepo.findUserByNameAndPassword(user.getEmail(), user.getPassword());
+        UserJpa found = userRepo.findUserByNameAndPassword(user.getEmail(), user.getPassword());
   
         assertNotNull("The user does not exist!",found);
         assertEquals("The email is not correct!", user.getEmail(), found.getEmail());
@@ -33,7 +33,7 @@ public class UserRepositoryTest {
     
     @Test
     public void returnNullWhenNotFound(){
-        User found = userRepo.findUserByNameAndPassword("email", "password");
+        UserJpa found = userRepo.findUserByNameAndPassword("email", "password");
         assertNull("User should not be found!", found);
     }
 }

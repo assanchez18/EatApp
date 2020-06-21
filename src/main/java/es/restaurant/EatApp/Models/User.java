@@ -1,44 +1,12 @@
 package es.restaurant.EatApp.Models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public abstract class User {
 
-@Entity
-@Table(name = "USER")
-public class User {
+	public abstract Long getId();
 
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
-	private Long id;
-	
-	@Column(name = "Email")
-	protected String email;
-	@Column(name = "Password")
-	protected String password;
-	
-	public User (String email, String password) {
-		this.email = email;
-		this.password = password;
-	}
-	
-	public User() {
-		this.email = "";
-		this.password = "";
-	}
-	
-	public Long getId() {
-		return this.id;
-	}
+	public abstract String getEmail();
 
-	public String getEmail() {
-		return this.email;
-	}
+	public abstract String getPassword();
 
-	public String getPassword() {
-		return this.password;
-	}
+	public abstract boolean equals(User u);
 }

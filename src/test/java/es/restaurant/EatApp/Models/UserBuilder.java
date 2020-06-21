@@ -1,11 +1,15 @@
 package es.restaurant.EatApp.Models;
 
-import es.restaurant.EatApp.Models.User;
+import es.restaurant.EatApp.Models.UserJpa;
 
-public class UserBuilder extends User {
+public class UserBuilder {
 
+	private String email;
+	private String password;
+	
 	public UserBuilder() {
-		super("empty", "empty");
+		this.email = "empty@empty";
+		this.password = "empty";
 	}
 
 	public UserBuilder email(String email) {
@@ -19,10 +23,18 @@ public class UserBuilder extends User {
 	}
 	
 	public UserBuilder sergio() {
-		return this.email("Sergio").password("mag1cPassW0rd!*");
+		return this.email("sergio@admin.com").password("mag1cPassW0rd!*");
 	}
 	
-	public User build() {
-		return new User(this.email, this.password);
+	public UserBuilder admin() {
+		return this.email("admin@admin.com").password("admin");
 	}
+	
+	public UserJpa buildJPA() {
+		return new UserJpa(this.email, this.password);
+	}
+	public UserSql buildSQL() {
+		return new UserSql(this.email, this.password);
+	}
+
 }
