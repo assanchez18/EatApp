@@ -10,9 +10,18 @@
 	<div class="page">
 		<main role="main" class="main container">
 			<div class="starter-template">
-				<h1>Hola {{email}}</h1>
-				<!--  TODO if con las opciones que tiene este usuario en funcion del tipo de usuario -->
-				<!--  Para ello hay que pasar tipo de usuario y nombre en vez de email -->
+				{{#typeCommensal}}
+					{{>./mainCommensalView}}
+				{{/typeCommensal}}
+				{{#typeCook}}
+					{{>./mainCookView}}
+				{{/typeCook}}
+				{{#typeWaiter}}
+					{{>./mainWaiterView}}
+				{{/typeWaiter}}
+				{{#typeAdmin}}
+					{{>./mainAdminView}}
+				{{/typeAdmin}}
 			</div>
 		</main>
 	</div>

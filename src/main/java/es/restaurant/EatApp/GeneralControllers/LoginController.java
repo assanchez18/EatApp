@@ -25,6 +25,8 @@ public class LoginController implements ControllerInterface {
 			mediator.modelAddEmail();
 			mediator.sessionAddEmail();
 			mediator.responseSetStatusOk();
+			mediator.sessionAddType("Commensal");
+			mediator.modelAddType("Commensal");
 			return login();
 		}
 		else {

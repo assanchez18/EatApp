@@ -11,11 +11,15 @@ public class SessionFacade {
 		this.session = session;
 		this.session.setMaxInactiveInterval(MAX_INACTIVE_TIME);
 	}
-	
+
 	public void addAttribute(String name, String value) {
 		this.session.setAttribute(name, value);
 	}
-	
+
+	public void addAttribute(String name, boolean value) {
+		this.session.setAttribute(name, value);
+	}
+
 	public void invalidate() {
 		this.session.invalidate();
 	}
