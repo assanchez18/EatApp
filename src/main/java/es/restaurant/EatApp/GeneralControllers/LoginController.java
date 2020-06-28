@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import es.restaurant.EatApp.models.UserSql;
 import es.restaurant.EatApp.models.repositories.UserSqlDao;
-import es.restaurant.EatApp.models.facades.WebMediator;
+import es.restaurant.EatApp.views.LoginView;
 
 @Controller
 public class LoginController implements ControllerInterface {
@@ -18,35 +18,14 @@ public class LoginController implements ControllerInterface {
 	@PostMapping("/login")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 
-		WebMediator mediator = new WebMediator(req, res, model);
+		LoginView view = new LoginView(req, res, model);
 		
-		UserSql user = new UserSql(mediator.getEmail(), mediator.getPassword());
-		if (findUser(user)) {
-			mediator.modelAddEmail();
-			mediator.sessionAddEmail();
-			mediator.responseSetStatusOk();
-			mediator.sessionAddType("Commensal");
-			mediator.modelAddType("Commensal");
-			return login();
+		UserSql user = new UserSql(view.getEmail(), view.getPassword());
+		if (new UserSqlDao().verifyUser(user)) {
+			return view.login(user);
 		}
 		else {
-			mediator.responseSetStatusLoginError();
-			return error();
+			return view.error();
 		}
 	}
-
-
-	private boolean findUser(UserSql user) {
-		UserSqlDao dao = new UserSqlDao();
-		return dao.verifyUser(user);
-	}
-
-	private String login() {
-		return "mainUserView";
-	}
-
-	private String error() {
-		return "error";
-	}
-
 }

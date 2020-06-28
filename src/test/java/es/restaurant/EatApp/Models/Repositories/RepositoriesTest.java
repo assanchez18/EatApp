@@ -8,7 +8,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	DatabaseTest.class,
-	UserRepositoryTest.class
 })
 public class RepositoriesTest {
 

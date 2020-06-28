@@ -9,4 +9,6 @@ public abstract class User {
 	public abstract String getPassword();
 
 	public abstract boolean equals(User u);
+	
+	public abstract UserType getUserType();
 }
