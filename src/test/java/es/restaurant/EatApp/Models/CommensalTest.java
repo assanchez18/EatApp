@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models;
+package es.restaurant.EatApp.models;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;

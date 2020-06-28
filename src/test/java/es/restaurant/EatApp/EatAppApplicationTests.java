@@ -4,12 +4,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import es.restaurant.EatApp.Models.Repositories.RepositoriesTest;
-import es.restaurant.EatApp.Controllers.ControllersTest;
+import es.restaurant.EatApp.models.repositories.RepositoriesTest;
+import es.restaurant.EatApp.generalControllers.GeneralControllersTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	ControllersTest.class,
+	GeneralControllersTest.class,
 	RepositoriesTest.class
 })
 public class EatAppApplicationTests {

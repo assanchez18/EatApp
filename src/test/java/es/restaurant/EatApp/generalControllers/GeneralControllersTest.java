@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Controllers;
+package es.restaurant.EatApp.generalControllers;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -8,6 +8,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	LoginTest.class
 })
-public class ControllersTest {
+public class GeneralControllersTest {
 
 }

@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models.Repositories;
+package es.restaurant.EatApp.models.repositories;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import es.restaurant.EatApp.Models.UserJpa;
-import es.restaurant.EatApp.Models.UserBuilder;
+import es.restaurant.EatApp.models.UserJpa;
+import es.restaurant.EatApp.models.UserBuilder;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

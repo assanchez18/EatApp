@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.GeneralControllers;
+package es.restaurant.EatApp.generalControllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

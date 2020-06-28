@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models.Repositories;
+package es.restaurant.EatApp.models.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.restaurant.EatApp.Models.UserJpa;
+import es.restaurant.EatApp.models.UserJpa;
 
 @Repository
 @Transactional

@@ -1,13 +1,13 @@
-package es.restaurant.EatApp.GeneralControllers;
+package es.restaurant.EatApp.generalControllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import es.restaurant.EatApp.Models.UserSql;
-import es.restaurant.EatApp.Models.Repositories.UserSqlDao;
-import es.restaurant.EatApp.Models.facades.WebMediator;
+import es.restaurant.EatApp.models.UserSql;
+import es.restaurant.EatApp.models.repositories.UserSqlDao;
+import es.restaurant.EatApp.models.facades.WebMediator;
 
 @Controller
 public class LoginController implements ControllerInterface {

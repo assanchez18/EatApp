@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models.Repositories;
+package es.restaurant.EatApp.models.repositories;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.restaurant.EatApp.Models.User;
-import es.restaurant.EatApp.Models.UserBuilder;
-import es.restaurant.EatApp.Models.UserSql;
+import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.models.UserBuilder;
+import es.restaurant.EatApp.models.UserSql;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

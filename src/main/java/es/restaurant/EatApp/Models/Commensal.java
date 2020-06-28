@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models;
+package es.restaurant.EatApp.models;
 
 public class Commensal {
 

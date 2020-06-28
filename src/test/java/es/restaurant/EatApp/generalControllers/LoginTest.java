@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Controllers;
+package es.restaurant.EatApp.generalControllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -16,9 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
-import es.restaurant.EatApp.GeneralControllers.LoginController;
-import es.restaurant.EatApp.Models.User;
-import es.restaurant.EatApp.Models.UserBuilder;
+import es.restaurant.EatApp.generalControllers.LoginController;
+import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.models.UserBuilder;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

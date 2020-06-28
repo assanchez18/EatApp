@@ -1,6 +1,6 @@
-package es.restaurant.EatApp.Models;
+package es.restaurant.EatApp.models;
 
-import es.restaurant.EatApp.Models.UserJpa;
+import es.restaurant.EatApp.models.UserJpa;
 
 public class UserBuilder {
 

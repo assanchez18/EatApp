@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models.Repositories;
+package es.restaurant.EatApp.models.repositories;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

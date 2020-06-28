@@ -1,11 +1,11 @@
-package es.restaurant.EatApp.Models.Repositories;
+package es.restaurant.EatApp.models.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
-import es.restaurant.EatApp.Models.UserSql;
+import es.restaurant.EatApp.models.UserSql;
 
 public class UserSqlDao {
 	

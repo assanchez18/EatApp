@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.Models.facades;
+package es.restaurant.EatApp.models.facades;
 
 import javax.servlet.http.HttpSession;
 
