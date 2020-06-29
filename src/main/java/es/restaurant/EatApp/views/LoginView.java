@@ -40,6 +40,7 @@ public class LoginView {
 
 	public String error() {
 		this.session.invalidate();
+		this.response.setStatusLoginError();
 		return "error";
 	}
 
