@@ -19,7 +19,6 @@ public class LoginView {
 	private Model model;
 
 	private static final String EMAIL_TAG = "email";
-	private static final String TYPE_TAG = "userType";
 	private static final String PASSWORD_TAG = "password";
 	
 	public LoginView(HttpServletRequest req, HttpServletResponse res, Model model) {
@@ -33,8 +32,8 @@ public class LoginView {
 		this.model.addAttribute(EMAIL_TAG, this.getEmail());
 		this.session.addAttribute(EMAIL_TAG,this.getEmail());
 		//refactor tagType to cleaner way
-		this.session.addAttribute(TYPE_TAG+user.getUserType().getTypeName(),true);
-		this.model.addAttribute(TYPE_TAG+user.getUserType().getTypeName(),true);
+		this.session.addAttribute(user.getUserType().getTypeName(), true);
+		this.model.addAttribute(user.getUserType().getTypeName(), true);
 		this.response.setStatusOk();
 		return "mainUserView";
 	}

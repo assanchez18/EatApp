@@ -10,18 +10,18 @@
 	<div class="page">
 		<main role="main" class="main container">
 			<div class="starter-template">
-				{{#userTypeCommensal}}
+				{{#COMMENSAL}}
 					{{>./mainCommensalView}}
-				{{/userTypeCommensal}}
-				{{#userTypeCook}}
+				{{/COMMENSAL}}
+				{{#COOK}}
 					{{>./mainCookView}}
-				{{/userTypeCook}}
-				{{#userTypeWaiter}}
+				{{/COOK}}
+				{{#WAITER}}
 					{{>./mainWaiterView}}
-				{{/userTypeWaiter}}
-				{{#userTypeAdmin}}
+				{{/WAITER}}
+				{{#ADMIN}}
 					{{>./mainAdminView}}
-				{{/userTypeAdmin}}
+				{{/ADMIN}}
 			</div>
 		</main>
 	</div>

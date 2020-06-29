@@ -22,9 +22,9 @@ public class LoginController implements ControllerInterface {
 		
 		UserSql user = new UserSql(view.getEmail(), view.getPassword());
 		if (new UserSqlDao().verifyUser(user)) {
+			user = new UserSqlDao().getUser(user.getEmail()); // TODO fix
 			return view.login(user);
-		}
-		else {
+		} else {
 			return view.error();
 		}
 	}

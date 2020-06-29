@@ -66,7 +66,7 @@ public class UserSqlDao {
 	}
 	
 	public UserSql getUser(String email) {
-		String sql = "Select * from user where user.email=\"" + email;
+		String sql = "Select * from user where user.email=\"" + email+ "\"";
 		return executeQuery(sql).get(0);
 	}
 }
