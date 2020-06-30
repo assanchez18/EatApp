@@ -10,18 +10,18 @@ h1, h2 {
 }
 
 .page {
-  background: #FFFFFF;
   height: 100%;
   margin-top: 2%;
 }
 
 .main {
-  background: #87CEEB;
+  background: #CFE0F7;
   height: 100%;
 }
 
 .jumbotron {
   margin-top: 5%;
+  width: 50%;
   background: #000000;
   border-radius: 50px;
 }
