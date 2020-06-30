@@ -20,6 +20,6 @@ public class LogoutController implements ControllerInterface {
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		LogoutView view = new LogoutView(req, res, model);
 		UserSql user = new UserSqlDao().getUser(view.getEmail());
-		return view.logout();
+		return view.logout(user);
 	}
 }

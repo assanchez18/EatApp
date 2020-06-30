@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 
-
+import es.restaurant.EatApp.models.UserSql;
 import es.restaurant.EatApp.models.facades.HttpServletRequestFacade;
 import es.restaurant.EatApp.models.facades.HttpServletResponseFacade;
 import es.restaurant.EatApp.models.facades.SessionFacade;
@@ -19,7 +19,6 @@ public class LogoutView {
 	private Model model;
 	
 	private static final String EMAIL_TAG = "email";
-	private static final String TYPE_TAG = "userType";
 	
 	public LogoutView(HttpServletRequest req, HttpServletResponse res, Model model) {
 		this.request = new HttpServletRequestFacade(req);
@@ -28,20 +27,14 @@ public class LogoutView {
 		this.model = model;
 	}
 
-	public String logout() {
-		//get User type form DB
-		//Set attribute type as false
-		//ser mail as false? --> check html
-		this.session.removeAttribute(EMAIL_TAG);
-		this.session.removeAttribute(TYPE_TAG);
-		
+	public String logout(UserSql user) {
 		this.session.invalidate();
-		//remove useless data from model and session?
+		//remove useless data from model
 		
 		return "/";
 	}
 	
 	public String getEmail() {
-		return this.request.getParameter(EMAIL_TAG);
+		return this.session.getAttribute(EMAIL_TAG);
 	}
 }

@@ -1,0 +1,32 @@
+<html lang="es">
+<head>
+{{>base/head}}
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600'
+	rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	{{>base/navbar}}
+	<div class="page">
+		<main role="main" class="main container">
+			<div class="starter-template">
+				{{#COMMENSAL}}
+					{{>./mainCommensalView}}
+				{{/COMMENSAL}}
+				{{#COOK}}
+					{{>./mainCookView}}
+				{{/COOK}}
+				{{#WAITER}}
+					{{>./mainWaiterView}}
+				{{/WAITER}}
+				{{#ADMIN}}
+					{{>./mainAdminView}}
+				{{/ADMIN}}
+				<h2>HTML TO TEST</h2>
+			</div>
+		</main>
+	</div>
+	{{>base/footer}}
+	<script src="js/login.js"></script>
+</body>
+</html>
