@@ -28,9 +28,7 @@ public class LogoutView {
 	}
 
 	public String logout(UserSql user) {
-		this.session.invalidate();
-		//remove useless data from model
-		
+		this.session.invalidate();		
 		return "/index";
 	}
 	
