@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -21,7 +20,6 @@ import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
 public class LoginTest {
 
 	private static final String EMAIL = "email";

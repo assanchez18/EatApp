@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+	StartTest.class,
 	LoginTest.class,
 	LogoutTest.class
 })

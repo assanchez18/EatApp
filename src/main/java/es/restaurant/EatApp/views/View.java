@@ -39,6 +39,15 @@ public abstract class View {
 		this.response = null;
 		this.model = null;
 	}
+	
+	public View(HttpServletRequest req,HttpServletResponse res) {
+		this.request = new HttpServletRequestFacade(req);
+		this.session = new SessionFacade(req.getSession());
+		this.response = new HttpServletResponseFacade(res);
+		this.model = null;
+	}
 
-	public abstract String getEmail();
+	public String getEmail() {
+		return this.session.getAttribute(EMAIL_TAG);
+	};
 }

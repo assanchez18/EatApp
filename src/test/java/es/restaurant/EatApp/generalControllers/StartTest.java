@@ -7,39 +7,41 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 
-@RunWith(SpringRunner.class)
-public class LogoutTest {
-
+public class StartTest {
 	private static final String EMAIL = "email";
 
-	private LogoutController controller;	
+	private StartController controller;	
 	private MockMvc mockMvc;
 
 	@Before
 	public void setup() {
-		this.controller = new LogoutController();
+		this.controller = new StartController();
 
 		MockitoAnnotations.initMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
 	@Test
-	public void okLogout() throws Exception {
+	public void okStartAlreadyLogged() throws Exception {
 		User user = new UserBuilder().sergio().buildSQL();
 
 		this.mockMvc.perform(
-				get("/logout")
+				get("/")
 				.sessionAttr(EMAIL, user.getEmail()))
-		.andExpect(status().is(HttpServletResponse.SC_OK));
+			.andExpect(status().is(HttpServletResponse.SC_OK));
 	}
-
+	
+	@Test
+	public void okStartNewSession() throws Exception {
+		this.mockMvc.perform(
+				get("/"))
+			.andExpect(status().is(HttpServletResponse.SC_OK));
+	}
 }

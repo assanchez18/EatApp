@@ -33,6 +33,7 @@ public class LoginView extends View {
 		return this.request.getParameter(PASSWORD_TAG);
 	}
 	
+	@Override
 	public String getEmail() {
 		return this.request.getParameter(EMAIL_TAG);
 	}
