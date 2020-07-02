@@ -1,0 +1,23 @@
+<html lang="es">
+<head>
+{{>base/head}}
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600'
+	rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	{{>base/navbar}}
+	<div class="page">
+		<main role="main" class="main container col-xl col-lg col-md col-sm">
+			<div class="starter-template">
+				{{#error}}
+					<div class="alert alert-danger" role="alert">
+						{{error}}
+					</div>
+				{{/error}}
+			</div>
+		</main>
+	</div>
+	{{>base/footer}}
+</body>
+</html>
