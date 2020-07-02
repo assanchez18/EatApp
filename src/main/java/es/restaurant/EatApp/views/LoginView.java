@@ -19,6 +19,7 @@ public class LoginView {
 	private Model model;
 
 	private static final String EMAIL_TAG = "email";
+	private static final String TYPE_TAG = "type";
 	private static final String PASSWORD_TAG = "password";
 	public static final String ERROR_NOT_FOUND = "User Not Found";
 	public static final String ERROR_UNAUTHORIZED =  "User Unauthorized";
@@ -31,10 +32,8 @@ public class LoginView {
 	}
 	
 	public String login(UserSql user) {
-		this.model.addAttribute(EMAIL_TAG, this.getEmail());
 		this.session.addAttribute(EMAIL_TAG,this.getEmail());
-		this.session.addAttribute(user.getUserType().getTypeName(), true);
-		this.model.addAttribute(user.getUserType().getTypeName(), true);
+		this.session.addAttribute(TYPE_TAG, user.getUserType().getTypeName());
 		this.response.setStatusOk();
 		return "mainUserView";
 	}

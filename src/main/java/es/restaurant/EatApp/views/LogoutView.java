@@ -31,7 +31,7 @@ public class LogoutView {
 		this.session.invalidate();
 		//remove useless data from model
 		
-		return "/";
+		return "/index";
 	}
 	
 	public String getEmail() {
