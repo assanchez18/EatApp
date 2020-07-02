@@ -1,8 +1,6 @@
 <html lang="es">
 <head>
 <head th:insert="base/head"> </head>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600'
-	rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -11,18 +9,10 @@
 		<main role="main" class="main container col-xl col-lg col-md col-sm">
 			<div class="starter-template">
 				<th:block th:switch="${session.type}">
-					<div th:case="'COMMENSAL'">
-						<div th:insert="mainCommensalView.html"></div>
-					</div>
-					<div th:case="'ADMIN'">
-						<div th:insert="mainAdminView.html"></div>
-					</div>
-					<div th:case="'COOK'">
-						<div th:insert="mainCookView.html"></div>
-					</div>
-					<div th:case="'WAITER'">
-						<div th:insert="mainWaiterView.html"></div>
-					</div>
+						<div th:case="'COMMENSAL'" th:insert="mainCommensalView.html"></div>
+						<div th:case="'ADMIN'" th:insert="mainAdminView.html"></div>
+						<div th:case="'COOK'" th:insert="mainCookView.html"></div>
+						<div th:case="'WAITER'" th:insert="mainWaiterView.html"></div>
 				</th:block>
 			</div>
 		</main>
