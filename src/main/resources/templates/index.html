@@ -22,10 +22,15 @@
 							<h1>Bienvenido</h1>
 							<input type="email" name="email" placeholder="Email"
 								onFocus="field_focus(this, 'email');"
-								onblur="field_blur(this, 'email');" class="email" /> <input
-								type="password" name="password" placeholder="password"
+								onblur="field_blur(this, 'email');" class="email" />
+							<input type="password" name="password" placeholder="password"
 								onFocus="field_focus(this, 'email');"
 								onblur="field_blur(this, 'email');" class="password" />
+							{{#error}}
+							<div class="alert alert-danger" role="alert">
+								{{error}}
+							</div>
+							{{/error}}
 							<button class="btn btn-success" type="submit">Entrar</button>
 						</div>
 						<!-- End Box -->

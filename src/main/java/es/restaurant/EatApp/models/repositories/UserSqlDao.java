@@ -16,8 +16,13 @@ public class UserSqlDao {
 		this.db = Database.getDatabase();
 	}
 
-	public boolean verifyUser(UserSql user) {
+	public boolean verifyUserAndPassword(UserSql user) {
 		String sql = "Select * from user where user.email=\""+ user.getEmail()+ "\" and user.password=\"" + user.getPassword() + "\"";
+		return !executeQuery(sql).isEmpty();
+	}
+
+	public boolean verifyUser(UserSql user) {
+		String sql = "Select * from user where user.email=\"" + user.getEmail()+ "\"";
 		return !executeQuery(sql).isEmpty();
 	}
 	

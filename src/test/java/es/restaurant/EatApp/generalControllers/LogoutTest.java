@@ -21,6 +21,8 @@ import es.restaurant.EatApp.models.UserBuilder;
 @DataJpaTest
 public class LogoutTest {
 
+	private static final String EMAIL = "email";
+
 	private LogoutController controller;	
 	private MockMvc mockMvc;
 
@@ -32,14 +34,13 @@ public class LogoutTest {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 
-
 	@Test
 	public void okLogout() throws Exception {
 		User user = new UserBuilder().sergio().buildSQL();
 
 		this.mockMvc.perform(
 				get("/logout")
-				.sessionAttr("email", user.getEmail()))
+				.sessionAttr(EMAIL, user.getEmail()))
 		.andExpect(status().is(HttpServletResponse.SC_OK));
 	}
 

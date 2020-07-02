@@ -20,6 +20,8 @@ public class LoginView {
 
 	private static final String EMAIL_TAG = "email";
 	private static final String PASSWORD_TAG = "password";
+	public static final String ERROR_NOT_FOUND = "User Not Found";
+	public static final String ERROR_UNAUTHORIZED =  "User Unauthorized";
 	
 	public LoginView(HttpServletRequest req, HttpServletResponse res, Model model) {
 		this.request = new HttpServletRequestFacade(req);
@@ -31,17 +33,22 @@ public class LoginView {
 	public String login(UserSql user) {
 		this.model.addAttribute(EMAIL_TAG, this.getEmail());
 		this.session.addAttribute(EMAIL_TAG,this.getEmail());
-		//refactor tagType to cleaner way
 		this.session.addAttribute(user.getUserType().getTypeName(), true);
 		this.model.addAttribute(user.getUserType().getTypeName(), true);
 		this.response.setStatusOk();
 		return "mainUserView";
 	}
 
-	public String error() {
+	public String error(String error) {
 		this.session.invalidate();
-		this.response.setStatusLoginError();
-		return "error";
+		if(error == ERROR_NOT_FOUND) {
+			this.model.addAttribute("error", "El usuario no está registrado");
+			this.response.setStatusNotFoundLoginError();
+		} else {
+			this.model.addAttribute("error", "Contraseña incorrecta");
+			this.response.setStatusUnauthorizedLoginError();
+		}
+		return "index";
 	}
 
 	public String getEmail() {

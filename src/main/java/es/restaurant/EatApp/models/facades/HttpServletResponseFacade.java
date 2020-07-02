@@ -14,7 +14,11 @@ public class HttpServletResponseFacade {
 		this.response.setStatus(HttpServletResponse.SC_OK);
 	}
 	
-	public void setStatusLoginError() {
+	public void setStatusUnauthorizedLoginError() {
 		this.response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	}
+
+	public void setStatusNotFoundLoginError() {
+		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 	}
 }

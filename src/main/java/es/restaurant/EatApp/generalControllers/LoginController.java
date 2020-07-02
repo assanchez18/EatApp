@@ -21,11 +21,15 @@ public class LoginController implements ControllerInterface {
 		LoginView view = new LoginView(req, res, model);
 		
 		UserSql user = new UserSql(view.getEmail(), view.getPassword());
-		if (new UserSqlDao().verifyUser(user)) {
-			user = new UserSqlDao().getUser(user.getEmail()); // TODO fix
-			return view.login(user);
-		} else {
-			return view.error();
+		UserSqlDao dao = new UserSqlDao();
+		if(dao.verifyUser(user)) {
+			if (dao.verifyUserAndPassword(user)) {
+				user = new UserSqlDao().getUser(user.getEmail()); // TODO fix
+				return view.login(user);
+			} else {
+				return view.error(LoginView.ERROR_UNAUTHORIZED);
+			}
 		}
+		return view.error(LoginView.ERROR_NOT_FOUND);
 	}
 }
