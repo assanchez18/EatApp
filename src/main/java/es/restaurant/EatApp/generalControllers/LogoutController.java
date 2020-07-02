@@ -13,12 +13,9 @@ import es.restaurant.EatApp.views.LogoutView;
 @Controller
 public class LogoutController implements ControllerInterface {
 
-	public LogoutController() {
-	}
-
 	@GetMapping("/logout")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
-		LogoutView view = new LogoutView(req, res, model);
+		LogoutView view = new LogoutView(req);
 		UserSql user = new UserSqlDao().getUser(view.getEmail());
 		return view.logout(user);
 	}

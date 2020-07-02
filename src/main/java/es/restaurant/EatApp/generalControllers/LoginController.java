@@ -15,7 +15,7 @@ public class LoginController implements ControllerInterface {
 	@PostMapping("/login")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 
-		LoginView view = new LoginView(req, res, model);
+		LoginView view = new LoginView(model, req, res);
 		
 		UserSql user = new UserSql(view.getEmail(), view.getPassword());
 		UserSqlDao dao = new UserSqlDao();
