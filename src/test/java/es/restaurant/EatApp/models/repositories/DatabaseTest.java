@@ -38,25 +38,26 @@ public class DatabaseTest {
     	
     	//Insert new user
     	assertTrue("Error at INSERT query", dao.insert(user));
-    	assertTrue("The user has not been inserted properly, does not exist in DB",dao.verifyUser(user));
+    	assertTrue("The user has not been inserted properly, does not exist in DB",dao.verifyUserAndPassword(user));
     	
     	UserSql updatedUser = new UserBuilder().email("test2@test.com").password("4321").type(UserType.userType.WAITER).buildSQL();
     	//Update password
     	assertTrue("Error at UPDATE password query", dao.updatePassword(user, updatedUser.getPassword()));
-    	assertFalse("The user password has not been updated properly, old data exists in DB",dao.verifyUser(user));
-    	assertTrue("The user password has not been updated properly, does not exist in DB",dao.verifyUser(new UserSql(user.getEmail(),updatedUser.getPassword())));
+    	assertFalse("The user password has not been updated properly, old data exists in DB",dao.verifyUserAndPassword(user));
+    	assertTrue("The user password has not been updated properly, does not exist in DB",dao.verifyUserAndPassword(new UserSql(user.getEmail(),updatedUser.getPassword())));
 
     	//Update userType
     	assertTrue("Error at UPDATE User type query", dao.updateUserType(user, updatedUser.getUserType()));
-    	assertTrue("The user type has not been updated properly, the current type does not match with the new one", dao.getUserType(user).equals(updatedUser.getUserType()));
+    	assertTrue("The user type has not been updated properly, the current type does not match with the new one",
+    			   dao.getUser(user).equals(new UserSql(user.getEmail(), updatedUser.getPassword(), updatedUser.getUserType())));
 
     	//Update email
     	assertTrue("Error at UPDATE email query", dao.updateEmail(user, updatedUser.getEmail()));
-    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.verifyUser(user));
-    	assertTrue("The user email has not been updated properly, does not exist in DB",dao.verifyUser(updatedUser));
+    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.verifyUserExists(user));
+    	assertTrue("The user email has not been updated properly, does not exist in DB",dao.getUser(updatedUser).equals(updatedUser));
 
     	//Remove user
     	assertTrue("Error at DELETE  user query", dao.deleteUser(updatedUser));
-    	assertFalse("The user has not been delete properly, old data exists in DB",dao.verifyUser(updatedUser));
+    	assertFalse("The user has not been delete properly, old data exists in DB",dao.verifyUserExists(updatedUser));
     }
 }

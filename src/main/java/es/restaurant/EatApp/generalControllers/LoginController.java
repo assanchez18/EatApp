@@ -12,9 +12,6 @@ import es.restaurant.EatApp.views.LoginView;
 @Controller
 public class LoginController implements ControllerInterface {
 
-	public LoginController() {
-	}
-
 	@PostMapping("/login")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 
@@ -22,14 +19,10 @@ public class LoginController implements ControllerInterface {
 		
 		UserSql user = new UserSql(view.getEmail(), view.getPassword());
 		UserSqlDao dao = new UserSqlDao();
-		if(dao.verifyUser(user)) {
-			if (dao.verifyUserAndPassword(user)) {
-				user = new UserSqlDao().getUser(user.getEmail()); // TODO fix
-				return view.login(user);
-			} else {
-				return view.error(LoginView.ERROR_UNAUTHORIZED);
-			}
+		if(dao.verifyUserAndPassword(user)) {
+			user = dao.getFirstSelectedUser();
+			return view.login(user);
 		}
-		return view.error(LoginView.ERROR_NOT_FOUND);
+		return view.error();
 	}
 }

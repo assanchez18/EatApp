@@ -69,6 +69,6 @@ public class LoginTest {
                 post("/login")
                         .param(EMAIL, u.getEmail())
                         .param(PASSWORD, u.getPassword()))
-                .andExpect(status().is(HttpServletResponse.SC_NOT_FOUND));
+                .andExpect(status().is(HttpServletResponse.SC_UNAUTHORIZED));
     }
 }

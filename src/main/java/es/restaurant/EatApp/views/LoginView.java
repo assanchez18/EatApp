@@ -21,8 +21,6 @@ public class LoginView {
 	private static final String EMAIL_TAG = "email";
 	private static final String TYPE_TAG = "type";
 	private static final String PASSWORD_TAG = "password";
-	public static final String ERROR_NOT_FOUND = "User Not Found";
-	public static final String ERROR_UNAUTHORIZED =  "User Unauthorized";
 	
 	public LoginView(HttpServletRequest req, HttpServletResponse res, Model model) {
 		this.request = new HttpServletRequestFacade(req);
@@ -38,15 +36,10 @@ public class LoginView {
 		return "mainUserView";
 	}
 
-	public String error(String error) {
+	public String error() {
 		this.session.invalidate();
-		if(error == ERROR_NOT_FOUND) {
-			this.model.addAttribute("error", "El usuario no está registrado");
-			this.response.setStatusNotFoundLoginError();
-		} else {
-			this.model.addAttribute("error", "Contraseña incorrecta");
-			this.response.setStatusUnauthorizedLoginError();
-		}
+		this.model.addAttribute("error", "El usuario o la contraseña son incorrectos");
+		this.response.setStatusUnauthorizedLoginError();
 		return "index";
 	}
 

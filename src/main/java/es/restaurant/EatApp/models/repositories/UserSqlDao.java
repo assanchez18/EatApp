@@ -2,6 +2,7 @@ package es.restaurant.EatApp.models.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -11,21 +12,34 @@ import es.restaurant.EatApp.models.UserType;
 public class UserSqlDao {
 	
 	private Database db;
+	private List<UserSql> lastSelectedData;
 	
 	public UserSqlDao() {
 		this.db = Database.getDatabase();
+		this.lastSelectedData = new ArrayList<UserSql>();
 	}
 
 	public boolean verifyUserAndPassword(UserSql user) {
 		String sql = "Select * from user where user.email=\""+ user.getEmail()+ "\" and user.password=\"" + user.getPassword() + "\"";
-		return !executeQuery(sql).isEmpty();
+		this.lastSelectedData = executeQuery(sql);
+		return !this.lastSelectedData.isEmpty();
 	}
 
-	public boolean verifyUser(UserSql user) {
-		String sql = "Select * from user where user.email=\"" + user.getEmail()+ "\"";
-		return !executeQuery(sql).isEmpty();
+	public boolean verifyUserExists(UserSql user) {
+		this.lastSelectedData = executeQuery(getUserByEmailQuery(user.getEmail()));
+		return !this.lastSelectedData.isEmpty();
 	}
 	
+	public UserSql getUser(UserSql user) {
+		return executeQuery(getUserByEmailQuery(user.getEmail())).get(0);
+	}
+	public UserSql getUser(String email) {
+		return executeQuery(getUserByEmailQuery(email)).get(0);
+	}
+	
+	private String getUserByEmailQuery(String email) {
+		return "Select * from user where user.email=\"" + email + "\"";
+	}
 	private RowMapper<UserSql> buildUser() {
 		return new RowMapper<UserSql>() {
 			public UserSql mapRow(ResultSet result, int rowNum) throws SQLException {
@@ -33,6 +47,11 @@ public class UserSqlDao {
 				return user;
         	}
 		};
+	}
+	
+	public UserSql getFirstSelectedUser() {
+		assert(!this.lastSelectedData.isEmpty());
+		return this.lastSelectedData.get(0);
 	}
 	
 	public List<UserSql> executeQuery(String sql) {
@@ -62,16 +81,5 @@ public class UserSqlDao {
 	public boolean deleteUser(UserSql user) {
         String sql = "DELETE FROM user WHERE email=?";
         return (this.db.getJdbcTemplate().update(sql, user.getEmail()) == 1);
-	}
-	
-	//duplicated code
-	public UserType getUserType(UserSql user) {
-		String sql = "Select * from user where user.email=\"" + user.getEmail() + "\"";
-		return executeQuery(sql).get(0).getUserType();
-	}
-	
-	public UserSql getUser(String email) {
-		String sql = "Select * from user where user.email=\"" + email+ "\"";
-		return executeQuery(sql).get(0);
 	}
 }
