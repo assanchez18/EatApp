@@ -17,23 +17,23 @@ public class RegisterInTableView extends View {
 	}
 	
 	public String register() {
+		this.session.addAttribute(TABLE_TAG, this.getCode());
 		this.response.setStatusOk();
 		return "mainUserView";
 	}
 
 	public String error() {
 		this.model.addAttributeError(CODE_ERROR);
-		this.response.setNotFoundError();
-		return "registerInTable";
+		this.response.setStatusNotFoundError();
+		return "registryInTable";
 	}
 	
 	public boolean decode() {
-		int code = Integer.parseInt(getCode());
-		if(code > 10000) {
+		int code = Integer.parseInt(this.getCode());
+		if(code > 50000) {
 			return false;
 		}
 		// TODO check codes and Create tables codes in DB
-		this.session.addAttribute(TABLE_TAG, getCode());
 		return true;
 	}
 	

@@ -18,7 +18,7 @@ public class HttpServletResponseFacade {
 		this.response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 	}
 
-	public void setNotFoundError() {
+	public void setStatusNotFoundError() {
 		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 	}
 }

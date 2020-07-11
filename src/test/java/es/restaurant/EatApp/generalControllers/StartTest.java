@@ -35,13 +35,13 @@ public class StartTest {
 		this.mockMvc.perform(
 				get("/")
 				.sessionAttr(EMAIL, user.getEmail()))
-			.andExpect(status().is(HttpServletResponse.SC_OK));
+			.andExpect(status().isOk());
 	}
 	
 	@Test
 	public void okStartNewSession() throws Exception {
 		this.mockMvc.perform(
 				get("/"))
-			.andExpect(status().is(HttpServletResponse.SC_OK));
+			.andExpect(status().isOk());
 	}
 }

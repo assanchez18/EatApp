@@ -39,7 +39,7 @@ public class LogoutTest {
 		this.mockMvc.perform(
 				get("/logout")
 				.sessionAttr(EMAIL, user.getEmail()))
-		.andExpect(status().is(HttpServletResponse.SC_OK));
+		.andExpect(status().isOk());
 	}
 
 }

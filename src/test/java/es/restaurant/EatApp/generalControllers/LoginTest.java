@@ -56,7 +56,7 @@ public class LoginTest {
                 post("/login")
                         .param(EMAIL, u.getEmail())
                         .param(PASSWORD, wrongPassword))
-                .andExpect(status().is(HttpServletResponse.SC_UNAUTHORIZED));
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
@@ -67,6 +67,6 @@ public class LoginTest {
                 post("/login")
                         .param(EMAIL, u.getEmail())
                         .param(PASSWORD, u.getPassword()))
-                .andExpect(status().is(HttpServletResponse.SC_UNAUTHORIZED));
+                .andExpect(status().isUnauthorized());
     }
 }

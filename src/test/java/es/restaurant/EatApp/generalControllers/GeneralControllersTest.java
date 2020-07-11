@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	StartTest.class,
 	LoginTest.class,
-	LogoutTest.class
+	LogoutTest.class,
+	RegisterInTableTest.class
 })
 public class GeneralControllersTest {
 

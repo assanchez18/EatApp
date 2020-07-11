@@ -10,7 +10,7 @@
 		<main role="main" class="main container col-xl col-lg col-md col-sm">
 			<div class="starter-template">
 				<form method="post" action="registerInTable">
-					<input type="number" name="code" min="1" max="10000" placeholder="Code" class="code" />
+					<input type="number" required="required" name="code" min="1" max="100000" placeholder="Code" class="code" />
 					<div th:if="${error}" class="alert alert-danger" role="alert">
 						<p th:text="${error}"></p>
 					</div>
