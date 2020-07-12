@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 
 @RunWith(SpringRunner.class)
-public class DatabaseTest {
+public class UserDaoTest {
 	    
     @Test
     public void selectUserTest() {

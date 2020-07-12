@@ -15,10 +15,8 @@ public class Table extends Observable {
 		this.observers = new ArrayList<Observer>();
 	}
 	
-	public void addObservers(List<Waiter> waiters) {
-		for(Observer o : waiters) {
-			this.observers.add(o);
-		}
+	public void addObservers(Waiter waiter) {
+		this.observers.add(waiter);
 	}
 	
 	public int getCode() {
@@ -30,7 +28,7 @@ public class Table extends Observable {
 		this.notifyObservers(new Notification(Notification.Type.HELP, this.code));
 	}
 
-	public void helped() {
-		this.clearChanged();
+	public boolean equals(Table t) {
+		return this.code == t.getCode();
 	}
 }

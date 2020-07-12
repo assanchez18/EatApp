@@ -20,8 +20,12 @@ public class SessionFacade {
 		this.session.setAttribute(name, value);
 	}
 
-	public String getAttribute(String name) {
+	public String getStringAttribute(String name) {
 		return (String) this.session.getAttribute(name);
+	}
+	
+	public Integer getIntAttribute(String name) {
+		return Integer.valueOf((String)this.session.getAttribute(name));
 	}
 	
 	public void removeAttribute(String name) {

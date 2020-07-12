@@ -40,6 +40,7 @@ public class UserDao {
 	private String getUserByEmailQuery(String email) {
 		return "Select * from user where user.email=\"" + email + "\"";
 	}
+	
 	private RowMapper<User> buildUser() {
 		return new RowMapper<User>() {
 			public User mapRow(ResultSet result, int rowNum) throws SQLException {

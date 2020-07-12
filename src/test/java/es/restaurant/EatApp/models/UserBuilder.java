@@ -32,6 +32,11 @@ public class UserBuilder {
 		return this.email("admin@admin.com").password("admin").type(userType.ADMIN);
 	}
 	
+	public UserBuilder waiter() {
+		return this.email("waiter@waiter.com").password("waiter").type(userType.WAITER);
+	}
+	
+	
 	public UserBuilder type(userType type) {
 		this.type = new UserType(type);
 		return this;

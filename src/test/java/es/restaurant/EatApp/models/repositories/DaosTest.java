@@ -7,8 +7,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	DatabaseTest.class,
+	UserDaoTest.class,
+	TableDaoTest.class,
+	WaiterDaoTest.class
 })
-public class RepositoriesTest {
+public class DaosTest {
 
 }

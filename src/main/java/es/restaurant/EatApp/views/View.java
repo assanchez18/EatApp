@@ -48,6 +48,6 @@ public abstract class View {
 	}
 
 	public String getEmail() {
-		return this.session.getAttribute(EMAIL_TAG);
+		return this.session.getStringAttribute(EMAIL_TAG);
 	};
 }
