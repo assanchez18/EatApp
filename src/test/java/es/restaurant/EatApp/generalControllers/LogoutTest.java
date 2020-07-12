@@ -3,8 +3,6 @@ package es.restaurant.EatApp.generalControllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +32,7 @@ public class LogoutTest {
 
 	@Test
 	public void okLogout() throws Exception {
-		User user = new UserBuilder().sergio().buildSQL();
+		User user = new UserBuilder().sergio().build();
 
 		this.mockMvc.perform(
 				get("/logout")

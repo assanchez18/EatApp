@@ -6,9 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import es.restaurant.EatApp.models.UserSql;
-import es.restaurant.EatApp.models.repositories.UserSqlDao;
-import es.restaurant.EatApp.views.LoginView;
 import es.restaurant.EatApp.views.RegisterInTableView;
 
 @Controller

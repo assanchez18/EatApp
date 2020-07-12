@@ -37,8 +37,8 @@ public class UserBuilder {
 		return this;
 	}
 	
-	public UserSql buildSQL() {
-		return new UserSql(this.email, this.password, this.type);
+	public User build() {
+		return new User(this.email, this.password, this.type);
 	}
 
 }

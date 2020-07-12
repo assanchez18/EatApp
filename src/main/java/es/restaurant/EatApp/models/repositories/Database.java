@@ -24,7 +24,8 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	this.dataSource.setUrl("jdbc:mysql://localhost/eatappsqldb");
+    	//this.dataSource.setUrl("jdbc:mysql://localhost/eatappsqldb");
+    	this.dataSource.setUrl("jdbc:mysql://localhost/fakerest1");
         this.dataSource.setUsername("root");
         this.dataSource.setPassword("root");
         this.jdbcTemplate = new JdbcTemplate(this.dataSource);

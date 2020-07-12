@@ -2,7 +2,7 @@ package es.restaurant.EatApp.views;
 
 import javax.servlet.http.HttpServletRequest;
 
-import es.restaurant.EatApp.models.UserSql;
+import es.restaurant.EatApp.models.User;
 
 public class LogoutView extends View {
 
@@ -10,7 +10,7 @@ public class LogoutView extends View {
 		super(req);
 	}
 
-	public String logout(UserSql user) {
+	public String logout(User user) {
 		this.session.invalidate();		
 		return "/index";
 	}

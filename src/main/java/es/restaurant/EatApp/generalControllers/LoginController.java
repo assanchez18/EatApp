@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import es.restaurant.EatApp.models.UserSql;
-import es.restaurant.EatApp.models.repositories.UserSqlDao;
+import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.models.repositories.UserDao;
 import es.restaurant.EatApp.views.LoginView;
 
 @Controller
@@ -17,8 +17,8 @@ public class LoginController implements ControllerInterface {
 
 		LoginView view = new LoginView(model, req, res);
 		
-		UserSql user = new UserSql(view.getEmail(), view.getPassword());
-		UserSqlDao dao = new UserSqlDao();
+		User user = new User(view.getEmail(), view.getPassword());
+		UserDao dao = new UserDao();
 		if(dao.verifyUserAndPassword(user)) {
 			user = dao.getFirstSelectedUser();
 			return view.login(user);

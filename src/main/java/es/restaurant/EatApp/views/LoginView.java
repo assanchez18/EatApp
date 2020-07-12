@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
-import es.restaurant.EatApp.models.UserSql;
+import es.restaurant.EatApp.models.User;
 
 public class LoginView extends View {
 
@@ -15,7 +15,7 @@ public class LoginView extends View {
 		super(model,req,res);
 	}
 	
-	public String login(UserSql user) {
+	public String login(User user) {
 		this.session.addAttribute(EMAIL_TAG, this.getEmail());
 		this.session.addAttribute(TYPE_TAG, user.getUserType().getTypeName());
 		this.response.setStatusOk();

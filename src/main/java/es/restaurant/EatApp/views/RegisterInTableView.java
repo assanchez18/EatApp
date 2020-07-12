@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
-import es.restaurant.EatApp.models.UserSql;
-
 public class RegisterInTableView extends View {
 	
 	private static final String CODE_TAG = "code";

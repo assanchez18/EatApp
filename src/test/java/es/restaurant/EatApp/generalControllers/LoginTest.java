@@ -4,8 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +37,7 @@ public class LoginTest {
 	
     @Test
     public void existingUserLogin() throws Exception {
-		User user = new UserBuilder().sergio().buildSQL();
+		User user = new UserBuilder().sergio().build();
         this.mockMvc.perform(
                 post("/login")
                         .param(EMAIL, user.getEmail())
@@ -49,7 +47,7 @@ public class LoginTest {
 
     @Test
     public void unauthorizedLoginError() throws Exception {
-    	User u = new UserBuilder().sergio().buildSQL();
+    	User u = new UserBuilder().sergio().build();
     	String wrongPassword = "other";
 
         this.mockMvc.perform(
@@ -61,7 +59,7 @@ public class LoginTest {
 
     @Test
     public void userNotFoundLoginError() throws Exception {
-    	User u = new UserBuilder().buildSQL();
+    	User u = new UserBuilder().build();
 
         this.mockMvc.perform(
                 post("/login")

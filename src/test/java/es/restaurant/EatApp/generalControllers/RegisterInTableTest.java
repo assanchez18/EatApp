@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
-import es.restaurant.EatApp.generalControllers.LoginController;
-import es.restaurant.EatApp.models.User;
-import es.restaurant.EatApp.models.UserBuilder;
 
 @RunWith(SpringRunner.class)
 public class RegisterInTableTest {

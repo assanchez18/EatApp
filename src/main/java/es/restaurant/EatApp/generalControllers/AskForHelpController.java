@@ -2,21 +2,21 @@ package es.restaurant.EatApp.generalControllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import es.restaurant.EatApp.models.User;
-import es.restaurant.EatApp.models.repositories.UserDao;
-import es.restaurant.EatApp.views.LogoutView;
+import es.restaurant.EatApp.views.AskForHelpView;;
 
 @Controller
-public class LogoutController implements ControllerInterface {
+public class AskForHelpController implements ControllerInterface {
 
-	@GetMapping("/logout")
+	@GetMapping("/askForHelp")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
-		LogoutView view = new LogoutView(req);
-		User user = new UserDao().getUser(view.getEmail());
-		return view.logout(user);
+		AskForHelpView view = new AskForHelpView(model, req, res);
+		
+		return view.askForHelp();
+		//return view.error();
 	}
 }
