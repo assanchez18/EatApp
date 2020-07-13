@@ -2,9 +2,11 @@ package es.restaurant.EatApp.models.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -51,8 +53,11 @@ public class TableDao {
 		return this.db.getJdbcTemplate().query(sql, buildTable());
 	}
 	
-	public Map<Integer, Table> getTables() {
-		return this.tables;
+	public Set<Integer> getTablesNumbers() {
+		return this.tables.keySet();
+	}
+	public Collection<Table> getTables() {
+		return this.tables.values();
 	}
 	
 	public Table getTable(int code) {

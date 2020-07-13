@@ -18,7 +18,7 @@ public class Notification {
 		this.type = type;
 		this.owner = whoIsAskingFor;
 	}
-	
+
 	public Type getType() {
 		return this.type;
 	}

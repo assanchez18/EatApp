@@ -53,4 +53,13 @@ public class WaiterDao {
 	public List<Waiter> getWaiters() {
 		return this.waiters;
 	}
+	
+	public Waiter getWaiter(String email) {
+		for(Waiter w : this.waiters) {
+			if (w.getEmail().compareTo(email)==0) {
+				return w;
+			}
+		}
+		return null;
+	}
 }

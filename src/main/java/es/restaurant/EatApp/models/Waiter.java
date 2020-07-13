@@ -16,6 +16,7 @@ public class Waiter extends User implements Observer{
 	
 	public Waiter (Long id, String email, String password, int type) {
 		super(id, email, password,type);
+		this.notifications = new ArrayList<Notification>();
 	}
 
 	@Override
@@ -28,5 +29,8 @@ public class Waiter extends User implements Observer{
 			o.addObserver(this);
 		}
 	}
-	
+
+	public List<Notification> getNotifications() {
+		return this.notifications;
+	}
 }
