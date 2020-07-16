@@ -18,6 +18,9 @@
 	</div>
 	<div class="column mainOptions col-xl-5 col-lg-5 col-sm-12">
 		<a href="/askForHelp">Ask for help</a>
+		<div th:if="${help}" class="alert alert-success" role="alert">
+			<p th:text="${help}"></p>
+		</div>
 	</div>
 	<div
 		class="column mainOptions col-xl-5 col-lg-5 offset-lg-1 col-sm-12 ">
