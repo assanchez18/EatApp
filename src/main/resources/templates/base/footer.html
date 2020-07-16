@@ -5,7 +5,11 @@
 <script src="js/jquery-3.2.1.slim.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/html5-qrcode.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script>
+$(document).ready( function () {
+    $('#notif').DataTable();
+} );
 	function onScanSuccess(qrCodeMessage) {
 		if (isNaN(qrCodeMessage)) {
 			alert("QR no válido");

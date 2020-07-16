@@ -4,20 +4,26 @@
 <hr>
 <h2 class="intro">¿Qué puedes hacer en EatApp?</h2>
 <div class="row col-xl-11 offset-xl-1 col-lg-11 offset-lg-1">
-	<div class="column mainOptions col-xl-5 col-lg-5 col-sm-12">
-		<div th:if="${notifications}" class="alert alert-danger" role="alert">
-			<table>
+	<div class="column col-xl-12 col-lg-12 col-sm-12">
+		<div th:if="${notifications}">
+			<table id="notif" class="table table-striped display">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Owner</th>
+					</tr>
+				</thead>
 				<tr th:each="notification: ${notifications}">
 					<td th:text="${notification.type}" />
 					<td th:text="${notification.owner}" />
 				</tr>
 			</table>
-			<form id="notification" method="post" action="showNotification">
+		</div>
+		<form id="notification" method="post" action="showNotification">
 			<div>
-				<button class="btn btn-success" type="submit">Reload</button>
+				<button class="btn btn-success" type="submit">Ver mis notificaciones</button>
 			</div>
 		</form>
-		</div>
 	</div>
 	<div
 		class="column mainOptions col-xl-5 col-lg-5 col-sm-12 float-md-center">
