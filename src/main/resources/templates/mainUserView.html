@@ -1,22 +1,24 @@
 <html lang="es">
 <head>
-<head th:insert="base/head"> </head>
+<head th:insert="base/head">
+</head>
 </head>
 
 <body>
-	<div th:insert="base/navbar.html"> </div>
+	<div th:insert="base/navbar.html"></div>
 	<div class="page">
 		<main role="main" class="main container col-xl col-lg col-md col-sm">
 			<div class="starter-template">
 				<th:block th:switch="${session.type}">
-						<div th:case="'COMMENSAL'" th:insert="mainCommensalView.html"></div>
-						<div th:case="'ADMIN'" th:insert="mainAdminView.html"></div>
-						<div th:case="'COOK'" th:insert="mainCookView.html"></div>
-						<div th:case="'WAITER'" th:insert="mainWaiterView.html"></div>
+					<div th:case="'COMMENSAL'" th:insert="mainCommensalView.html"></div>
+					<div th:case="'ADMIN'" th:insert="mainAdminView.html"></div>
+					<div th:case="'COOK'" th:insert="mainCookView.html"></div>
+					<div th:case="'WAITER'" th:insert="mainWaiterView.html"></div>
 				</th:block>
 			</div>
 		</main>
 	</div>
 	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
 </body>
 </html>

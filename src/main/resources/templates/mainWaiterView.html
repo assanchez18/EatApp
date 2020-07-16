@@ -9,8 +9,8 @@
 			<table id="notif" class="table table-striped display">
 				<thead>
 					<tr>
-						<th>Type</th>
-						<th>Owner</th>
+						<th>Tipo</th>
+						<th>Mesa</th>
 					</tr>
 				</thead>
 				<tr th:each="notification: ${notifications}">
@@ -21,7 +21,8 @@
 		</div>
 		<form id="notification" method="post" action="showNotification">
 			<div>
-				<button class="btn btn-success" type="submit">Ver mis notificaciones</button>
+				<button class="btn btn-success" type="submit">Ver mis
+					notificaciones</button>
 			</div>
 		</form>
 	</div>
