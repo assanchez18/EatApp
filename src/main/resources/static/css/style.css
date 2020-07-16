@@ -81,6 +81,13 @@ h1 {
 	margin-top: 7%;
 }
 
+.mainNotifications {
+	background: white;
+	border: black 1px solid;
+	padding: 1%;
+	margin-top: 2%;
+}
+
 .intro {
 	margin-top: 5%;
 	font-size: 3em;
