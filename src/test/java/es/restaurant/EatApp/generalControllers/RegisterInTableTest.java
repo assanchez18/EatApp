@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
 @RunWith(SpringRunner.class)
 public class RegisterInTableTest {
 	
@@ -34,23 +33,19 @@ public class RegisterInTableTest {
 	
     @Test
     public void correctRegistrationInTable() throws Exception {
-		//User user = new UserBuilder().sergio().buildSQL();
-		//TODO Add table
-		String code = "123";
+    	int code = 123;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(CODE, code))
+                        .param(CODE, Integer.toString(code)))
                 .andExpect(status().isOk());
     }
     
     @Test
     public void incorrectRegistrationInTableNotFound() throws Exception {
-		//User user = new UserBuilder().sergio().buildSQL();
-		//TODO Add table
-		String code = "50001";
+		int code = 5000;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(CODE, code))
+                        .param(CODE, Integer.toString(code)))
                 .andExpect(status().isNotFound());
     }
 

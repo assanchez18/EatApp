@@ -16,6 +16,10 @@ public class SessionFacade {
 		this.session.setAttribute(name, value);
 	}
 
+	public void addAttribute(String name, int value) {
+		this.session.setAttribute(name, value);
+	}
+
 	public void addAttribute(String name, boolean value) {
 		this.session.setAttribute(name, value);
 	}

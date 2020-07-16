@@ -26,17 +26,8 @@ public class RegisterInTableView extends View {
 		return "registryInTable";
 	}
 	
-	public boolean decode() {
-		int code = Integer.parseInt(this.getCode());
-		if(code > 50000) {
-			return false;
-		}
-		// TODO check codes and Create tables codes in DB
-		return true;
-	}
-	
-	private String getCode() {
-		return this.request.getParameter(CODE_TAG);
+	public int getCode() {
+		return Integer.parseInt(this.request.getParameter(CODE_TAG));
 	}
 
 }
