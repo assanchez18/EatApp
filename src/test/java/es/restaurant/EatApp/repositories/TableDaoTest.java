@@ -19,7 +19,8 @@ public class TableDaoTest {
 	public void selectTableTest() {
 		TableDao dao = TableDao.getTableDao();
 		int code = 123;
-		List<Table> tables = dao.executeQuery(dao.selectAllTables() + " WHERE code = " + code);
+		String condition = "code = " + code;
+		List<Table> tables = dao.executeQuery(dao.selectAllTables(condition));
 		Table table = new Table(code);
 
 		assertTrue("Error, missing base waiter", tables.size() == 1);

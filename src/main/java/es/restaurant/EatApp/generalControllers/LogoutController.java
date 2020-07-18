@@ -16,7 +16,7 @@ public class LogoutController implements ControllerInterface {
 	@GetMapping("/logout")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		LogoutView view = new LogoutView(req);
-		User user = new UserDao().getUser(view.getEmail());
+		User user = UserDao.getUserDao().getUser(view.getEmail());
 		return view.logout(user);
 	}
 }

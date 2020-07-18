@@ -4,25 +4,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.jdbc.core.RowMapper;
+
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserType;
 
-public class UserDao {
+public class UserDao extends Dao{
 	
-	private Database db;
+	private static UserDao dao;
 	private List<User> lastSelectedData;
+
+	private static final String TABLE_NAME = "user";
+	public static UserDao getUserDao() {
+		if(dao == null) {
+			dao = new UserDao();
+		}
+		return dao;
+	}
 	
-	public UserDao() {
-		this.db = Database.getDatabase();
+	protected UserDao() {	
 		this.lastSelectedData = new ArrayList<User>();
 	}
 
-	public boolean verifyUserAndPassword(User user) {
-		String sql = "Select * from user where user.email=\""+ user.getEmail()+ "\" and user.password=\"" + user.getPassword() + "\"";
+	public boolean isUserCorrect(User user) {
+		String sql = selectAllFrom(TABLE_NAME) + where("user.email=\""+ user.getEmail()+ "\"") + and("user.password=\"" + user.getPassword() + "\"");
 		this.lastSelectedData = executeQuery(sql);
 		return !this.lastSelectedData.isEmpty();
+	}
+
+	public String selectAllFromUser(String condition) {
+		return selectAllFrom(TABLE_NAME) + where(condition);
 	}
 
 	public boolean verifyUserExists(User user) {
@@ -38,7 +49,7 @@ public class UserDao {
 	}
 	
 	private String getUserByEmailQuery(String email) {
-		return "Select * from user where user.email=\"" + email + "\"";
+		return selectAllFromUser("user.email=\"" + email + "\"");
 	}
 	
 	private RowMapper<User> buildUser() {
@@ -60,27 +71,27 @@ public class UserDao {
 	}
 	
 	public boolean insert(User user) {
-		String sql = "INSERT INTO user (email, password,type) VALUES (?,?,?)";
+		String sql = insertInto(TABLE_NAME, "(email, password,type) VALUES (?,?,?)");
 		return (this.db.getJdbcTemplate().update(sql,user.getEmail(),user.getPassword(), user.getUserType().getTypeOrdinal()) == 1);
 	}
 	
 	public boolean updatePassword(User currentUser, String newPassword) {
-        String sql = "UPDATE user SET password=? WHERE email=?";
+        String sql = update(TABLE_NAME, "password=?" + where("email=?"));
         return (this.db.getJdbcTemplate().update(sql, newPassword, currentUser.getEmail()) == 1);
 	}
 	
 	public boolean updateEmail(User currentUser, String newEmail) {
-        String sql = "UPDATE user SET email=? WHERE email=?";
+        String sql = update(TABLE_NAME, "email=?" + where("email=?"));
         return (this.db.getJdbcTemplate().update(sql, newEmail, currentUser.getEmail()) == 1);
 	}
 
 	public boolean updateUserType(User currentUser, UserType newType) {
-		String sql = "UPDATE user SET type=? WHERE email=?";
+		String sql = update(TABLE_NAME, "type=?" + where("email=?"));
         return (this.db.getJdbcTemplate().update(sql, newType.getTypeOrdinal(), currentUser.getEmail()) == 1);
 	}
 	
 	public boolean deleteUser(User user) {
-        String sql = "DELETE FROM user WHERE email=?";
+        String sql = delete(TABLE_NAME, where("email=?"));
         return (this.db.getJdbcTemplate().update(sql, user.getEmail()) == 1);
 	}
 }

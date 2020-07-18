@@ -19,7 +19,7 @@ public class WaiterDaoTest {
 	@Test
     public void selectWaiterTest() {
         WaiterDao dao = WaiterDao.getWaiterDao();
-        List<Waiter> waiters = dao.executeQuery(dao.selectAllWaiters() + " AND id = 4");
+        List<Waiter> waiters = dao.executeWaiterQuery(dao.selectAllWaiters() + dao.and(("id = 4")));
         User waiter = new UserBuilder().waiter().build();
         
         assertTrue("Error, missing base waiter", waiters.size() == 1);

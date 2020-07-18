@@ -12,30 +12,31 @@ import org.springframework.jdbc.core.RowMapper;
 
 import es.restaurant.EatApp.models.Table;
 
-public class TableDao {
-	private Database db;
+public class TableDao extends Dao{
+	
 	private Map<Integer, Table> tables;
 	private static TableDao dao;
-	
+	private static final String TABLE_NAME = "tables";
+
 	public static TableDao getTableDao() {
 		if(dao == null) {
 			dao = new TableDao();
 		}
 		return dao;
 	}
-	
+
 	private TableDao() {
-		this.db = Database.getDatabase();
+		super();
 		this.tables = new HashMap<Integer, Table>();
 		loadTables();
 	}
-	
+
 	private void loadTables() {
 		for(Table t : executeQuery(selectAllTables())) {
 			this.tables.put(t.getCode(), t);
 		}
 	}
-	
+
 	private RowMapper<Table> buildTable() {
 		return new RowMapper<Table>() {
 			public Table mapRow(ResultSet result, int rowNum) throws SQLException {
@@ -44,22 +45,28 @@ public class TableDao {
         	}
 		};
 	}
-	
+
 	public String selectAllTables() {
-		return "SELECT * FROM tables";
+		return selectAllFrom(TABLE_NAME);
 	}
 	
+	public String selectAllTables(String condition) {
+		return selectAllFrom(TABLE_NAME) + where(condition);
+	}
+
+
 	public List<Table> executeQuery(String sql) {
 		return this.db.getJdbcTemplate().query(sql, buildTable());
 	}
-	
+
 	public Set<Integer> getTablesNumbers() {
 		return this.tables.keySet();
 	}
+
 	public Collection<Table> getTables() {
 		return this.tables.values();
 	}
-	
+
 	public Table getTable(int code) {
 		return this.tables.get(code);
 	}

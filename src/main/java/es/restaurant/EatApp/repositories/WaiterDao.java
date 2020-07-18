@@ -10,11 +10,11 @@ import org.springframework.jdbc.core.RowMapper;
 import es.restaurant.EatApp.models.UserType;
 import es.restaurant.EatApp.models.Waiter;
 
-public class WaiterDao {
+public class WaiterDao extends UserDao{
 	
-	private Database db;
 	private List<Waiter> waiters;
 	private static WaiterDao dao;
+	private final static int USER_TYPE = UserType.userType.WAITER.ordinal();
 	
 	public static WaiterDao getWaiterDao() {
 		if(dao == null) {
@@ -24,13 +24,13 @@ public class WaiterDao {
 	}
 	
 	private WaiterDao() {
-		this.db = Database.getDatabase();
+		super();
 		this.waiters = new ArrayList<Waiter>();
 		loadWaiters();
 	}
 	
 	private void loadWaiters() {
-		this.waiters = executeQuery(selectAllWaiters());
+		this.waiters = executeWaiterQuery(selectAllWaiters());
 	}
 	
 	private RowMapper<Waiter> buildWaiter() {
@@ -41,12 +41,12 @@ public class WaiterDao {
         	}
 		};
 	}
-	
+
 	public String selectAllWaiters() {
-		return "SELECT * FROM user WHERE type = " + UserType.userType.WAITER.ordinal();
+		return selectAllFromUser("type = " + USER_TYPE);
 	}
 	
-	public List<Waiter> executeQuery(String sql) {
+	public List<Waiter> executeWaiterQuery(String sql) {
 		return this.db.getJdbcTemplate().query(sql, buildWaiter());
 	}
 	

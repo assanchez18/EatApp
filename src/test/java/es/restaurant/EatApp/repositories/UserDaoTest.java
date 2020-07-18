@@ -20,8 +20,9 @@ public class UserDaoTest {
 	    
     @Test
     public void selectUserTest() {
-    	String sqlSelect = "SELECT * FROM user WHERE id BETWEEN 1 and 2 ORDER BY id";
-        List<User> listUser = new UserDao().executeQuery(sqlSelect);
+    	String condition = "id BETWEEN 1 and 2 ORDER BY id";
+    	UserDao dao = UserDao.getUserDao();
+    	List<User> listUser = dao.executeQuery(dao.selectAllFromUser(condition));
         User sergio = new UserBuilder().sergio().build();
         User admin = new UserBuilder().admin().build();
         
@@ -34,17 +35,17 @@ public class UserDaoTest {
     @Test
     public void firstInsertThenUpdatePasswordThenUpdateEmailFinallyRemoveUserTest(){
     	User user = new UserBuilder().email("test@test.com").password("1234").type(UserType.userType.COMMENSAL).build();
-    	UserDao dao = new UserDao();
+    	UserDao dao = UserDao.getUserDao();
     	
     	//Insert new user
     	assertTrue("Error at INSERT query", dao.insert(user));
-    	assertTrue("The user has not been inserted properly, does not exist in DB",dao.verifyUserAndPassword(user));
+    	assertTrue("The user has not been inserted properly, does not exist in DB",dao.isUserCorrect(user));
     	
     	User updatedUser = new UserBuilder().email("test2@test.com").password("4321").type(UserType.userType.WAITER).build();
     	//Update password
     	assertTrue("Error at UPDATE password query", dao.updatePassword(user, updatedUser.getPassword()));
-    	assertFalse("The user password has not been updated properly, old data exists in DB",dao.verifyUserAndPassword(user));
-    	assertTrue("The user password has not been updated properly, does not exist in DB",dao.verifyUserAndPassword(new User(user.getEmail(),updatedUser.getPassword())));
+    	assertFalse("The user password has not been updated properly, old data exists in DB",dao.isUserCorrect(user));
+    	assertTrue("The user password has not been updated properly, does not exist in DB",dao.isUserCorrect(new User(user.getEmail(),updatedUser.getPassword())));
 
     	//Update userType
     	assertTrue("Error at UPDATE User type query", dao.updateUserType(user, updatedUser.getUserType()));

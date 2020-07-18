@@ -18,9 +18,8 @@ public class LoginController implements ControllerInterface {
 		LoginView view = new LoginView(model, req, res);
 		
 		User user = new User(view.getEmail(), view.getPassword());
-		UserDao dao = new UserDao();
-		if(dao.verifyUserAndPassword(user)) {
-			user = dao.getFirstSelectedUser();
+		if(UserDao.getUserDao().isUserCorrect(user)) {
+			user = UserDao.getUserDao().getFirstSelectedUser();
 			return view.login(user);
 		}
 		return view.error();

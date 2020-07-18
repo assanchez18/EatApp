@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @RunWith(SpringRunner.class)
 public class RegisterInTableTest {
 	
-	private static final String TABLE = "table";
 	private static final String CODE = "code";
     
 	private RegisterInTableController controller;
