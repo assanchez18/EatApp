@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.models.repositories;
+package es.restaurant.EatApp.repositories;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.restaurant.EatApp.models.Waiter;
+import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 

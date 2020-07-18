@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.models.repositories;
+package es.restaurant.EatApp.repositories;
 
 import java.sql.SQLException;
 import org.springframework.jdbc.core.JdbcTemplate;

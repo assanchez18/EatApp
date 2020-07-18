@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.models.repositories;
+package es.restaurant.EatApp.repositories;
 
 import static org.junit.Assert.assertTrue;
 
@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import es.restaurant.EatApp.models.Table;
+import es.restaurant.EatApp.repositories.TableDao;
 
 @RunWith(SpringRunner.class)
 public class TableDaoTest {

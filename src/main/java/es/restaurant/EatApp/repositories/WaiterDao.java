@@ -1,4 +1,4 @@
-package es.restaurant.EatApp.models.repositories;
+package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

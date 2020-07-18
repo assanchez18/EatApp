@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import es.restaurant.EatApp.models.Waiter;
-import es.restaurant.EatApp.models.repositories.TableDao;
-import es.restaurant.EatApp.models.repositories.WaiterDao;
+import es.restaurant.EatApp.repositories.TableDao;
+import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.StartView;
 
 @Controller
