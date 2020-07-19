@@ -1,0 +1,31 @@
+Agradecimientos
+	Luis Fernandez --> el primero!
+	Papa y mamá
+
+Introduction
+	objetivos
+	modelo del dominio
+
+Requisitos
+	Actores y CU
+	Contexto de CU
+	Especificación de CU
+	Prototipo de Interfaz
+
+Diseño
+	Análisis de arquitectura
+	Análisis de casos de uso
+	Diseño de la arquitectura
+	Diseño de CU
+	Diseño de persistencia
+
+Implementación y pruebas
+	Estilo de codificación --> Teoría de código limpio
+	Pruebas de persistencia --> explicando las pruebas de los DAOs
+	Pruebas de sistema --> explicando que prueban todo menos la pantalla
+
+Conclusiones
+
+
+
+Copiar teoría de cada apartado adaptándolo a nuestro sistema.
