@@ -15,9 +15,10 @@ public class RegisterInTableController implements ControllerInterface {
 
 	@GetMapping("/registerInTable")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
-		return "registryInTable";
+		RegisterInTableView view = new RegisterInTableView(model, req, res);
+		return view.redirect();
 	}
-	
+
 	@PostMapping("/registerInTable")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);

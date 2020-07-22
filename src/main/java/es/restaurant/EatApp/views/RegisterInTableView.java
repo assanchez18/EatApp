@@ -23,11 +23,15 @@ public class RegisterInTableView extends View {
 	public String error() {
 		this.model.addAttributeError(CODE_ERROR);
 		this.response.setStatusNotFoundError();
-		return "registryInTable";
+		return this.redirect();
 	}
 	
 	public int getCode() {
 		return Integer.parseInt(this.request.getParameter(CODE_TAG));
+	}
+
+	public String redirect() {
+		return "registryInTable";
 	}
 
 }
