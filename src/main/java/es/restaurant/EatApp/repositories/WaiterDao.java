@@ -43,7 +43,7 @@ public class WaiterDao extends UserDao{
 	}
 
 	public String selectAllWaiters() {
-		return selectAllFromUser("type = " + USER_TYPE);
+		return selectAllFromUser() + where("type = " + USER_TYPE);
 	}
 	
 	public List<Waiter> executeWaiterQuery(String sql) {

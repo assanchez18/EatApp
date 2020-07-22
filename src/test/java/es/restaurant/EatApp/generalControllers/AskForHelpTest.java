@@ -29,7 +29,8 @@ public class AskForHelpTest {
 		this.showController = new ShowWaiterNotificationsController();
 		MockitoAnnotations.initMocks(this);
 		this.mockMvcAsk = MockMvcBuilders.standaloneSetup(this.startController,
-														this.askController, this.showController).build();
+				                                          this.askController,
+													      this.showController).build();
 		
 	}
 	

@@ -19,7 +19,7 @@ public class LoginController implements ControllerInterface {
 		
 		User user = new User(view.getEmail(), view.getPassword());
 		if(UserDao.getUserDao().isUserCorrect(user)) {
-			user = UserDao.getUserDao().getFirstSelectedUser();
+			user = UserDao.getUserDao().getUser(user);
 			return view.login(user);
 		}
 		return view.error();

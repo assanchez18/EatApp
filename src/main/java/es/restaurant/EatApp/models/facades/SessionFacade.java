@@ -29,7 +29,7 @@ public class SessionFacade {
 	}
 	
 	public Integer getIntAttribute(String name) {
-		return (Integer) this.session.getAttribute(name);
+		return Integer.decode((String) this.session.getAttribute(name));
 	}
 	
 	public void removeAttribute(String name) {

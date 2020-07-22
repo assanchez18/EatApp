@@ -20,9 +20,9 @@ public class UserDaoTest {
 	    
     @Test
     public void selectUserTest() {
-    	String condition = "id BETWEEN 1 and 2 ORDER BY id";
     	UserDao dao = UserDao.getUserDao();
-    	List<User> listUser = dao.executeQuery(dao.selectAllFromUser(condition));
+    	String condition = dao.selectAllFromUser() + dao.where("id BETWEEN 1" + dao.and(" 2 ORDER BY id"));
+    	List<User> listUser = dao.executeQuery(condition);
         User sergio = new UserBuilder().sergio().build();
         User admin = new UserBuilder().admin().build();
         
@@ -31,7 +31,15 @@ public class UserDaoTest {
         assertTrue("Error, sergio user is not correct", sergio.equals(listUser.get(1)));
         
     }
-    
+
+    @Test
+    public void selectWrongUserTest() {
+    	UserDao dao = UserDao.getUserDao();
+    	User user = new UserBuilder().email("wrong").build();
+        
+        assertTrue("Error, unexisting user found in db", dao.getUser(user) == null);        
+    }
+
     @Test
     public void firstInsertThenUpdatePasswordThenUpdateEmailFinallyRemoveUserTest(){
     	User user = new UserBuilder().email("test@test.com").password("1234").type(UserType.userType.COMMENSAL).build();
@@ -54,11 +62,11 @@ public class UserDaoTest {
 
     	//Update email
     	assertTrue("Error at UPDATE email query", dao.updateEmail(user, updatedUser.getEmail()));
-    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.verifyUserExists(user));
+    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.getUser(user) != null);
     	assertTrue("The user email has not been updated properly, does not exist in DB",dao.getUser(updatedUser).equals(updatedUser));
 
     	//Remove user
     	assertTrue("Error at DELETE  user query", dao.deleteUser(updatedUser));
-    	assertFalse("The user has not been delete properly, old data exists in DB",dao.verifyUserExists(updatedUser));
+    	assertFalse("The user has not been delete properly, old data exists in DB",dao.getUser(updatedUser) != null);
     }
 }

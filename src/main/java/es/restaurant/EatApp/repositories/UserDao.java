@@ -2,7 +2,6 @@ package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -12,7 +11,6 @@ import es.restaurant.EatApp.models.UserType;
 public class UserDao extends Dao{
 	
 	private static UserDao dao;
-	private List<User> lastSelectedData;
 
 	private static final String TABLE_NAME = "user";
 	public static UserDao getUserDao() {
@@ -23,33 +21,30 @@ public class UserDao extends Dao{
 	}
 	
 	protected UserDao() {	
-		this.lastSelectedData = new ArrayList<User>();
 	}
 
 	public boolean isUserCorrect(User user) {
 		String sql = selectAllFrom(TABLE_NAME) + where("user.email=\""+ user.getEmail()+ "\"") + and("user.password=\"" + user.getPassword() + "\"");
-		this.lastSelectedData = executeQuery(sql);
-		return !this.lastSelectedData.isEmpty();
+		return !executeQuery(sql).isEmpty();
 	}
 
-	public String selectAllFromUser(String condition) {
-		return selectAllFrom(TABLE_NAME) + where(condition);
-	}
-
-	public boolean verifyUserExists(User user) {
-		this.lastSelectedData = executeQuery(getUserByEmailQuery(user.getEmail()));
-		return !this.lastSelectedData.isEmpty();
+	public String selectAllFromUser() {
+		return selectAllFrom(TABLE_NAME);
 	}
 	
 	public User getUser(User user) {
-		return executeQuery(getUserByEmailQuery(user.getEmail())).get(0);
+		return getUser(user.getEmail());
 	}
 	public User getUser(String email) {
-		return executeQuery(getUserByEmailQuery(email)).get(0);
+		List<User> u = executeQuery(getUserByEmailQuery(email));
+		if(u.size() == 0)
+			return null;
+		else
+			return u.get(0);
 	}
 	
 	private String getUserByEmailQuery(String email) {
-		return selectAllFromUser("user.email=\"" + email + "\"");
+		return selectAllFromUser() + where("user.email=\"" + email + "\"");
 	}
 	
 	private RowMapper<User> buildUser() {
@@ -59,11 +54,6 @@ public class UserDao extends Dao{
 				return user;
         	}
 		};
-	}
-	
-	public User getFirstSelectedUser() {
-		assert(!this.lastSelectedData.isEmpty());
-		return this.lastSelectedData.get(0);
 	}
 	
 	public List<User> executeQuery(String sql) {
