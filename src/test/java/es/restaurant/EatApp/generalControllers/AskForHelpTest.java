@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import es.restaurant.EatApp.views.View;
+
 @RunWith(SpringRunner.class)
 public class AskForHelpTest {
 
@@ -20,7 +22,6 @@ public class AskForHelpTest {
 	private AskForHelpController askController;
 	private ShowWaiterNotificationsController showController;
 	private MockMvc mockMvcAsk;
-	private final String TABLE_TAG = "table";
 	
 	@Before
 	public void setup() {
@@ -40,12 +41,12 @@ public class AskForHelpTest {
 				get("/"));
 		this.mockMvcAsk.perform(
                 get("/askForHelp")
-                        .sessionAttr(TABLE_TAG, "123"))
+                        .sessionAttr(View.TABLE_TAG, "123"))
                 .andExpect(status().isOk());
         this.mockMvcAsk.perform(
                 post("/showNotification")
-                		.sessionAttr(TABLE_TAG, "123")
-                		.sessionAttr("email", "waiter@waiter.com"))
+                		.sessionAttr(View.TABLE_TAG, "123")
+                		.sessionAttr(View.EMAIL_TAG, "waiter@waiter.com"))
         		.andExpect(status().isOk())
         		.andExpect(model().attribute("notifications",
         		org.hamcrest.collection.IsIterableWithSize.iterableWithSize(1)));

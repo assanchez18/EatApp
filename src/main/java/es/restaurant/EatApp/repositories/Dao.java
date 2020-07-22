@@ -8,8 +8,8 @@ public abstract class Dao {
 		this.db = Database.getDatabase();
 	}
 
-	protected String selectAllFrom(String table) {
-		return "SELECT * FROM " + table;		
+	protected String selectAllFrom(String dbTable) {
+		return "SELECT * FROM " + dbTable;		
 	}
 
 	protected String where(String condition) {

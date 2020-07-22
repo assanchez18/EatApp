@@ -9,7 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	UserDaoTest.class,
 	TableDaoTest.class,
-	WaiterDaoTest.class
+	WaiterDaoTest.class,
+	IngredientsDaoTest.class
 })
 public class DaosTest {
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-07-2020 a las 19:22:16
+-- Tiempo de generación: 22-07-2020 a las 19:08:43
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.7
 
@@ -30,16 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `ingredients` (
   `id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` double NOT NULL,
   `description` varchar(256) NOT NULL,
-  `mininumAmount` int(11) NOT NULL
+  `minimumAmount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `ingredients`
 --
 
-INSERT INTO `ingredients` (`id`, `name`, `amount`, `description`, `mininumAmount`) VALUES
+INSERT INTO `ingredients` (`id`, `name`, `amount`, `description`, `minimumAmount`) VALUES
 (1, 'ing1 Test', 1, 'testDesc', 1);
 
 -- --------------------------------------------------------
@@ -207,7 +207,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restricciones para tablas volcadas

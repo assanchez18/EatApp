@@ -16,13 +16,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.generalControllers.LoginController;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
+import es.restaurant.EatApp.views.LoginView;
+import es.restaurant.EatApp.views.View;
 
 @RunWith(SpringRunner.class)
 public class LoginTest {
 
-	private static final String EMAIL = "email";
-	private static final String PASSWORD = "password";
-    
 	private LoginController controller;
 	private MockMvc mockMvc;
 	
@@ -40,8 +39,8 @@ public class LoginTest {
 		User user = new UserBuilder().sergio().build();
         this.mockMvc.perform(
                 post("/login")
-                        .param(EMAIL, user.getEmail())
-                        .param(PASSWORD, user.getPassword()))
+                        .param(View.EMAIL_TAG, user.getEmail())
+                        .param(LoginView.PASSWORD_TAG, user.getPassword()))
                 .andExpect(status().isOk());
     }
 
@@ -52,8 +51,8 @@ public class LoginTest {
 
         this.mockMvc.perform(
                 post("/login")
-                        .param(EMAIL, u.getEmail())
-                        .param(PASSWORD, wrongPassword))
+                        .param(View.EMAIL_TAG, u.getEmail())
+                        .param(LoginView.PASSWORD_TAG, wrongPassword))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -63,8 +62,8 @@ public class LoginTest {
 
         this.mockMvc.perform(
                 post("/login")
-                        .param(EMAIL, u.getEmail())
-                        .param(PASSWORD, u.getPassword()))
+                        .param(View.EMAIL_TAG, u.getEmail())
+                        .param(LoginView.PASSWORD_TAG, u.getPassword()))
                 .andExpect(status().isUnauthorized());
     }
 }

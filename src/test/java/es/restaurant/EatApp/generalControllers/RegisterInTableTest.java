@@ -13,11 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import es.restaurant.EatApp.views.RegisterInTableView;
+
 @RunWith(SpringRunner.class)
 public class RegisterInTableTest {
-	
-	private static final String CODE = "code";
-    
+	    
 	private RegisterInTableController controller;
 	private MockMvc mockMvc;
 	
@@ -35,7 +35,7 @@ public class RegisterInTableTest {
     	int code = 123;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(CODE, Integer.toString(code)))
+                        .param(RegisterInTableView.CODE_TAG, Integer.toString(code)))
                 .andExpect(status().isOk());
     }
     
@@ -44,7 +44,7 @@ public class RegisterInTableTest {
 		int code = 5000;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(CODE, Integer.toString(code)))
+                        .param(RegisterInTableView.CODE_TAG, Integer.toString(code)))
                 .andExpect(status().isNotFound());
     }
 

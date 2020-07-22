@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 
 public class RegisterInTableView extends View {
 	
-	private static final String CODE_TAG = "code";
+	public static final String CODE_TAG = "code";
 	private static final String CODE_ERROR_MSG = "El código escaneado es incorrecto";
 	
 	public RegisterInTableView(Model model, HttpServletRequest req, HttpServletResponse res) {

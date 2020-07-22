@@ -11,9 +11,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
+import es.restaurant.EatApp.views.View;
 
 public class StartTest {
-	private static final String EMAIL = "email";
 
 	private StartController controller;	
 	private MockMvc mockMvc;
@@ -32,7 +32,7 @@ public class StartTest {
 
 		this.mockMvc.perform(
 				get("/")
-				.sessionAttr(EMAIL, user.getEmail()))
+				.sessionAttr(View.EMAIL_TAG, user.getEmail()))
 			.andExpect(status().isOk());
 	}
 	

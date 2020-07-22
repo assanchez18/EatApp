@@ -8,8 +8,8 @@ import es.restaurant.EatApp.models.User;
 
 public class LoginView extends View {
 
+	public static final String PASSWORD_TAG = "password";
 	private static final String TYPE_TAG = "type";
-	private static final String PASSWORD_TAG = "password";
 	private static final String LOGIN_ERROR_MSG = "El usuario o la contraseña son incorrectos";
 	
 	

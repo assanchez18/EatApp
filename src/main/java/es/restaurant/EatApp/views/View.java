@@ -12,10 +12,10 @@ public abstract class View {
 	protected HttpSession session;
 	protected HttpServletResponse response;
 	protected Model model;
-	
+
+	public static final String TABLE_TAG = "table";
+	public static final String EMAIL_TAG = "email";
 	private static final String ERROR_TAG = "error";
-	protected static final String EMAIL_TAG = "email";
-	protected static final String TABLE_TAG = "table";
 	
 	public View () {
 		this.request = null;
