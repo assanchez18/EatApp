@@ -15,8 +15,8 @@ public class ShowNotificationView extends View {
 	}
 
 	public String interact(List<Notification> notifications) {
-		this.model.addNotifications("notifications", notifications);
-		this.response.setStatusOk();
+		this.model.addAttribute("notifications", notifications);
+		setStatusOk();
 		return "mainUserView";
 	}
 }

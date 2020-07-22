@@ -10,7 +10,7 @@ public class StartView extends View {
 	}
 	
 	public String interact() {
-		this.response.setStatusOk();
+		setStatusOk();
 		return getEmail() != null ? mainView() : start();
 	}
 	

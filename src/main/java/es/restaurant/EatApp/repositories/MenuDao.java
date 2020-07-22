@@ -2,13 +2,11 @@ package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
 
 import es.restaurant.EatApp.models.Menu;
-import es.restaurant.EatApp.models.Product;
 
 public class MenuDao extends Dao{
 	

@@ -1,7 +1,5 @@
 package es.restaurant.EatApp.models;
 
-import java.util.List;
-
 public class Menu {
 
 	private Long id;

@@ -11,7 +11,7 @@ public class CreateNewOrderView extends View {
 	}
 	
 	public String redirect() {
-		this.response.setStatusOk();
+		setStatusOk();
 		return "createNewOrder";
 	}
 }

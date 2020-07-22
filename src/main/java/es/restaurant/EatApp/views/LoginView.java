@@ -10,22 +10,24 @@ public class LoginView extends View {
 
 	private static final String TYPE_TAG = "type";
 	private static final String PASSWORD_TAG = "password";
+	private static final String LOGIN_ERROR_MSG = "El usuario o la contraseña son incorrectos";
+	
 	
 	public LoginView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
 	
 	public String login(User user) {
-		this.session.addAttribute(EMAIL_TAG, this.getEmail());
-		this.session.addAttribute(TYPE_TAG, user.getUserType().getTypeName());
-		this.response.setStatusOk();
+		this.session.setAttribute(EMAIL_TAG, this.getEmail());
+		this.session.setAttribute(TYPE_TAG, user.getUserType().getTypeName());
+		setStatusOk();
 		return "mainUserView";
 	}
 
 	public String error() {
 		this.session.invalidate();
-		this.model.addAttributeError("El usuario o la contraseña son incorrectos");
-		this.response.setStatusUnauthorizedLoginError();
+		addError(LOGIN_ERROR_MSG);
+		setStatusUnauthorizedLoginError();
 		return "index";
 	}
 

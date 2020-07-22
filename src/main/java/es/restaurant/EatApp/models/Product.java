@@ -1,6 +1,6 @@
 package es.restaurant.EatApp.models;
 
-import java.util.List;
+
 
 public class Product {
 	private Long id;

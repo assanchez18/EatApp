@@ -2,22 +2,20 @@ package es.restaurant.EatApp.views;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
-import es.restaurant.EatApp.models.facades.HttpServletRequestFacade;
-import es.restaurant.EatApp.models.facades.HttpServletResponseFacade;
-import es.restaurant.EatApp.models.facades.ModelFacade;
-import es.restaurant.EatApp.models.facades.SessionFacade;
-
 public abstract class View {
 	
-	protected HttpServletRequestFacade request;
-	protected SessionFacade session;
-	protected HttpServletResponseFacade response;
-	protected ModelFacade model;
+	protected HttpServletRequest request;
+	protected HttpSession session;
+	protected HttpServletResponse response;
+	protected Model model;
 	
+	private static final String ERROR_TAG = "error";
 	protected static final String EMAIL_TAG = "email";
+	protected static final String TABLE_TAG = "table";
 	
 	public View () {
 		this.request = null;
@@ -27,27 +25,43 @@ public abstract class View {
 	}
 	
 	public View(Model model, HttpServletRequest req, HttpServletResponse res) {
-		this.request = new HttpServletRequestFacade(req);
-		this.session = new SessionFacade(req.getSession());
-		this.response = new HttpServletResponseFacade(res);
-		this.model = new ModelFacade(model);
+		this.request = req;
+		this.session = req.getSession();
+		this.response = res;
+		this.model = model;
 	}
 
 	public View(HttpServletRequest req) {
-		this.request = new HttpServletRequestFacade(req);
-		this.session = new SessionFacade(req.getSession());
+		this.request = req;
+		this.session = req.getSession();
 		this.response = null;
 		this.model = null;
 	}
 	
 	public View(HttpServletRequest req,HttpServletResponse res) {
-		this.request = new HttpServletRequestFacade(req);
-		this.session = new SessionFacade(req.getSession());
-		this.response = new HttpServletResponseFacade(res);
+		this.request = req;
+		this.session = req.getSession();
+		this.response = res;
 		this.model = null;
 	}
 
 	public String getEmail() {
-		return this.session.getStringAttribute(EMAIL_TAG);
-	};
+		return (String) this.session.getAttribute(EMAIL_TAG);
+	}
+	
+	protected void setStatusOk() {
+		this.response.setStatus(HttpServletResponse.SC_OK);
+	}
+	
+	protected void setStatusUnauthorizedLoginError() {
+		this.response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	}
+
+	public void setStatusNotFoundError() {
+		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	}
+	
+	protected void addError(String msg) {
+		this.model.addAttribute(ERROR_TAG, msg);
+	}
 }
