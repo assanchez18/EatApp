@@ -26,4 +26,8 @@ public class Notification {
 	public int getOwner() {
 		return this.owner;
 	}
+
+	public boolean compareId(int id) {
+		return this.owner == id;
+	}
 }

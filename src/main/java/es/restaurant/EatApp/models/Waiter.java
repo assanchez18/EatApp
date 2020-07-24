@@ -33,4 +33,13 @@ public class Waiter extends User implements Observer{
 	public List<Notification> getNotifications() {
 		return this.notifications;
 	}
+
+	public void completeNotification(int notificationId) {
+		for(int i = 0; i < this.notifications.size(); i++) {
+			if(this.notifications.get(i).compareId(notificationId)) {
+				this.notifications.remove(i);
+				break;
+			}
+		}
+	}
 }

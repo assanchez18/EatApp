@@ -46,4 +46,20 @@ public class Ingredient {
 				&& this.amount == i.getAmount()
 				&& this.minimumAmount == i.minimumAmount);
 	}
+
+	public void setName(String n) {
+		this.name = n;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 }

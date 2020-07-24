@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Waiter;
 import es.restaurant.EatApp.repositories.WaiterDao;
-import es.restaurant.EatApp.views.ShowNotificationView;
+import es.restaurant.EatApp.views.CleanNotificationView;
 
 @Controller
-public class ShowWaiterNotificationsController {
-	
-	@PostMapping("/showNotification")
+public class CleanNotificationController implements ControllerInterface {
+
+	@PostMapping("/cleanNotification")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
-		ShowNotificationView view = new ShowNotificationView(model,req,res);
-		Waiter w = WaiterDao.getWaiterDao().getWaiter(view.getEmail());
-		return view.interact(w.getNotifications());
+		CleanNotificationView view = new CleanNotificationView(model, req, res);
+		Waiter waiter = WaiterDao.getWaiterDao().getWaiter(view.getEmail());
+		waiter.completeNotification(view.getNotificationId());
+		return view.interact(waiter.getNotifications());
 	}
 }

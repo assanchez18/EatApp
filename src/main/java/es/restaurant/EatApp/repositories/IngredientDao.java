@@ -2,6 +2,7 @@ package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,13 +55,17 @@ public class IngredientDao extends Dao {
 		return this.db.getJdbcTemplate().query(sql, buildIngredient());
 	}
 	
-	public Map<Integer,Ingredient> getIngredients() {
-		return this.ingredients;
+	public Collection<Ingredient> getIngredients() {
+		return this.ingredients.values();
+	}
+
+	public Ingredient getIngredientById(int id) {
+		return this.ingredients.get(id);
 	}
 	
-	public boolean updateMinimumAmount(Ingredient ingredient, double newAmount) {
+	public boolean updateMinimumAmount(Ingredient ingredient, double newValue) {
 		String sql = update(TABLE_NAME, "minimumAmount=?" + where("id=?"));
-        return (this.db.getJdbcTemplate().update(sql, newAmount, ingredient.getId()) == 1);
+        return (this.db.getJdbcTemplate().update(sql, newValue, ingredient.getId()) == 1);
 	}
 
 	public Ingredient findIngredient(Ingredient ingredient) {
@@ -73,5 +78,30 @@ public class IngredientDao extends Dao {
 			return null;
 		else
 			return i.get(0);
+	}
+
+	public boolean insert(Ingredient ingredient) {
+		String sql = insertInto(TABLE_NAME, "(id, name, amount, description, minimumAmount) VALUES (?,?,?,?,?)");
+		return (this.db.getJdbcTemplate().update(sql, ingredient.getId(), ingredient.getName(), ingredient.getAmount(), ingredient.getDescription(), ingredient.getMinimumAmount()) == 1);
+	}
+	
+	public boolean deleteIngredient(Ingredient ingredient) {
+        String sql = delete(TABLE_NAME, where("id=?"));
+        return (this.db.getJdbcTemplate().update(sql, ingredient.getId()) == 1);
+	}
+	
+	public boolean updateName(Ingredient ingredient, String newValue) {
+        String sql = update(TABLE_NAME, "name=?" + where("id=?"));
+        return (this.db.getJdbcTemplate().update(sql, newValue, ingredient.getId()) == 1);
+	}
+
+	public boolean updateDescription(Ingredient ingredient, String newValue) {
+        String sql = update(TABLE_NAME, "description=?" + where("id=?"));
+        return (this.db.getJdbcTemplate().update(sql, newValue, ingredient.getId()) == 1);
+	}
+
+	public boolean updateAmount(Ingredient ingredient, double newValue) {
+        String sql = update(TABLE_NAME, "amount=?" + where("id=?"));
+        return (this.db.getJdbcTemplate().update(sql, newValue, ingredient.getId()) == 1);
 	}
 }

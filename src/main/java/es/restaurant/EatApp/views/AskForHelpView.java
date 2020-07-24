@@ -21,6 +21,6 @@ public class AskForHelpView extends View {
 	}
 	
 	public int getTableCode() {
-		return Integer.decode((String) this.session.getAttribute(TABLE_TAG));
+		return (int) this.session.getAttribute(TABLE_TAG);
 	}
 }

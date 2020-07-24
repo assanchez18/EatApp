@@ -37,15 +37,16 @@ public class AskForHelpTest {
 	
 	@Test
     public void askForHelpTest() throws Exception {
+		int tableCode = 123;
 		this.mockMvcAsk.perform(
 				get("/"));
 		this.mockMvcAsk.perform(
                 get("/askForHelp")
-                        .sessionAttr(View.TABLE_TAG, "123"))
+                        .sessionAttr(View.TABLE_TAG, tableCode))
                 .andExpect(status().isOk());
         this.mockMvcAsk.perform(
                 post("/showNotification")
-                		.sessionAttr(View.TABLE_TAG, "123")
+                		.sessionAttr(View.TABLE_TAG, tableCode)
                 		.sessionAttr(View.EMAIL_TAG, "waiter@waiter.com"))
         		.andExpect(status().isOk())
         		.andExpect(model().attribute("notifications",

@@ -17,18 +17,27 @@ public class IngredientsDaoTest {
 	public void selectIngredientsTest() {
 		IngredientDao dao = IngredientDao.getIngredientDao();
 		assertFalse("Error, missing base ingredient", dao.getIngredients().isEmpty());
+		Ingredient ingredient = new IngredientBuilder().baseIngredient().build();
+		assertTrue("Error, base ingredient not found",dao.findIngredient(ingredient).equals(ingredient));
 	}
 	
 	@Test
 	public void modifyMinimumAmountForIngredientTest() {
 		Ingredient ingredient = new IngredientBuilder().build();
-		Ingredient updatedIngredient = new IngredientBuilder().build();
-		double newMinimumAmount = 10;
-		updatedIngredient.setMinimumAmount(newMinimumAmount);
 		IngredientDao dao = IngredientDao.getIngredientDao();
-		assertTrue("Error, missing base ingredient", dao.updateMinimumAmount(ingredient, newMinimumAmount));
-		assertFalse("Error, minimumAmount has not been updated", ingredient.equals(dao.findIngredient(ingredient)));
-		assertTrue("Error, minimumAmount has not been updated to the correct value", updatedIngredient.equals(dao.findIngredient(ingredient)));
-		assertTrue("Error restoring ingredient to initial value", dao.updateMinimumAmount(ingredient, ingredient.getMinimumAmount()));
+		Ingredient updatedIngredient = new IngredientBuilder()
+												.name("newName")
+												.amount(7)
+												.description("newDescription")
+												.minAmount(10).build();
+		//insert
+		assertTrue("Error, cannot insert a new Ingredient", dao.insert(ingredient));
+		//modify
+		assertTrue("Error updating minimumAmount", dao.updateMinimumAmount(ingredient, updatedIngredient.getMinimumAmount()));
+		assertTrue("Error updating name", dao.updateName(ingredient, updatedIngredient.getName()));
+		assertTrue("Error updating description", dao.updateDescription(ingredient,updatedIngredient.getDescription()));
+		assertTrue("Error updating amount", dao.updateAmount(ingredient, updatedIngredient.getAmount()));
+		//remove
+		assertTrue("Error, unable to delete the ingredient", dao.deleteIngredient(ingredient));
 	}
 }

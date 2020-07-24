@@ -38,11 +38,18 @@ public abstract class View {
 		this.model = null;
 	}
 	
-	public View(HttpServletRequest req,HttpServletResponse res) {
+	public View(HttpServletRequest req, HttpServletResponse res) {
 		this.request = req;
 		this.session = req.getSession();
 		this.response = res;
 		this.model = null;
+	}
+
+	public View(Model model, HttpServletResponse res) {
+		this.request = null;
+		this.session = null;
+		this.response = res;
+		this.model = model;
 	}
 
 	public String getEmail() {

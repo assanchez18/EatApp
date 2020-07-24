@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import es.restaurant.EatApp.views.ConfigureQuantityOfIngredientsView;
+
 @RunWith(SpringRunner.class)
 public class ConfigureQuantityOfIngredientsTest {
 
@@ -29,11 +31,17 @@ public class ConfigureQuantityOfIngredientsTest {
 	@Test
 	public void changeQuantityOfIngredientsOk() throws Exception {
 		this.mockMvc.perform(
-				get("/quantityOfIngredients"));
+				get("/configureQuantityOfIngredients"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.requestAttr("ingredient_id", 1)
-						.requestAttr("new_quantity", 10))
+						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
+						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "10"))
+		.andExpect(status().isOk());
+		//restore original value
+		this.mockMvc.perform(
+				post("/manageQuantityOfIngredient")
+						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
+						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "1"))
 		.andExpect(status().isOk());
 	}
 }
