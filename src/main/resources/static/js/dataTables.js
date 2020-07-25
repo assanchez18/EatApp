@@ -1,3 +1,3 @@
 $(document).ready( function () {
-	$('#notif').DataTable();
+	$('#dataTable').DataTable();
 } );

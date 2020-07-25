@@ -6,40 +6,35 @@
 <body>
 	<div th:insert="base/navbar.html"></div>
 	<div class="page">
-	<h1>
-	Hola <span th:text="${session.email}"></span>
-	</h1>
-<hr>
-<h2 class="intro">¿Que puedes hacer en EatApp?</h2>
-		<div class="row col-xl-11 offset-xl-1 col-lg-11 offset-lg-1">
-			<h3>Ingredientes</h3>
-			<table  th:if="${ingredients}" id="notif" class="table table-striped display">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Nombre</th>
-						<th>Cantidad minima actual</th>
-						<th>Nueva cantidad minima </th>
-						<th/>
+		<main role="main" class="main container col-xl col-lg col-md col-sm">
+			<div class="starter-template">
+				<h2 class="intro">Configurar cantidad de ingredientes</h2>
+				<table th:if="${ingredients}" id="dataTable"
+					class="table table-striped display">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Cantidad minima actual</th>
+							<th>Nueva cantidad minima</th>
+							<th>ConfirmaciÃ³n</th>
+						</tr>
+					</thead>
+					<tr th:each="ingredient: ${ingredients}">
+						<form action="manageQuantityOfIngredient" method="post">
+						<td th:text="${ingredient.name}" /></td>
+						<td th:text="${ingredient.minimumAmount}"></td>
+						<td><input type="number" required="required" step="1"
+							name="newAmount" min="1" max="50" placeholder="Cantidad" /></td>
+						<td><button class="btn btn-success" type="submit">Confirmar</button></td>
+						<input type="hidden" name="ingredientId"
+							th:value="${ingredient.id}" /> <!--TODO SECURE THIS IN SERVER SIDE-->
+						</form>
 					</tr>
-				</thead>
-				<tr th:each="ingredient: ${ingredients}">
-					<form action="manageQuantityOfIngredient" method="post">
-						<td><input disabled="disabled" type="text" name="ingredientId" th:value="${ingredient.id}"/></td>
-						<td th:text="${ingredient.name}" />
-						<td th:text="${ingredient.minimumAmount}">
-						<td><input type="number" step="0.01" name="newAmount" min="1"
-							max="50" th:value="${ingredient.minimumAmount}"/></td>
-						<td><input type="submit" value="confirmar"/></td>
-					</form>
-				</tr>
-			</table>
-</div>
+				</table>
+			</div>
+		</main>
 	</div>
 	<footer th:insert="base/footer.html"> </footer>
 	<footer th:insert="base/dataTables.html"> </footer>
 </body>
 </html>
-
-
-
