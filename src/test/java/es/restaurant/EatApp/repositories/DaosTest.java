@@ -10,7 +10,10 @@ import org.junit.runners.Suite.SuiteClasses;
 	UserDaoTest.class,
 	TableDaoTest.class,
 	WaiterDaoTest.class,
-	IngredientsDaoTest.class
+	IngredientsDaoTest.class,
+	ProductsDaoTest.class,
+	MenuDaoTest.class,
+	ProductsDaoTest.class
 })
 public class DaosTest {
 

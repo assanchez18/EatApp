@@ -97,6 +97,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `description`, `Price`) VALUES
 (1, 'Prod test1', 'Desc test 1', 10);
+INSERT INTO `products` (`id`, `name`, `description`, `Price`) VALUES
+(2, 'Prod test2', 'Desc test 2', 20);
 
 -- --------------------------------------------------------
 

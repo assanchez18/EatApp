@@ -8,34 +8,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.restaurant.EatApp.models.Order;
-import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.repositories.ProductDao;
-import es.restaurant.EatApp.views.CreateNewOrderView;
+import es.restaurant.EatApp.views.ShowOrderView;
 
 @Controller
-public class CreateNewOrderController {
+public class showOrderController {
 
-	@GetMapping("/createOrder")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
-		CreateNewOrderView view = new CreateNewOrderView(model, req, res);
-		return view.interactGet(ProductDao.getProductDao().getProducts());
-	}
-
-	@PostMapping("/createOrder")
+	@PostMapping("/showNewOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res, @RequestParam(value="ids[]") Integer[] ids, @RequestParam(value="amounts[]") Integer[] amounts) {
-		Order order = createOrder(ids,amounts);
-		System.out.println("es create order");
-		CreateNewOrderView view = new CreateNewOrderView(model, req, res);
-		return view.interactPost(order);
+		ShowOrderView view = new ShowOrderView(model, req, res);
+		System.out.println("es show order");
+		if(ids.length > 0 && amounts.length > 0) {
+			Order order = createTemporalOrder(ids,amounts);
+			return view.interact(order);
+		}
+		return view.interact();
 	}
 	
-	private Order createOrder(Integer[] ids, Integer[] amounts) {
+	private Order createTemporalOrder(Integer[] ids, Integer[] amounts) {
 		Map<Product, Integer> products =  new HashMap<>();
 		ProductDao productDao = ProductDao.getProductDao();
 		for (int i = 0; i < ids.length; i++) {
@@ -43,8 +38,7 @@ public class CreateNewOrderController {
 			products.put(product, amounts[i]);
 		}
 		Order order = new Order();
-		order.setProducts(products); // TODO Save order in db
-		order.setState(new OrderState(OrderState.orderState.QUEUED));
+		order.setProducts(products); // TODO Save order in db and session
 		return order;
 	}
 

@@ -1,0 +1,72 @@
+<html lang="es">
+<head>
+<head th:insert="base/head">
+</head>
+</head>
+
+<body>
+	<div th:insert="base/navbar.html"></div>
+	<div class="page">
+		<main role="main" class="main container col-xl col-lg col-md col-sm">
+			<div class="starter-template">
+				<h2 th:if="${session.order}" class="intro">Este es tu pedido:</h2>
+					<table th:if="${session.order}" id="dataTable"
+						class="table table-striped display">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Descripciónl</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Estado</th>
+							</tr>
+						</thead>
+						<tr th:each="product: ${session.order.products}">
+							<td th:text="${product.key.name}" /></td>
+							<td th:text="${product.key.description}"></td>
+							<td th:text="${product.key.Price}"></td>
+							<td th:text="${product.value}"></td>
+							<td>WIP</td> <!-- TODO Product Status -->
+						</tr>
+						<tr>
+							<td/>Total</td>
+							<td></td>
+							<td></td><!-- TODO Price -->
+							<td></td>
+							<td th:text="${session.order.state.state}"></td>
+						</tr>
+					</table>
+				<h2 th:unless="${session.order}" class="intro">Este es tu pedido:</h2>
+					<table th:if="${order}" id="dataTable"
+						class="table table-striped display">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Descripciónl</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Estado</th>
+							</tr>
+						</thead>
+						<tr th:each="product: ${order.products}">
+							<td th:text="${product.key.name}" /></td>
+							<td th:text="${product.key.description}"></td>
+							<td th:text="${product.key.Price}"></td>
+							<td th:text="${product.value}"></td>
+							<td>WIP</td> <!-- TODO Product Status -->
+						</tr>
+						<tr>
+							<td/>Total</td>
+							<td></td>
+							<td></td><!-- TODO Price -->
+							<td></td>
+							<td th:text="${order.state.state}"></td>
+						</tr>
+					</table>
+			</div>
+		</main>
+	</div>
+	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
+</body>
+</html>

@@ -11,7 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	StartTest.class,
 	LoginTest.class,
 	LogoutTest.class,
-	RegisterInTableTest.class
+	RegisterInTableTest.class,
+	CreateNewOrderTest.class
 })
 public class GeneralControllersTest {
 

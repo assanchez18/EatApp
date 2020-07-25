@@ -9,10 +9,66 @@
 	<div class="page">
 		<main role="main" class="main container col-xl col-lg col-md col-sm">
 			<div class="starter-template">
-				<h1>¿Qué te apetece?</h1>
+				<h2 th:unless="${session.order}" class="intro">¿Qué te apetece?</h2>
+				<form th:unless="${session.order}" formaction="createOrder"
+					method="post">
+					<table th:if="${products}" id="dataTable"
+						class="table table-striped display">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Descripción</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+							</tr>
+						</thead>
+						<tr th:each="product: ${products}">
+							<td th:text="${product.name}" /></td>
+							<td th:text="${product.description}"></td>
+							<td th:text="${product.Price}"></td>
+							<td><input type="number" required="required" step="1"
+								name="amounts[]" min="0" max="50" value="0" /></td>
+							<input type="hidden" name="ids[]" th:value="${product.id}" />
+							<!--TODO SECURE THIS IN SERVER SIDE-->
+						</tr>
+					</table>
+					<button class="btn btn-success" formaction="createOrder"
+						type="submit">Confirmar pedido</button>
+					<button class="btn btn-success" formaction="showNewOrder"
+						type="submit">Ver estado pedido</button>
+				</form>
+				
+				<h2 th:if="${session.order}" class="intro">Así dejaste tu pedido</h2>
+				<form th:if="${session.order}" formaction="createOrder" method="post">
+					<table th:if="${session.order.products}" id="dataTable"
+						class="table table-striped display">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Descripción</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+							</tr>
+						</thead>
+						<tr th:each="product: ${session.order.products}">
+							<td th:text="${product.key.name}" /></td>
+							<td th:text="${product.key.description}"></td>
+							<td th:text="${product.key.Price}"></td>
+							<td><input type="number" required="required" step="1"
+								name="amounts[]" min="0" max="50" th:value="${product.value}" /></td>
+							<input type="hidden" name="ids[]" th:value="${product.key.id}" />
+							<!--TODO SECURE THIS IN SERVER SIDE-->
+						</tr>
+					</table>
+					<button class="btn btn-success" formaction="createOrder"
+						type="submit">Confirmar pedido</button>
+					<button class="btn btn-success" formaction="showNewOrder"
+						type="submit">Ver estado pedido</button>
+				</form>
 			</div>
 		</main>
 	</div>
 	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
 </body>
 </html>
