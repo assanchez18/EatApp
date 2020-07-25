@@ -18,11 +18,9 @@
 						<div class="box">
 							<h1>Bienvenido</h1>
 							<input type="email" required="required" name="email"
-								placeholder="Email" onFocus="field_focus(this, 'email');"
-								onblur="field_blur(this, 'email');" class="email" /> <input
-								type="password" required="required" name="password"
-								placeholder="password" onFocus="field_focus(this, 'email');"
-								onblur="field_blur(this, 'email');" class="password" />
+								placeholder="Email" class="email" /> 
+							<input type="password" required="required" name="password"
+								placeholder="password" class="password" />
 							<div th:if="${error}" class="alert alert-danger" role="alert">
 								<p th:text="${error}"></p>
 							</div>
