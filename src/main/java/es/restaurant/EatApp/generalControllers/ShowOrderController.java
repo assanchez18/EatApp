@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Order;
@@ -19,6 +20,14 @@ import es.restaurant.EatApp.views.ShowOrderView;
 @Controller
 public class ShowOrderController {
 
+	@GetMapping("/showNewOrder")
+	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+		ShowOrderView view = new ShowOrderView(model, req, res);
+		// TODO get from database, now is failing
+		return view.interact();	
+	}
+
+
 	@PostMapping("/showNewOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ShowOrderView view = new ShowOrderView(model, req, res);
@@ -28,17 +37,14 @@ public class ShowOrderController {
 		if(ids.length == 0 || amounts.length == 0) {
 			return view.errorBadRequest(ShowOrderView.ERROR);
 		}
-		if(ids.length > 0 && amounts.length > 0) {
-			Order order = createTemporalOrder(ids,amounts, parameters);
-			if(order.getProducts() == null) {
-				// TODO Handle error empty order
-				return view.errorBadRequest(ShowOrderView.ERROR_EMPTY);
-			}
-			return view.interact(order);
+		Order order = createTemporalOrder(ids,amounts, parameters);
+		if(order.getProducts() == null) {
+			// TODO Handle error empty order
+			return view.errorBadRequest(ShowOrderView.ERROR_EMPTY);
 		}
 		return view.interact();	
 	}
-	
+
 	private Order createTemporalOrder(Integer[] ids, Integer[] amounts, String parameters) {
 		Map<Product, Integer> products =  new HashMap<>();
 		ProductDao productDao = ProductDao.getProductDao();

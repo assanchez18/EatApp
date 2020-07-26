@@ -8,6 +8,7 @@ public class Order {
 	private OrderState state;
 	private Map<Product, Integer> products;
 	private String parameters;
+	private int userId;
 	
 	public Order() {
 		this.id = 1;
