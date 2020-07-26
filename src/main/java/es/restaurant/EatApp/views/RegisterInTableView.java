@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 public class RegisterInTableView extends View {
 	
 	public static final String CODE_TAG = "code";
-	private static final String CODE_ERROR_MSG = "El código escaneado es incorrecto";
+	public static final String CODE_ERROR_MSG = "El código escaneado es incorrecto";
 	
 	public RegisterInTableView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
@@ -18,11 +18,9 @@ public class RegisterInTableView extends View {
 		setStatusOk();
 		return "mainUserView";
 	}
-
-	public String error() {
-		addError(CODE_ERROR_MSG);
-		setStatusNotFoundError();
-		return this.redirect();
+	
+	public String errorNotFound(String message) {
+		return this.returnErrorWithMessage(message, HttpServletResponse.SC_NOT_FOUND, redirect());
 	}
 	
 	public int getCode() {

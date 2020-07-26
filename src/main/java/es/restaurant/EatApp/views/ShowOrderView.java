@@ -49,9 +49,7 @@ public class ShowOrderView extends View {
 		return this.request.getParameter(parameterName);
 	}
 	
-	public String error(String message) {
-		this.addError(message);
-		this.response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		return "error";
+	public String errorBadRequest(String message) {
+		return this.returnErrorWithMessage(message, HttpServletResponse.SC_BAD_REQUEST, ERROR_TAG);
 	}
 }

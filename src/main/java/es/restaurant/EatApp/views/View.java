@@ -15,7 +15,7 @@ public abstract class View {
 
 	public static final String TABLE_TAG = "table";
 	public static final String EMAIL_TAG = "email";
-	private static final String ERROR_TAG = "error";
+	protected static final String ERROR_TAG = "error";
 	
 	public View () {
 		this.request = null;
@@ -60,15 +60,13 @@ public abstract class View {
 		this.response.setStatus(HttpServletResponse.SC_OK);
 	}
 	
-	protected void setStatusUnauthorizedLoginError() {
-		this.response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	}
-
-	public void setStatusNotFoundError() {
-		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+	public String returnErrorWithMessage(String message, int code, String errorPage) {
+		this.addError(message);
+		this.response.setStatus(code);
+		return errorPage;
 	}
 	
-	protected void addError(String msg) {
+	private void addError(String msg) {
 		this.model.addAttribute(ERROR_TAG, msg);
 	}
 }

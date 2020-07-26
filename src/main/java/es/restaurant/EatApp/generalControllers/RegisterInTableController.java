@@ -27,6 +27,6 @@ public class RegisterInTableController implements ControllerInterface {
 		if(dao.getTable(code) != null) {
 			return view.register();
 		}
-		return view.error();
+		return view.errorNotFound(RegisterInTableView.CODE_ERROR_MSG);
 	}
 }

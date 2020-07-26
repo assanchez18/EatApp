@@ -33,11 +33,11 @@ public class CreateNewOrderController {
 		Integer[] amounts = view.getParameterArray(CreateNewOrderView.AMOUNTS_TAG);
 		String parameters = view.getParameter(CreateNewOrderView.PARAMS_TAG);
 		if(ids.length == 0 || amounts.length == 0) {
-			return view.error(CreateNewOrderView.ERROR);
+			return view.errorBadRequest(CreateNewOrderView.ERROR);
 		}
 		Order order = createOrder(ids,amounts, parameters);
 		if(order.getProducts().size() == 0) {
-			return view.error(CreateNewOrderView.ERROR_EMPTY);
+			return view.errorBadRequest(CreateNewOrderView.ERROR_EMPTY);
 		}
 		return view.interactPost(order);
 	}

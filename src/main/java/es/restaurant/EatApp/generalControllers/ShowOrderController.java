@@ -26,13 +26,13 @@ public class ShowOrderController {
 		Integer[] amounts = view.getParameterArray(ShowOrderView.AMOUNTS_TAG);
 		String parameters = view.getParameter(ShowOrderView.PARAMS_TAG);
 		if(ids.length == 0 || amounts.length == 0) {
-			return view.error(ShowOrderView.ERROR);
+			return view.errorBadRequest(ShowOrderView.ERROR);
 		}
 		if(ids.length > 0 && amounts.length > 0) {
 			Order order = createTemporalOrder(ids,amounts, parameters);
 			if(order.getProducts() == null) {
 				// TODO Handle error empty order
-				return view.error(ShowOrderView.ERROR_EMPTY);
+				return view.errorBadRequest(ShowOrderView.ERROR_EMPTY);
 			}
 			return view.interact(order);
 		}

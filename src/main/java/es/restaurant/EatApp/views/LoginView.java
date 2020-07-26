@@ -10,7 +10,7 @@ public class LoginView extends View {
 
 	public static final String PASSWORD_TAG = "password";
 	private static final String TYPE_TAG = "type";
-	private static final String LOGIN_ERROR_MSG = "El usuario o la contraseña son incorrectos";
+	public static final String LOGIN_ERROR_MSG = "El usuario o la contraseña son incorrectos";
 	
 	
 	public LoginView(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -24,11 +24,8 @@ public class LoginView extends View {
 		return "mainUserView";
 	}
 
-	public String error() {
-		this.session.invalidate();
-		addError(LOGIN_ERROR_MSG);
-		setStatusUnauthorizedLoginError();
-		return "index";
+	public String errorUnauthorized(String message) {
+		return this.returnErrorWithMessage(message, HttpServletResponse.SC_UNAUTHORIZED, "index");
 	}
 
 	public String getPassword() {
