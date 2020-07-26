@@ -7,6 +7,7 @@ public class Order {
 	private int id;
 	private OrderState state;
 	private Map<Product, Integer> products;
+	private String parameters;
 	
 	public Order() {
 		this.id = 1;
@@ -27,6 +28,14 @@ public class Order {
 
 	public void setProducts(Map<Product, Integer> products) {
 		this.products = products;
+	}
+	
+	public void setParameters(String parameters) {
+		this.parameters = parameters;
+	}
+	
+	public String getParameters() {
+		return this.parameters;
 	}
 
 }

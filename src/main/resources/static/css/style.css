@@ -117,3 +117,7 @@ h1 {
 table {
 	border: black 5px solid;
 }
+
+#parameters {
+	margin-bottom: 20px;
+}

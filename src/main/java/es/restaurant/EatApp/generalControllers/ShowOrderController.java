@@ -8,52 +8,53 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.repositories.ProductDao;
-import es.restaurant.EatApp.views.CreateNewOrderView;
+import es.restaurant.EatApp.views.ShowOrderView;
 
 @Controller
-public class CreateNewOrderController {
+public class ShowOrderController {
 
-	@GetMapping("/createOrder")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
-		CreateNewOrderView view = new CreateNewOrderView(model, req, res);
-		return view.interactGet(ProductDao.getProductDao().getProducts());
-	}
-
-	@PostMapping("/createOrder")
+	@PostMapping("/showNewOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
-		CreateNewOrderView view = new CreateNewOrderView(model, req, res);
-		Integer[] ids = view.getParameterArray(CreateNewOrderView.IDS_TAG);
-		Integer[] amounts = view.getParameterArray(CreateNewOrderView.AMOUNTS_TAG);
-		String parameters = view.getParameter(CreateNewOrderView.PARAMS_TAG);
+		ShowOrderView view = new ShowOrderView(model, req, res);
+		Integer[] ids = view.getParameterArray(ShowOrderView.IDS_TAG);
+		Integer[] amounts = view.getParameterArray(ShowOrderView.AMOUNTS_TAG);
+		String parameters = view.getParameter(ShowOrderView.PARAMS_TAG);
 		if(ids.length == 0 || amounts.length == 0) {
-			return view.error(CreateNewOrderView.ERROR);
+			return view.error(ShowOrderView.ERROR);
 		}
-		Order order = createOrder(ids,amounts, parameters);
-		if(order.getProducts().size() == 0) {
-			return view.error(CreateNewOrderView.ERROR_EMPTY);
+		if(ids.length > 0 && amounts.length > 0) {
+			Order order = createTemporalOrder(ids,amounts, parameters);
+			if(order.getProducts() == null) {
+				// TODO Handle error empty order
+				return view.error(ShowOrderView.ERROR_EMPTY);
+			}
+			return view.interact(order);
 		}
-		return view.interactPost(order);
+		return view.interact();	
 	}
 	
-	private Order createOrder(Integer[] ids, Integer[] amounts, String parameters) {
+	private Order createTemporalOrder(Integer[] ids, Integer[] amounts, String parameters) {
 		Map<Product, Integer> products =  new HashMap<>();
 		ProductDao productDao = ProductDao.getProductDao();
+		int counter = 0;
 		for (int i = 0; i < ids.length; i++) {
 			Product product = productDao.getProductById(ids[i]);
-			// TODO Handle error in ids -> maybe we can only obviate that product
 			if(amounts[i] == 0) {
-				continue;
+				counter++;
 			}
+			// TODO Handle error in ids -> maybe we can only obviate that product
 			products.put(product, amounts[i]);
 		}
 		Order order = new Order();
+		if(counter == amounts.length) {
+			return order;
+		}
 		order.setProducts(products); // TODO Save order in db
 		order.setState(new OrderState(OrderState.orderState.QUEUED));
 		order.setParameters(parameters);

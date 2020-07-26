@@ -9,9 +9,9 @@
 	<div class="page">
 		<main role="main" class="main container col-xl col-lg col-md col-sm">
 			<div class="starter-template">
-				<h2 th:if="${session.order}" class="intro">Este es tu pedido:</h2>
-					<table th:if="${session.order}" id="dataTable"
-						class="table table-striped display">
+				<div th:if="${session.order}">
+					<h2 class="intro">Este es tu pedido:</h2>
+					<table id="dataTable" class="table table-striped display">
 						<thead>
 							<tr>
 								<th>Producto</th>
@@ -26,17 +26,29 @@
 							<td th:text="${product.key.description}"></td>
 							<td th:text="${product.key.Price}"></td>
 							<td th:text="${product.value}"></td>
-							<td>WIP</td> <!-- TODO Product Status -->
+							<td>WIP</td>
+							<!-- TODO Product Status -->
 						</tr>
 						<tr>
-							<td/>Total</td>
+							<td />Total
+							</td>
 							<td></td>
-							<td></td><!-- TODO Price -->
+							<td></td>
+							<!-- TODO Price -->
 							<td></td>
 							<td th:text="${session.order.state.state}"></td>
 						</tr>
 					</table>
-				<h2 th:unless="${session.order}" class="intro">Este es tu pedido:</h2>
+					<div id="parameters">
+						<h3 th:text="${session.order.parameters}"></h3>
+					</div>
+				<form action="createOrder">
+					<button type="submit" class="btn btn-success">Volver a
+						crear pedido</button>
+				</form>
+				</div>
+				<div th:unless="${session.order}">
+					<h2 class="intro">Este es tu pedido:</h2>
 					<table th:if="${order}" id="dataTable"
 						class="table table-striped display">
 						<thead>
@@ -53,16 +65,23 @@
 							<td th:text="${product.key.description}"></td>
 							<td th:text="${product.key.Price}"></td>
 							<td th:text="${product.value}"></td>
-							<td>WIP</td> <!-- TODO Product Status -->
+							<td>WIP</td>
+							<!-- TODO Product Status -->
 						</tr>
 						<tr>
-							<td/>Total</td>
+							<td />Total
+							</td>
 							<td></td>
-							<td></td><!-- TODO Price -->
+							<td></td>
+							<!-- TODO Price -->
 							<td></td>
 							<td th:text="${order.state.state}"></td>
 						</tr>
 					</table>
+					<div id="parameters">
+						<h3 th:text="${order.parameters}"></h3>
+					</div>
+				</div>
 			</div>
 		</main>
 	</div>
