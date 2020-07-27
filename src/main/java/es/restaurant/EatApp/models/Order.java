@@ -15,6 +15,12 @@ public class Order {
 		this.state = new OrderState();
 	}
 
+	public Order(Map<Product, Integer> products, String parameters, OrderState state) {
+		this.products = products;
+		this.parameters = parameters;
+		this.state = state;
+	}
+
 	public OrderState getState() {
 		return state;
 	}

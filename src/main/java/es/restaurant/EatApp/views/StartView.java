@@ -15,10 +15,10 @@ public class StartView extends View {
 	}
 	
 	private String start() {
-		return "index";
+		return INDEX_VIEW;
 	}
 	
 	private String mainView() {
-		return "mainUserView";
+		return MAIN_USER_VIEW;
 	}
 }

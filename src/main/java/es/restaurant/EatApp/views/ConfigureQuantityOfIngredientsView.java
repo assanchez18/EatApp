@@ -13,7 +13,9 @@ public class ConfigureQuantityOfIngredientsView extends View {
 
 	public final static String INGREDIENT_ID = "ingredientId";
 	public final static String NEW_AMOUNT = "newAmount";
-	
+	private final static String ERROR_MSG = "El ingrediente no existe.";
+	private final static String MANAGE_INGREDIENT_VIEW = "manageIngredient";
+
 	public ConfigureQuantityOfIngredientsView(Model model, HttpServletResponse res) {
 		super(model,res);
 	}
@@ -25,19 +27,23 @@ public class ConfigureQuantityOfIngredientsView extends View {
 	public String interactGet(Collection<Ingredient> collection) {
 		this.model.addAttribute("ingredients", collection);
 		setStatusOk();
-		return "manageIngredient";
+		return MANAGE_INGREDIENT_VIEW;
 	}
-	
+
 	public String interact() {
 		setStatusOk();
-		return "mainUserView";
+		return MAIN_USER_VIEW;
 	}
-	
+
 	public int getIngredientId() {
 		return Integer.decode(this.request.getParameter(INGREDIENT_ID));
 	}
-	
+
 	public double getNewAmount() {
 		return Double.valueOf(this.request.getParameter(NEW_AMOUNT));
+	}
+
+	public String error() {
+		return returnErrorWithMessage(ERROR_MSG, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
 	}
 }

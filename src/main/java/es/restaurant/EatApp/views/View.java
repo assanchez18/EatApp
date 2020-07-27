@@ -16,6 +16,9 @@ public abstract class View {
 	public static final String TABLE_TAG = "table";
 	public static final String EMAIL_TAG = "email";
 	protected static final String ERROR_TAG = "error";
+	protected static final String MAIN_USER_VIEW = "mainUserView";
+	protected static final String ERROR_VIEW = "error";
+	protected static final String INDEX_VIEW = "index";
 	
 	public View () {
 		this.request = null;

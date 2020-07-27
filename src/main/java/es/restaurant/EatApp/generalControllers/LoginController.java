@@ -22,6 +22,6 @@ public class LoginController implements ControllerInterface {
 			user = UserDao.getUserDao().getUser(user);
 			return view.login(user);
 		}
-		return view.errorUnauthorized(LoginView.LOGIN_ERROR_MSG);
+		return view.errorUnauthorized();
 	}
 }

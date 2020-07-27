@@ -25,7 +25,10 @@ public class ConfigureQuantityOfIngredientsController implements ControllerInter
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, req, res);
 		Ingredient ingredient = IngredientDao.getIngredientDao().getIngredientById(view.getIngredientId());
-		IngredientDao.getIngredientDao().updateMinimumAmount(ingredient, view.getNewAmount()); // TODO SECURE THIS IF THE ID IS NOT IN DATABASE
+		if(ingredient == null) {
+			return view.error();
+		}
+		IngredientDao.getIngredientDao().updateMinimumAmount(ingredient, view.getNewAmount());
 		return view.interact();
 	}
 }
