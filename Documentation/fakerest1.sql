@@ -88,17 +88,18 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
   `description` varchar(256) NOT NULL,
-  `Price` double NOT NULL
+  `price` double NOT NULL,
+  `priority` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `Price`) VALUES
-(1, 'Prod test1', 'Desc test 1', 10);
-INSERT INTO `products` (`id`, `name`, `description`, `Price`) VALUES
-(2, 'Prod test2', 'Desc test 2', 20);
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `priority`) VALUES
+(1, 'Prod test1', 'Desc test 1', 10, 1);
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `priority`) VALUES
+(2, 'Prod test2', 'Desc test 2', 20, 0);
 
 -- --------------------------------------------------------
 
