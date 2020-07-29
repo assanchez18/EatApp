@@ -57,4 +57,5 @@ public abstract class OrderView extends View {
 	protected String errorBadRequest(String message) {
 		return this.returnErrorWithMessage(message, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
 	}
+
 }

@@ -23,7 +23,7 @@ public abstract class OrderController {
 		if(order.getProducts().size() == 0) {
 			return view.errorEmptyOrder();
 		}
-		return null;
+		return interact();
 	}
 
 	protected String createOrder(OrderView view) {
@@ -44,4 +44,6 @@ public abstract class OrderController {
 		// TODO Save order in db
 		return order;
 	}
+	
+	protected abstract String interact();
 }

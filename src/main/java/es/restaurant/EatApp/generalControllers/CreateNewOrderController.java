@@ -15,21 +15,23 @@ import es.restaurant.EatApp.views.CreateNewOrderView;
 @Controller
 public class CreateNewOrderController extends OrderController {
 
+	private CreateNewOrderView view;
+	private Order order;
+	
 	@GetMapping("/createOrder")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
-		CreateNewOrderView view = new CreateNewOrderView(model, req, res);
+		this.view = new CreateNewOrderView(model, req, res);
 		return view.interactGet(ProductDao.getProductDao().getProducts());
 	}
 
 	@PostMapping("/createOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
-		CreateNewOrderView view = new CreateNewOrderView(model, req, res);
-		Order order = new Order();
-		String error = createOrder(view, order);
-		if ( error != null) {
-			return error;
-		}
-		return view.interactPost(order);
+		this.view= new CreateNewOrderView(model, req, res);
+		this.order = new Order();
+		return createOrder(view, order);
 	}
 
+	protected String interact() {
+		return this.view.interactPost(this.order);
+	}
 }

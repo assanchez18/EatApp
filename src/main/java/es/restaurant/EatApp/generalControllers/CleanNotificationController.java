@@ -18,6 +18,9 @@ public class CleanNotificationController implements ControllerInterface {
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		CleanNotificationView view = new CleanNotificationView(model, req, res);
 		Waiter waiter = WaiterDao.getWaiterDao().getWaiter(view.getEmail());
+		if (waiter == null) {
+			return view.errorNoWaiter();
+		}
 		waiter.completeNotification(view.getNotificationId());
 		return view.interact(waiter.getNotifications());
 	}

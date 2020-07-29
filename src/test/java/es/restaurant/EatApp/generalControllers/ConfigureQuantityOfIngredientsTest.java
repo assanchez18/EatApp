@@ -44,4 +44,15 @@ public class ConfigureQuantityOfIngredientsTest {
 						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "1"))
 		.andExpect(status().isOk());
 	}
+
+	@Test
+	public void changeQuantityOfWrongIngredientId() throws Exception {
+		this.mockMvc.perform(
+				get("/configureQuantityOfIngredients"));
+		this.mockMvc.perform(
+				post("/manageQuantityOfIngredient")
+						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "-1")
+						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "10"))
+		.andExpect(status().isBadRequest());
+	}
 }

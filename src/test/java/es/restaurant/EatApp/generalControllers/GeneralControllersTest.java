@@ -13,7 +13,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	LogoutTest.class,
 	RegisterInTableTest.class,
 	CreateNewOrderTest.class,
-	ShowOrderTest.class
+	ShowOrderTest.class,
+	CleanNotificationControllerTest.class
 })
 public class GeneralControllersTest {
 

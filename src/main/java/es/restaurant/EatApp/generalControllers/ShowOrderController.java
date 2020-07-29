@@ -13,9 +13,11 @@ import es.restaurant.EatApp.views.ShowOrderView;
 @Controller
 public class ShowOrderController extends OrderController {
 
+	private ShowOrderView view;
+	
 	@GetMapping("/showNewOrder")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
-		ShowOrderView view = new ShowOrderView(model, req, res);
+		this.view = new ShowOrderView(model, req, res);
 		// TODO get from database, now is failing
 		return view.interactPost();	
 	}
@@ -23,11 +25,11 @@ public class ShowOrderController extends OrderController {
 
 	@PostMapping("/showNewOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
-		ShowOrderView view = new ShowOrderView(model, req, res);
-		String error = createOrder(view);
-		if(error != null) {
-			return error;
-		}
-		return view.interactPost();	
+		this.view = new ShowOrderView(model, req, res);
+		return createOrder(this.view);	
+	}
+
+	protected String interact() {
+		return this.view.interactPost();
 	}
 }
