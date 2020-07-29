@@ -13,7 +13,7 @@ import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.StartView;
 
 @Controller
-public class StartController implements ControllerInterface {
+public class StartController {
 
 	@GetMapping("/")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {

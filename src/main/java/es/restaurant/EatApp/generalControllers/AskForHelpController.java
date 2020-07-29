@@ -12,7 +12,7 @@ import es.restaurant.EatApp.repositories.TableDao;
 import es.restaurant.EatApp.views.AskForHelpView;
 
 @Controller
-public class AskForHelpController implements ControllerInterface {
+public class AskForHelpController {
 
 	@GetMapping("/askForHelp")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {

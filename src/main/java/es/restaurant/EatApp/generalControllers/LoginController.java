@@ -10,7 +10,7 @@ import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.LoginView;
 
 @Controller
-public class LoginController implements ControllerInterface {
+public class LoginController {
 
 	@PostMapping("/login")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {

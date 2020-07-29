@@ -11,7 +11,7 @@ import es.restaurant.EatApp.repositories.TableDao;
 import es.restaurant.EatApp.views.RegisterInTableView;
 
 @Controller
-public class RegisterInTableController implements ControllerInterface {
+public class RegisterInTableController {
 
 	@GetMapping("/registerInTable")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {

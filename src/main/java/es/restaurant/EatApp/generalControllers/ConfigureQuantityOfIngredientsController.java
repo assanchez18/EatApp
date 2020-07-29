@@ -13,7 +13,7 @@ import es.restaurant.EatApp.repositories.IngredientDao;
 import es.restaurant.EatApp.views.ConfigureQuantityOfIngredientsView;
 
 @Controller
-public class ConfigureQuantityOfIngredientsController implements ControllerInterface {
+public class ConfigureQuantityOfIngredientsController {
 
 	@GetMapping("/configureQuantityOfIngredients")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {

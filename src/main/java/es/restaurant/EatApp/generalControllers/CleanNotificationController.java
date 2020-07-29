@@ -12,7 +12,7 @@ import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.CleanNotificationView;
 
 @Controller
-public class CleanNotificationController implements ControllerInterface {
+public class CleanNotificationController {
 
 	@PostMapping("/cleanNotification")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
