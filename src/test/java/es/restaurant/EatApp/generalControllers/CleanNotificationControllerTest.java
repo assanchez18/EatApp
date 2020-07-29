@@ -55,4 +55,15 @@ public class CleanNotificationControllerTest {
 		.andExpect(model().attribute("notifications",
 		        		org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
 	}
+
+	@Test
+	public void noCleanNotificationsWrongWaiter() throws Exception {
+		int tableCode = 123;
+		User w = new UserBuilder().email("wrong@email.com").build();
+		this.mockMvc.perform(
+				post("/cleanNotification")
+					.sessionAttr(View.EMAIL_TAG, w.getEmail())
+					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(tableCode)))
+		.andExpect(status().isBadRequest());
+	}
 }

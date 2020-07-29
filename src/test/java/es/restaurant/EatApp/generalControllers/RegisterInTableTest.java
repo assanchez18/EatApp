@@ -1,5 +1,6 @@
 package es.restaurant.EatApp.generalControllers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,7 +39,15 @@ public class RegisterInTableTest {
                         .param(RegisterInTableView.CODE_TAG, Integer.toString(code)))
                 .andExpect(status().isOk());
     }
-    
+	
+    @Test
+    public void getRegistrationInTable() throws Exception {
+    	int code = 123;
+        this.mockMvc.perform(
+                get("/registerInTable"))
+                .andExpect(status().isOk());
+    }
+
     @Test
     public void incorrectRegistrationInTableNotFound() throws Exception {
 		int code = 5000;

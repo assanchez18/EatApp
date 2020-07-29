@@ -2,23 +2,24 @@ package es.restaurant.EatApp.models;
 
 public class MenuBuilder {
 
-	private String description;
+	private Menu menu;
 	
 	public MenuBuilder() {
-		this.description = "empty";
+		this.menu = new Menu(-1L, "emtpy");
 	}
 
 	public MenuBuilder description(String description) {
-		this.description = description;
+		this.menu.setDescription(description);
 		return this;
 	}
 	
 	public MenuBuilder testMenu() {
-		return this.description("Menu de prueba");
+		this.menu = new Menu(1L, "Menu de prueba");
+		return this;
 	}
 	
 	public Menu build() {
-		return new Menu(this.description);
+		return this.menu;
 	}
 
 }

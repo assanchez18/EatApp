@@ -1,6 +1,9 @@
 package es.restaurant.EatApp.generalControllers;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -25,6 +28,13 @@ public class CreateNewOrderTest {
 		this.controller = new CreateNewOrderController();
 		MockitoAnnotations.initMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+	}
+	
+	@Test
+	public void createOrderOkGetRequest() throws Exception {
+		this.mockMvc.perform(
+				get("/createOrder"))
+					.andExpect(status().isOk());
 	}
 	
     @Test

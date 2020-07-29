@@ -71,4 +71,14 @@ public class AskForHelpTest {
 				.andExpect(model().attribute("notifications",
 						org.hamcrest.collection.IsIterableWithSize.iterableWithSize(1)));
 	}
+	
+	@Test
+	public void askForHelpWrongTableTest() throws Exception {
+		this.mockMvcAsk.perform(
+				get("/"));
+		this.mockMvcAsk.perform(
+				get("/askForHelp")
+					.sessionAttr(View.TABLE_TAG, -1))
+				.andExpect(status().isBadRequest());
+	}
 }

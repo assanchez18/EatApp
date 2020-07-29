@@ -1,5 +1,6 @@
 package es.restaurant.EatApp.repositories;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -17,10 +18,10 @@ public class MenuDaoTest {
 	public void selectMenuTest() {
 		MenuDao dao = MenuDao.getMenuDao();
 		Menu testMenu = new MenuBuilder().testMenu().build();
-		Long id = (long) 1;
+		Long id = 1L;
 		Menu menuDB = dao.getMenu(id);
 
-		assertTrue("Error, missing base menu", menuDB != null);
+		assertNotNull("Error, missing base menu", menuDB);
 		assertTrue("Error, menu is not correct", testMenu.equals(menuDB));
 	}
 	

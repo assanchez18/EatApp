@@ -32,7 +32,8 @@ public class Menu {
 	}
 	
 	public boolean equals(Menu u) {
-		return (this.description.compareTo(u.getDescription())== 0);
+		return (this.id == u.getId() 
+				&& this.description.compareTo(u.getDescription())== 0);
 	}
 
 }
