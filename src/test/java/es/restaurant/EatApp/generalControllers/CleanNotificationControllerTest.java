@@ -55,29 +55,4 @@ public class CleanNotificationControllerTest {
 		.andExpect(model().attribute("notifications",
 		        		org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
 	}
-
-	/*@Test
-	public void noCleanNotificationWhenIdNoExists() throws Exception {
-		int tableCode = 123;
-		User wrongUser = new UserBuilder().waiter().email("wrong@mail.com").build();
-		User waiter = new UserBuilder().waiter().build();
-		this.mockMvc.perform(
-				get("/"));
-		this.mockMvc.perform(
-                get("/askForHelp")
-                        .sessionAttr(View.TABLE_TAG, tableCode))
-                .andExpect(status().isOk());
-		this.mockMvc.perform(
-				post("/cleanNotification")
-					.sessionAttr(View.EMAIL_TAG, wrongUser.getEmail())
-					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(tableCode)))
-		.andExpect(status().isBadRequest());
-		this.mockMvc.perform(
-				post("/cleanNotification")
-					.sessionAttr(View.EMAIL_TAG, waiter.getEmail())
-					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(tableCode)))
-		.andExpect(status().isOk())
-		.andExpect(model().attribute("notifications",
-		        		org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
-	}*/
 }

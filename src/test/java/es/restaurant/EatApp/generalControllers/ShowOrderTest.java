@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import es.restaurant.EatApp.views.OrderView;
+
 @RunWith(SpringRunner.class)
 public class ShowOrderTest {
 
@@ -33,9 +35,9 @@ public class ShowOrderTest {
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/showNewOrder")
-    			.queryParam("ids[]", ids)
-    			.queryParam("amounts[]", amounts)
-    			.queryParam("parameters", parameters))
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
     			.andExpect(status().isOk());
     }
     
@@ -45,8 +47,8 @@ public class ShowOrderTest {
     	String[] amounts = {"1","2"};
     	
     	this.mockMvc.perform(post("/showNewOrder")
-    			.queryParam("ids[]", ids)
-    			.queryParam("amounts[]", amounts))
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts))
     			.andExpect(status().isOk());
     }
     
@@ -57,9 +59,9 @@ public class ShowOrderTest {
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/showNewOrder")
-    			.queryParam("ids[]", ids)
-    			.queryParam("amounts[]", amounts)
-    			.queryParam("parameters", parameters))
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
     			.andExpect(status().isBadRequest());
     }
     
@@ -70,9 +72,9 @@ public class ShowOrderTest {
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/showNewOrder")
-    			.queryParam("ids[]", ids)
-    			.queryParam("amounts[]", amounts)
-    			.queryParam("parameters", parameters))
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
     			.andExpect(status().isBadRequest());
     }
     
@@ -83,9 +85,9 @@ public class ShowOrderTest {
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/showNewOrder")
-    			.queryParam("ids[]", ids)
-    			.queryParam("amounts[]", amounts)
-    			.queryParam("parameters", parameters))
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
     			.andExpect(status().isBadRequest());
     }
     
@@ -96,9 +98,9 @@ public class ShowOrderTest {
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/showNewOrder")
-    			.queryParam("ids[]", ids)
-    			.queryParam("amounts[]", amounts)
-    			.queryParam("parameters", parameters))
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
     			.andExpect(status().isBadRequest());
     }
 

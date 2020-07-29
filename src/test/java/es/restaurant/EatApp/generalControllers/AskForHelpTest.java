@@ -31,15 +31,16 @@ public class AskForHelpTest {
 
 	@Before
 	public void setup() {
+		this.tableCode = 123;
 		this.startController = new StartController();
 		this.askController = new AskForHelpController();
 		this.showController = new ShowWaiterNotificationsController();
 		this.cleanController = new CleanNotificationController();
 		MockitoAnnotations.initMocks(this);
-		this.mockMvcAsk = MockMvcBuilders
-				.standaloneSetup(this.startController, this.askController, this.showController, this.cleanController)
-				.build();
-		this.tableCode = 123;
+		this.mockMvcAsk = MockMvcBuilders.standaloneSetup(this.startController,
+														  this.askController,
+														  this.showController,
+														  this.cleanController).build();
 	}
 
 	@After
@@ -56,7 +57,6 @@ public class AskForHelpTest {
 
 	@Test
 	public void askForHelpTest() throws Exception {
-
 		this.mockMvcAsk.perform(
 				get("/"));
 		this.mockMvcAsk.perform(

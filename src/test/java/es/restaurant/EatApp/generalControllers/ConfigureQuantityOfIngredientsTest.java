@@ -37,12 +37,13 @@ public class ConfigureQuantityOfIngredientsTest {
 						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
 						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "10"))
 		.andExpect(status().isOk());
-		//restore original value
+		//restore ingredient
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
 						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
 						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "1"))
 		.andExpect(status().isOk());
+
 	}
 
 	@Test
