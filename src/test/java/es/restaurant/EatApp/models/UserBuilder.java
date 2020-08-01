@@ -13,6 +13,13 @@ public class UserBuilder {
 		this.password = "empty";
 		this.type = new UserType(userType.COMMENSAL);
 	}
+	
+	public UserBuilder employee() {
+		this.email = "test@test.com";
+		this.password = "test";
+		this.type = new UserType(userType.WAITER);
+		return this;
+	}
 
 	public UserBuilder email(String email) {
 		this.email = email;

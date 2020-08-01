@@ -20,6 +20,10 @@ public abstract class Dao {
 		return " AND " + condition;
 	}
 	
+	protected String or(String condition) {
+		return " OR " + condition;
+	}
+	
 	protected String insertInto(String table, String condition) {
 		return "INSERT INTO " + table + " " + condition;
 	}

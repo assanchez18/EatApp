@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head th:insert="base/head">
+<meta charset="ISO-8859-1">
+<title>Register New Employee</title>
+</head>
+<body>
+	<div th:insert="base/navbar.html"></div>
+	<div class="page">
+		<main role="main" class="main container col-xl col-lg col-md col-sm">
+			<div class="starter-template">
+				<div>
+					<h1>Registrar nuevo empleado</h1>
+					<div class="loginForm box" th:insert="loginForm.html"></div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
+</body>
+</html>

@@ -14,7 +14,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	RegisterInTableTest.class,
 	CreateNewOrderTest.class,
 	ShowOrderTest.class,
-	CleanNotificationControllerTest.class
+	CleanNotificationControllerTest.class,
+	RegisterAndRemoveEmployeeControllerTest.class
 })
 public class GeneralControllersTest {
 

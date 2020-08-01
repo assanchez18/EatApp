@@ -55,6 +55,13 @@ public abstract class View {
 		this.model = model;
 	}
 
+	public View(HttpServletResponse res) {
+		this.request = null;
+		this.session = null;
+		this.response = res;
+		this.model = null;
+	}
+
 	public String getEmail() {
 		return (String) this.session.getAttribute(EMAIL_TAG);
 	}

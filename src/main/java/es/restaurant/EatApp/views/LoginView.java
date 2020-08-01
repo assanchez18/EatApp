@@ -16,8 +16,16 @@ public class LoginView extends View {
 		super(model,req,res);
 	}
 	
+	protected LoginView(Model model, HttpServletResponse res) {
+		super(model, res);
+	}
+
+	protected LoginView(HttpServletResponse res) {
+		super(res);
+	}
+
 	public String login(User user) {
-		this.session.setAttribute(EMAIL_TAG, this.getEmail());
+		this.session.setAttribute(EMAIL_TAG, this.getReqEmail());
 		this.session.setAttribute(TYPE_TAG, user.getUserType().getTypeName());
 		setStatusOk();
 		return MAIN_USER_VIEW;
@@ -31,8 +39,7 @@ public class LoginView extends View {
 		return this.request.getParameter(PASSWORD_TAG);
 	}
 
-	@Override
-	public String getEmail() {
+	public String getReqEmail() {
 		return this.request.getParameter(EMAIL_TAG);
 	}
 }

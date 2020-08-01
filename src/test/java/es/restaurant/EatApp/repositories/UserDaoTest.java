@@ -41,6 +41,17 @@ public class UserDaoTest {
     }
 
     @Test
+    public void selectAllEmployeesButOneTest() {
+    	UserDao dao = UserDao.getUserDao();
+    	User user = new UserBuilder().admin().build();
+    	List<User> listUser = dao.getAllEmployeesBut(user.getEmail());
+        assertFalse("Error, query is not working", listUser.isEmpty());
+        for(User u : listUser) {
+        	assertFalse("Error, the user to be excluded is in the list", u.equals(user));
+        }
+    }
+    
+    @Test
     public void firstInsertThenUpdatePasswordThenUpdateEmailFinallyRemoveUserTest(){
     	User user = new UserBuilder().email("test@test.com").password("1234").type(UserType.userType.COMMENSAL).build();
     	UserDao dao = UserDao.getUserDao();

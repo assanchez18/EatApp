@@ -13,25 +13,10 @@
 						<p class="title lead">App for restaurants!!</p>
 					</div>
 				</div>
-				<div th:unless="${session.email}" class="loginForm">
-					<form method="post" action="login">
-						<div class="box">
-							<h1>Bienvenido</h1>
-							<input type="email" required="required" name="email"
-								placeholder="Email" class="email" /> 
-							<input type="password" required="required" name="password"
-								placeholder="password" class="password" />
-							<div th:if="${error}" class="alert alert-danger" role="alert">
-								<p th:text="${error}"></p>
-							</div>
-							<button class="btn btn-success" type="submit">Entrar</button>
-						</div>
-						<!-- End Box -->
-					</form>
-					<p>¿No estás registrado?</p>
-					<a href="#" class="btn btn-info" role="button">Registrar</a>
-					<!-- TODO <p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>-->
-				</div>
+				<div th:unless="${session.email}" class="loginForm box" th:insert="loginForm.html"></div>
+				<p>¿No estás registrado?</p>
+				<a href="#" class="btn btn-info" role="button">Registrar</a>
+				<!-- TODO <p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>-->
 			</div>
 		</main>
 	</div>

@@ -30,6 +30,13 @@ public class User {
 		this.type = type;
 	}
 	
+	public User (String email, String password, int type) {
+		this.id = -1L;
+		this.email = email;
+		this.password = password;
+		this.type = new UserType(type);
+	}
+	
 	public User (String email, String password) {
 		this.email = email;
 		this.password = password;

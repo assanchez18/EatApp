@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserType;
 
-public class UserDao extends Dao{
+public class UserDao extends Dao {
 	
 	private static UserDao dao;
 
@@ -83,5 +83,13 @@ public class UserDao extends Dao{
 	public boolean deleteUser(User user) {
         String sql = delete(TABLE_NAME, where("email=?"));
         return (this.db.getJdbcTemplate().update(sql, user.getEmail()) == 1);
+	}
+
+	public List<User> getAllEmployeesBut(String email) {
+		String sql = selectAllFrom(TABLE_NAME) + where("(user.type = " + UserType.userType.ADMIN.ordinal()
+														+ or("user.type = " + UserType.userType.WAITER.ordinal()) 
+														+ or("user.type = " + UserType.userType.COOK.ordinal() + ")")
+														+ and("user.email != \"" + email + "\""));
+		return executeQuery(sql);
 	}
 }
