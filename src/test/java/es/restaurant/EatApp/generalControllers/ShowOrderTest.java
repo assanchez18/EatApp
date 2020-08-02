@@ -66,9 +66,22 @@ public class ShowOrderTest {
     }
     
     @Test
-    public void showOrderErrorIsNotValidProductIdInDatabase() throws Exception {
-    	String[] ids = {"1","2"};// TODO Secure database -> Failing
+    public void showOrderErrorIsValidButOneProductIdInDatabase() throws Exception {
+    	String[] ids = {"1","24"};// TODO Secure database -> Failing
     	String[] amounts = {"1","2"};
+    	String parameters = "Text";
+    	
+    	this.mockMvc.perform(post("/showNewOrder")
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void showOrderErrorIsNotValidProductIdInDatabase() throws Exception {
+    	String[] ids = {"24"};// TODO Secure database -> Failing
+    	String[] amounts = {"1"};
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/showNewOrder")

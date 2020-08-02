@@ -73,9 +73,22 @@ public class CreateNewOrderTest {
     }
     
     @Test
-    public void createOrderErrorIsNotValidProductIdInDatabase() throws Exception {
-    	String[] ids = {"1","2"};// TODO Secure database -> Failing
+    public void createOrderErrorIsValidButOneProductIdInDatabase() throws Exception {
+    	String[] ids = {"1","24"};
     	String[] amounts = {"1","2"};
+    	String parameters = "Text";
+    	
+    	this.mockMvc.perform(post("/createOrder")
+    			.queryParam(OrderView.IDS_TAG, ids)
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void createOrderErrorIsInvalidProductIdInDatabase() throws Exception {
+    	String[] ids = {"24"};
+    	String[] amounts = {"1"};
     	String parameters = "Text";
     	
     	this.mockMvc.perform(post("/createOrder")
