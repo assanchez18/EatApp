@@ -42,7 +42,6 @@ public class RegisterInTableTest {
 	
     @Test
     public void getRegistrationInTable() throws Exception {
-    	int code = 123;
         this.mockMvc.perform(
                 get("/registerInTable"))
                 .andExpect(status().isOk());
