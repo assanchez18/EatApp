@@ -6,6 +6,7 @@ import java.util.Map;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.views.OrderView;
 
@@ -41,7 +42,8 @@ public abstract class OrderController {
 			products.put(product, amounts[i]);
 		}
 		Order order = new Order(products, parameters, new OrderState(OrderState.orderState.QUEUED));
-		// TODO Save order in cache
+		OrderDao orderDao = OrderDao.getOrderDao();
+		orderDao.saveInCache(order);
 		return order;
 	}
 	
