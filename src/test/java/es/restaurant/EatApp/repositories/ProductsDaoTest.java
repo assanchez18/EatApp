@@ -13,6 +13,7 @@ import es.restaurant.EatApp.models.ProductPriority;
 
 @RunWith(SpringRunner.class)
 public class ProductsDaoTest {
+	
 	@Test
 	public void selectProductTest() {
 		ProductDao dao = ProductDao.getProductDao();

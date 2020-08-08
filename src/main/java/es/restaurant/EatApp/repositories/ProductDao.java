@@ -3,9 +3,7 @@ package es.restaurant.EatApp.repositories;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.jdbc.core.RowMapper;
 
 import es.restaurant.EatApp.models.Product;
@@ -15,7 +13,6 @@ public class ProductDao extends Dao {
 
 	private static ProductDao dao;
 	private static final String TABLE_NAME = "products";
-	private Map<Integer, Product> products;
 
 	public static ProductDao getProductDao() {
 		if(dao == null) {
@@ -26,8 +23,6 @@ public class ProductDao extends Dao {
 
 	private ProductDao() {
 		super();
-		this.products = new HashMap<Integer,Product>();
-		loadProducts();
 	}
 
 	private RowMapper<Product> buildProduct() {
@@ -42,12 +37,6 @@ public class ProductDao extends Dao {
 		};
 	}
 
-	private void loadProducts() {
-		for(Product i : executeQuery(selectAllProducts())) {
-			this.products.put(i.getId(), i);
-		}
-	}
-
 	public String selectAllProducts() {
 		return selectAllFrom(TABLE_NAME);
 	}
@@ -56,11 +45,11 @@ public class ProductDao extends Dao {
 	}
 
 	public Collection<Product> getProducts() {
-		return this.products.values();
+		return executeQuery(selectAllProducts());
 	}
 
 	public Product getProductById(int id) {
-		return this.products.get(id);
+		return findProduct(id);
 	}
 
 

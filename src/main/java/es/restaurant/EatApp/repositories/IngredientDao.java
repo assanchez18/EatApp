@@ -35,9 +35,7 @@ public class IngredientDao extends Dao {
         	}
 		};
 	}
-	
 
-	
 	public String selectAllIngredients() {
 		return selectAllFrom(TABLE_NAME);
 	}
@@ -46,7 +44,7 @@ public class IngredientDao extends Dao {
 	}
 	
 	public List<Ingredient> getIngredients() {
-		return executeQuery(selectAllFrom(TABLE_NAME));
+		return executeQuery(selectAllIngredients());
 	}
 
 	public boolean updateMinimumAmount(Ingredient ingredient, double newValue) {
@@ -81,7 +79,7 @@ public class IngredientDao extends Dao {
 		}
 		return false;
 	}
-	
+
 	public boolean deleteIngredient(Ingredient ingredient) {
         String sql = delete(TABLE_NAME, where("id=?"));
         if (this.db.getJdbcTemplate().update(sql, ingredient.getId()) == 1) {
