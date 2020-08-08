@@ -24,7 +24,7 @@ public class ConfigureQuantityOfIngredientsController {
 	@PostMapping("/manageQuantityOfIngredient")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, req, res);
-		Ingredient ingredient = IngredientDao.getIngredientDao().getIngredientById(view.getIngredientId());
+		Ingredient ingredient = IngredientDao.getIngredientDao().findIngredient(view.getIngredientId());
 		if(ingredient == null) {
 			return view.error();
 		}

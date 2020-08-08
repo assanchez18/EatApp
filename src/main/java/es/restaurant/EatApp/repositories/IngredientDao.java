@@ -2,10 +2,7 @@ package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.jdbc.core.RowMapper;
 
 import es.restaurant.EatApp.models.Ingredient;
@@ -14,7 +11,6 @@ public class IngredientDao extends Dao {
 	
 	private static IngredientDao dao;
 	private static final String TABLE_NAME = "ingredients";
-	private Map<Integer, Ingredient> ingredients;
 	
 	public static IngredientDao getIngredientDao() {
 		if(dao == null) {
@@ -25,8 +21,6 @@ public class IngredientDao extends Dao {
 
 	private IngredientDao() {
 		super();
-		this.ingredients = new HashMap<Integer,Ingredient>();
-		loadIngredients();
 	}
 
 	private RowMapper<Ingredient> buildIngredient() {
@@ -42,11 +36,7 @@ public class IngredientDao extends Dao {
 		};
 	}
 	
-	private void loadIngredients() {
-		for(Ingredient i : executeQuery(selectAllIngredients())) {
-			this.ingredients.put(i.getId(), i);
-		}
-	}
+
 	
 	public String selectAllIngredients() {
 		return selectAllFrom(TABLE_NAME);
@@ -55,14 +45,10 @@ public class IngredientDao extends Dao {
 		return this.db.getJdbcTemplate().query(sql, buildIngredient());
 	}
 	
-	public Collection<Ingredient> getIngredients() {
-		return this.ingredients.values();
+	public List<Ingredient> getIngredients() {
+		return executeQuery(selectAllFrom(TABLE_NAME));
 	}
 
-	public Ingredient getIngredientById(int id) {
-		return this.ingredients.get(id);
-	}
-	
 	public boolean updateMinimumAmount(Ingredient ingredient, double newValue) {
 		String sql = update(TABLE_NAME, "minimumAmount=?" + where("id=?"));
         ingredient = this.findIngredient(ingredient);
@@ -83,10 +69,13 @@ public class IngredientDao extends Dao {
 	}
 
 	public boolean insert(Ingredient ingredient) {
-		if(getIngredientById(ingredient.getId()) == null) {
+		if(findIngredient(ingredient.getId()) == null) {
 			String sql = insertInto(TABLE_NAME, "(id, name, amount, description, minimumAmount) VALUES (?,?,?,?,?)");
-			if (this.db.getJdbcTemplate().update(sql, ingredient.getId(), ingredient.getName(), ingredient.getAmount(), ingredient.getDescription(), ingredient.getMinimumAmount()) == 1) {
-				this.ingredients.put(ingredient.getId(), ingredient);
+			if (this.db.getJdbcTemplate().update(sql, ingredient.getId(),
+													  ingredient.getName(),
+													  ingredient.getAmount(),
+													  ingredient.getDescription(),
+													  ingredient.getMinimumAmount()) == 1) {
 				return true;
 			}
 		}
@@ -96,7 +85,6 @@ public class IngredientDao extends Dao {
 	public boolean deleteIngredient(Ingredient ingredient) {
         String sql = delete(TABLE_NAME, where("id=?"));
         if (this.db.getJdbcTemplate().update(sql, ingredient.getId()) == 1) {
-        	this.ingredients.remove(ingredient.getId());
         	return true;
         }
         return false;
@@ -125,7 +113,6 @@ public class IngredientDao extends Dao {
 
 	private boolean updateIngredient(String sql, Ingredient ingredient, String newValue) {
 		if( this.db.getJdbcTemplate().update(sql, newValue, ingredient.getId()) == 1) {
-			this.ingredients.put(ingredient.getId(), ingredient);
 			return true;
 		}
 		return false;
