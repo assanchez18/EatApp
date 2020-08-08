@@ -3,6 +3,8 @@ package es.restaurant.EatApp.repositories;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,5 +41,14 @@ public class IngredientsDaoTest {
 		assertTrue("Error updating amount", dao.updateAmount(ingredient, updatedIngredient.getAmount()));
 		//remove
 		assertTrue("Error, unable to delete the ingredient", dao.deleteIngredient(ingredient));
+	}
+
+	@Test
+	public void getIngredientsUnderMinimumQuantity() {
+		List<Ingredient> ingredients = IngredientDao.getIngredientDao().getUnderMinimumQuantityIngredients("and id BETWEEN 1 AND 4 ORDER BY id");
+		assertTrue("Error selecting ingredients under minimum quantity", ingredients.size() == 3);
+		assertTrue("Error ingredient 1 under minimum quantity is not correct", ingredients.get(0).getId() == 1);
+		assertTrue("Error ingredient 3 under minimum quantity is not correct", ingredients.get(1).getId() == 3);
+		assertTrue("Error ingredient 4 under minimum quantity is not correct", ingredients.get(2).getId() == 4);
 	}
 }

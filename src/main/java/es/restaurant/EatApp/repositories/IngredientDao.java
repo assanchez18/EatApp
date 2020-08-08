@@ -115,4 +115,16 @@ public class IngredientDao extends Dao {
 		}
 		return false;
 	}
+
+	public String underMinimumQuantityIngredientsQuery() {
+		return selectAllIngredients() + where(" amount <= minimumAmount ");
+	}
+	
+	public List<Ingredient> getUnderMinimumQuantityIngredients() {
+		return executeQuery(underMinimumQuantityIngredientsQuery());
+	}
+	
+	public List<Ingredient> getUnderMinimumQuantityIngredients(String condition) {
+		return executeQuery(underMinimumQuantityIngredientsQuery() + condition);
+	}
 }
