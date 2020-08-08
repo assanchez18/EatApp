@@ -15,7 +15,7 @@
 						<thead>
 							<tr>
 								<th>Producto</th>
-								<th>Descripciónl</th>
+								<th>Descripción</th>
 								<th>Precio</th>
 								<th>Cantidad</th>
 								<th>Estado</th>
@@ -42,45 +42,27 @@
 					<div id="parameters">
 						<h3 th:text="${session.order.parameters}"></h3>
 					</div>
-				<form action="createOrder">
-					<button type="submit" class="btn btn-success">Volver a
-						crear pedido</button>
-				</form>
+					<form
+						th:if="${session.orderInProgress == null or session.orderInProgress == false}"
+						action="changeOrder">
+						<button type="submit" class="btn btn-success">Cambiar el
+							pedido</button>
+					</form>
+					<form
+						th:unless="${session.orderInProgress == null or session.orderInProgress == false}"
+						action="createOrder">
+						<button type="submit" class="btn btn-success">Seguir
+							creando el pedido</button>
+					</form>
 				</div>
-				<div th:unless="${session.order}">
-					<h2 class="intro">Este es tu pedido:</h2>
-					<table th:if="${order}" id="dataTable"
-						class="table table-striped display">
-						<thead>
-							<tr>
-								<th>Producto</th>
-								<th>Descripciónl</th>
-								<th>Precio</th>
-								<th>Cantidad</th>
-								<th>Estado</th>
-							</tr>
-						</thead>
-						<tr th:each="product: ${order.products}">
-							<td th:text="${product.key.name}" /></td>
-							<td th:text="${product.key.description}"></td>
-							<td th:text="${product.key.Price}"></td>
-							<td th:text="${product.value}"></td>
-							<td>WIP</td>
-							<!-- TODO Product Status -->
-						</tr>
-						<tr>
-							<td />Total
-							</td>
-							<td></td>
-							<td></td>
-							<!-- TODO Price -->
-							<td></td>
-							<td th:text="${order.state.state}"></td>
-						</tr>
-					</table>
-					<div id="parameters">
-						<h3 th:text="${order.parameters}"></h3>
-					</div>
+				<div
+					th:if="${session.order == null and (session.orderInProgress == null or session.orderInProgress == false)}">
+					<h2>Vaya, parece que no tienes un pedido en proceso, ¡crea
+						uno!</h2>
+					<form action="createOrder">
+						<button type="submit" class="btn btn-success">Crear
+							pedido</button>
+					</form>
 				</div>
 			</div>
 		</main>

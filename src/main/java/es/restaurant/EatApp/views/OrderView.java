@@ -6,16 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
 public abstract class OrderView extends View {
-	
+
 	protected static final String ORDER_TAG = "order";
 	public static final String IDS_TAG = "ids[]";
 	public static final String AMOUNTS_TAG = "amounts[]";
 	public static final String PARAMS_TAG = "parameters";
 	protected static final String ERROR_EMPTY_ORDER_MSG = "Vaya!, parece que tu pedido estaba vacío";
 	protected static final String ERROR_MSG = "Ha habido un problema con tu pedido, vuelve a intentarlo";
+	protected static final String ORDER_IN_PROGRESS = "orderInProgress";
 
 	protected static final String SHOW_ORDER_VIEW = "showOrder";
-	
+
 	public OrderView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
