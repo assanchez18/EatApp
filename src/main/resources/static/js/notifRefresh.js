@@ -1,3 +1,3 @@
 window.setTimeout(function() {
-	document.getElementById("notification").submit();
+	document.getElementById("cleanNotification").submit();
 }, 30000);
