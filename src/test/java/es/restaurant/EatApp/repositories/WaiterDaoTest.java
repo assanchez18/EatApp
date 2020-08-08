@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.restaurant.EatApp.models.Waiter;
+import es.restaurant.EatApp.models.Employee;
 import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
@@ -19,7 +19,7 @@ public class WaiterDaoTest {
 	@Test
     public void selectWaiterTest() {
         WaiterDao dao = WaiterDao.getWaiterDao();
-        List<Waiter> waiters = dao.executeWaiterQuery(dao.selectAllWaiters() + dao.and(("id = 4")));
+        List<Employee> waiters = dao.executeWaiterQuery(dao.selectAllWaiters() + dao.and(("id = 4")));
         User waiter = new UserBuilder().waiter().build();
         
         assertTrue("Error, missing base waiter", waiters.size() == 1);

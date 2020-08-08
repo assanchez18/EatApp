@@ -4,38 +4,8 @@
 <hr>
 <h2 class="intro">¿Qué puedes hacer en EatApp?</h2>
 <div class="row col-xl-11 offset-xl-1 col-lg-11 offset-lg-1">
-	<div class="mainNotifications column col-xl-11 col-lg-11 col-sm-11">
-		<h3>Mis notificaciones</h3>
-		<table th:if="${notifications}" id="dataTable"
-			class="table table-striped display">
-			<thead>
-				<tr>
-					<th>Tipo</th>
-					<th>Mesa</th>
-				</tr>
-			</thead>
-			<tr th:if="${not #lists.isEmpty(notifications)}"
-				th:each="notification: ${notifications}">
-				<td th:text="${notification.type}" />
-				<td>
-					<form id="notification" method="post" action="cleanNotification">
-						<button class="btn btn-sm btn-success" th:name="notificationId"
-							type="submit" th:value="${notification.owner}" title='completar'
-							th:text="${notification.owner}"></button>
-					</form>
-				</td>
-			</tr>
-			<tr th:if="${#lists.isEmpty(notifications)}">
-				<td>No hay notificaciones</td>
-			</tr>
-		</table>
-		<form id="notification" method="post" action="showNotification">
-			<div>
-				<button class="btn btn-success" type="submit">Ver mis
-					notificaciones</button>
-			</div>
-		</form>
-	</div>
+	<div class="mainNotifications column col-xl-12 col-lg-12 col-sm-12"
+		th:insert="base/notifications.html"></div>
 	<div
 		class="column mainOptions col-xl-5 col-lg-5 col-sm-12 float-md-center">
 		<a href="/">Cancelar producto</a>

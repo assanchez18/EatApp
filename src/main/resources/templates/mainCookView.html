@@ -4,6 +4,8 @@
 <hr>
 <h2 class="intro">¿Qué puedes hacer en EatApp?</h2>
 <div class="row col-xl-11 offset-xl-1 col-lg-11 offset-lg-1">
+	<div class="mainNotifications column col-xl-12 col-lg-12 col-sm-12"
+		th:insert="base/notifications.html"></div>
 	<div
 		class="column mainOptions col-xl-5 col-lg-5 col-sm-12 float-md-center">
 		<a href="/configureQuantityOfIngredients">Configurar cantidad
@@ -24,7 +26,8 @@
 		<a href="/">Gestionar estado de producto</a>
 	</div>
 	<div class="column mainOptions col-xl-5 offset-xl-1 col-lg-5 col-sm-12">
-		<a href="/showIngredientsAmount">Ver cantidades de los ingredientes</a>
+		<a href="/showIngredientsAmount">Ver cantidades de los
+			ingredientes</a>
 	</div>
 	<div
 		class="column mainOptions col-xl-5 col-lg-5 offset-lg-1 col-sm-12 ">

@@ -1,0 +1,31 @@
+
+<h3>Mis notificaciones</h3>
+<table th:if="${notifications}" id="dataTable"
+	class="table table-striped display">
+	<thead>
+		<tr>
+			<th>Tipo</th>
+			<th>Mesa</th>
+		</tr>
+	</thead>
+	<tr th:if="${not #lists.isEmpty(notifications)}"
+		th:each="notification: ${notifications}">
+		<td th:text="${notification.type}" />
+		<td>
+			<form id="notification" method="post" action="cleanNotification">
+				<button class="btn btn-sm btn-success" th:name="notificationId"
+					type="submit" th:value="${notification.owner}" title='completar'
+					th:text="${notification.owner}"></button>
+			</form>
+		</td>
+	</tr>
+	<tr th:if="${#lists.isEmpty(notifications)}">
+		<td>No hay notificaciones</td>
+	</tr>
+</table>
+<form id="notification" method="post" action="showNotification">
+	<div>
+		<button class="btn btn-success" type="submit">Ver mis
+			notificaciones</button>
+	</div>
+</form>

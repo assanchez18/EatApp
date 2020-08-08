@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import es.restaurant.EatApp.models.Waiter;
+import es.restaurant.EatApp.models.Employee;
 import es.restaurant.EatApp.repositories.TableDao;
 import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.StartView;
@@ -23,7 +23,7 @@ public class StartController {
 	}
 	
 	private void waitersObserveTables() {
-		for (Waiter w : WaiterDao.getWaiterDao().getWaiters()) {
+		for (Employee w : WaiterDao.getWaiterDao().getWaiters()) {
 			w.addObserver(TableDao.getTableDao().getTables());
 		}
 	}

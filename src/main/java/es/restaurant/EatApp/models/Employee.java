@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Waiter extends User implements Observer{
+public class Employee extends User implements Observer{
 
 	private List<Notification> notifications;
 	
-	public Waiter() {
+	public Employee() {
 		this.notifications = new ArrayList<Notification>();
 	}
 	
-	public Waiter (Long id, String email, String password, int type) {
+	public Employee (Long id, String email, String password, int type) {
 		super(id, email, password,type);
 		this.notifications = new ArrayList<Notification>();
 	}
@@ -28,6 +28,10 @@ public class Waiter extends User implements Observer{
 		for(Observable o : tables) {
 			o.addObserver(this);
 		}
+	}
+	
+	public void addObserver(Order order) {
+		order.addObserver(this);
 	}
 
 	public List<Notification> getNotifications() {

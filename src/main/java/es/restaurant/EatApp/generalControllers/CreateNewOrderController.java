@@ -12,11 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.models.Employee;
+import es.restaurant.EatApp.repositories.CookDao;
 import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.repositories.ProductDao;
+import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.CreateNewOrderView;
 
 @Controller
@@ -43,7 +47,18 @@ public class CreateNewOrderController extends OrderController {
 
 	protected String interact() {
 		OrderDao.getOrderDao().saveInCache(this.order);
+		makeEmployersObserveOrder();
+		this.order.changeStatus(Notification.Type.ORDER_QUEUED, view.getTableCode());
 		return this.view.interactPost(this.order);
+	}
+
+	private void makeEmployersObserveOrder() {
+		for (Employee w : WaiterDao.getWaiterDao().getWaiters()) {
+			w.addObserver(this.order);
+		}
+		for (Employee c : CookDao.getCookDao().getCooks()) {
+			c.addObserver(this.order);
+		}
 	}
 
 	protected CreateNewOrderView getView() {

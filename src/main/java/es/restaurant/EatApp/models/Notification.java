@@ -4,9 +4,11 @@ public class Notification {
 
 	public enum Type {
 		HELP,
-		MANAGE_PRODUCT_STATUS,//Se tendrá que dividir dependiendo de los estados
-		CANCEL_PRODUCT,
+		// Order status
+		ORDER_QUEUED,//More Order States whith ManageOrderStatus UC
 		CANCEL_ORDER,
+		// Product Status
+		CANCEL_PRODUCT,
 		MANAGE_GROCERIES, //Se divirá dependiendo de qué haga falta
 		//Meteremos la de pagar, plato en preparación, plato cancelado.. etc
 	}

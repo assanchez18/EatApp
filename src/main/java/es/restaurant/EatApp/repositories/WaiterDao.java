@@ -8,11 +8,11 @@ import java.util.List;
 import org.springframework.jdbc.core.RowMapper;
 
 import es.restaurant.EatApp.models.UserType;
-import es.restaurant.EatApp.models.Waiter;
+import es.restaurant.EatApp.models.Employee;
 
 public class WaiterDao extends UserDao{
 	
-	private List<Waiter> waiters;
+	private List<Employee> waiters;
 	private static WaiterDao dao;
 	private final static int USER_TYPE = UserType.userType.WAITER.ordinal();
 	
@@ -25,7 +25,7 @@ public class WaiterDao extends UserDao{
 	
 	private WaiterDao() {
 		super();
-		this.waiters = new ArrayList<Waiter>();
+		this.waiters = new ArrayList<Employee>();
 		loadWaiters();
 	}
 	
@@ -33,10 +33,10 @@ public class WaiterDao extends UserDao{
 		this.waiters = executeWaiterQuery(selectAllWaiters());
 	}
 	
-	private RowMapper<Waiter> buildWaiter() {
-		return new RowMapper<Waiter>() {
-			public Waiter mapRow(ResultSet result, int rowNum) throws SQLException {
-				Waiter waiter = new Waiter(result.getLong("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
+	private RowMapper<Employee> buildWaiter() {
+		return new RowMapper<Employee>() {
+			public Employee mapRow(ResultSet result, int rowNum) throws SQLException {
+				Employee waiter = new Employee(result.getLong("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
 				return waiter;
         	}
 		};
@@ -46,16 +46,16 @@ public class WaiterDao extends UserDao{
 		return selectAllFromUser() + where("type = " + USER_TYPE);
 	}
 	
-	public List<Waiter> executeWaiterQuery(String sql) {
+	public List<Employee> executeWaiterQuery(String sql) {
 		return this.db.getJdbcTemplate().query(sql, buildWaiter());
 	}
 	
-	public List<Waiter> getWaiters() {
+	public List<Employee> getWaiters() {
 		return this.waiters;
 	}
 	
-	public Waiter getWaiter(String email) {
-		for(Waiter w : this.waiters) {
+	public Employee getWaiter(String email) {
+		for(Employee w : this.waiters) {
 			if (w.getEmail().compareTo(email)==0) {
 				return w;
 			}

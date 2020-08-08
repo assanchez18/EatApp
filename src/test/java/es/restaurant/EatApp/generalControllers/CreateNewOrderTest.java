@@ -2,9 +2,10 @@ package es.restaurant.EatApp.generalControllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,19 +14,40 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.models.UserBuilder;
+import es.restaurant.EatApp.views.CleanNotificationView;
 import es.restaurant.EatApp.views.OrderView;
+import es.restaurant.EatApp.views.View;
 
 @RunWith(SpringRunner.class)
 public class CreateNewOrderTest {
 
-	private CreateNewOrderController controller;
+	private CreateNewOrderController createNewOrderController;
+	private CleanNotificationController cleanController;
 	private MockMvc mockMvc;
+	
+	private int tableCode = 123;
 	
 	@Before
 	public void setup() {
-		this.controller = new CreateNewOrderController();
+		this.createNewOrderController = new CreateNewOrderController();
+		this.cleanController = new CleanNotificationController();
 		MockitoAnnotations.initMocks(this);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(this.createNewOrderController,
+				  this.cleanController).build();
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		User w = new UserBuilder().waiter().build();
+		this.mockMvc.perform(
+				post("/cleanNotification")
+					.sessionAttr(View.EMAIL_TAG, w.getEmail())
+					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(this.tableCode)))
+				.andExpect(status().isOk())
+				.andExpect(model().attribute("notifications",
+						org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
 	}
 	
 	@Test
@@ -44,7 +66,8 @@ public class CreateNewOrderTest {
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
     			.queryParam(OrderView.AMOUNTS_TAG, amounts)
-    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.queryParam(OrderView.PARAMS_TAG, parameters)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isOk());
     }
     
@@ -55,7 +78,8 @@ public class CreateNewOrderTest {
     	
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
-    			.queryParam(OrderView.AMOUNTS_TAG, amounts))
+    			.queryParam(OrderView.AMOUNTS_TAG, amounts)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isOk());
     }
     
@@ -68,7 +92,8 @@ public class CreateNewOrderTest {
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
     			.queryParam(OrderView.AMOUNTS_TAG, amounts)
-    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.queryParam(OrderView.PARAMS_TAG, parameters)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isBadRequest());
     }
     
@@ -81,7 +106,8 @@ public class CreateNewOrderTest {
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
     			.queryParam(OrderView.AMOUNTS_TAG, amounts)
-    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.queryParam(OrderView.PARAMS_TAG, parameters)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isOk());
     }
     
@@ -94,7 +120,8 @@ public class CreateNewOrderTest {
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
     			.queryParam(OrderView.AMOUNTS_TAG, amounts)
-    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.queryParam(OrderView.PARAMS_TAG, parameters)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isBadRequest());
     }
     
@@ -107,7 +134,8 @@ public class CreateNewOrderTest {
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
     			.queryParam(OrderView.AMOUNTS_TAG, amounts)
-    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.queryParam(OrderView.PARAMS_TAG, parameters)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isBadRequest());
     }
     
@@ -120,7 +148,8 @@ public class CreateNewOrderTest {
     	this.mockMvc.perform(post("/createOrder")
     			.queryParam(OrderView.IDS_TAG, ids)
     			.queryParam(OrderView.AMOUNTS_TAG, amounts)
-    			.queryParam(OrderView.PARAMS_TAG, parameters))
+    			.queryParam(OrderView.PARAMS_TAG, parameters)
+    			.sessionAttr(OrderView.TABLE_TAG, tableCode))
     			.andExpect(status().isBadRequest());
     }
 

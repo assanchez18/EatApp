@@ -44,7 +44,7 @@ public class AskForHelpTest {
 	}
 
 	@After
-	public void teadDown() throws Exception {
+	public void tearDown() throws Exception {
 		User w = new UserBuilder().waiter().build();
 		this.mockMvcAsk.perform(
 				post("/cleanNotification")

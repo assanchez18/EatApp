@@ -1,24 +1,39 @@
 package es.restaurant.EatApp.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Order {
+public class Order extends Observable {
 	
 	private int id;
 	private OrderState state;
 	private Map<Product, Integer> products;
 	private String parameters;
 	private int userId;
+	private List<Observer> observers;
 	
 	public Order() {
 		this.id = 1;
 		this.state = new OrderState();
+		this.observers = new ArrayList<Observer>();
 	}
 
 	public Order(Map<Product, Integer> products, String parameters, OrderState state) {
 		this.products = products;
 		this.parameters = parameters;
 		this.state = state;
+	}
+	
+	public void addObservers(Employee waiter) {
+		this.observers.add(waiter);
+	}
+	
+	public void changeStatus(Notification.Type type, int i) {
+		this.setChanged();
+		this.notifyObservers(new Notification(type, i));
 	}
 
 	public OrderState getState() {

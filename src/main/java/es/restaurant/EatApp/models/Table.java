@@ -15,7 +15,7 @@ public class Table extends Observable {
 		this.observers = new ArrayList<Observer>();
 	}
 	
-	public void addObservers(Waiter waiter) {
+	public void addObservers(Employee waiter) {
 		this.observers.add(waiter);
 	}
 	

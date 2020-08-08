@@ -41,4 +41,8 @@ public class CreateNewOrderView extends OrderView {
 		return (boolean) value;
 	}
 
+	public int getTableCode() {
+		return (int) this.session.getAttribute(TABLE_TAG);
+	}
+
 }
