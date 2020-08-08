@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.views.CreateNewOrderView;
 
@@ -16,7 +17,6 @@ import es.restaurant.EatApp.views.CreateNewOrderView;
 public class CreateNewOrderController extends OrderController {
 
 	private CreateNewOrderView view;
-	private Order order;
 	
 	@GetMapping("/createOrder")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -27,11 +27,15 @@ public class CreateNewOrderController extends OrderController {
 	@PostMapping("/createOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view= new CreateNewOrderView(model, req, res);
-		this.order = new Order();
-		return createOrder(view, order);
+		return createOrder();
 	}
 
 	protected String interact() {
+		OrderDao.getOrderDao().saveInCache(this.order);
 		return this.view.interactPost(this.order);
+	}
+	
+	protected CreateNewOrderView getView() {
+		return this.view;
 	}
 }

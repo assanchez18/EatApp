@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.views.ShowOrderView;
 
 @Controller
@@ -18,18 +19,22 @@ public class ShowOrderController extends OrderController {
 	@GetMapping("/showNewOrder")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new ShowOrderView(model, req, res);
-		// TODO get from database, now is failing
-		return view.interactPost();	
+		this.order = OrderDao.getOrderDao().takeFromCacheWithUserId(1); // TODO change for user Id
+		return view.interactGet(this.order); // TODO is it neccessary interactGet??
 	}
 
 
 	@PostMapping("/showNewOrder")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new ShowOrderView(model, req, res);
-		return createOrder(this.view);	
+		return createOrder();	
 	}
 
 	protected String interact() {
-		return this.view.interactPost();
+		return this.view.interactPost(this.order);
+	}
+	
+	protected ShowOrderView getView() {
+		return this.view;
 	}
 }

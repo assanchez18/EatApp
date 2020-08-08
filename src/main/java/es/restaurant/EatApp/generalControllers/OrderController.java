@@ -11,24 +11,22 @@ import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.views.OrderView;
 
 public abstract class OrderController {
+	
+	protected Order order;
 
-
-	protected String createOrder(OrderView view, Order order) {
+	protected String createOrder() {
+		OrderView view = this.getView();
 		Integer[] ids = view.getIds();
 		Integer[] amounts = view.getAmounts();
 		String parameters = view.getParameter();
 		if(ids.length == 0 || amounts.length == 0) {
 			return view.errorWithOrder();
 		}
-		order = createOrder(ids, amounts, parameters);
+		this.order = createOrder(ids, amounts, parameters);
 		if(order.getProducts().size() == 0) {
 			return view.errorEmptyOrder();
 		}
 		return interact();
-	}
-
-	protected String createOrder(OrderView view) {
-		return createOrder(view, new Order());
 	}
 	
 	private Order createOrder(Integer[] ids, Integer[] amounts, String parameters) {
@@ -41,11 +39,10 @@ public abstract class OrderController {
 			}
 			products.put(product, amounts[i]);
 		}
-		Order order = new Order(products, parameters, new OrderState(OrderState.orderState.QUEUED));
-		OrderDao orderDao = OrderDao.getOrderDao();
-		orderDao.saveInCache(order);
-		return order;
+		return new Order(products, parameters, new OrderState(OrderState.orderState.QUEUED));
 	}
 	
 	protected abstract String interact();
+	
+	protected abstract OrderView getView();
 }

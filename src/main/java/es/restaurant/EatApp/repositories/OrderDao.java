@@ -20,13 +20,14 @@ public class OrderDao extends UserDao{
 	private OrderDao() {
 		super();
 		this.orders = new HashMap<Integer, Order>();
+		this.orders.put(1, new Order());
 	}
 	
 	public void saveInCache(Order order) {
 		this.orders.put(order.getId(), order);
 	}
 	
-	public Order takeFromCache(Order order) {
-		return this.orders.get(order.getId());
+	public Order takeFromCacheWithUserId(int userId) {
+		return this.orders.get(userId);
 	}
 }

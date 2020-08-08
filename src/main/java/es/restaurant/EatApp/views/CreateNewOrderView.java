@@ -19,7 +19,12 @@ public class CreateNewOrderView extends OrderView {
 	}
 	
 	public String interactGet(Collection<Product> collection) {
-		this.model.addAttribute("products", collection);
+		Order order = (Order) this.session.getAttribute(ORDER_TAG);
+		if(order != null) {
+			interactWithExistingOrder(collection, order);
+		} else {
+			this.model.addAttribute("products", collection);
+		}
 		setStatusOk();
 		return CREATE_NEW_ORDER_VIEW;
 	}
@@ -29,6 +34,18 @@ public class CreateNewOrderView extends OrderView {
 		this.model.addAttribute(ORDER_TAG, order);
 		setStatusOk();
 		return SHOW_ORDER_VIEW;
+	}
+	
+	private void interactWithExistingOrder(Collection<Product> collection, Order order) {
+		for(Product product : collection) {
+			order.getProducts().putIfAbsent(product, 0);
+//			for (Product key : order.getProducts().keySet()) {
+//				if(key.getId() != product.getId()) {
+//					order.getProducts().put(product, 0);
+//				}
+//			}
+		}
+		this.session.setAttribute(ORDER_TAG, order);
 	}
 
 }

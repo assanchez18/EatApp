@@ -71,9 +71,8 @@ public class Product {
 	
 	public boolean equals(Product u) {
 		return (this.name.compareTo(u.getName())== 0 
-				&& this.description.compareTo(u.getDescription())== 0)
-				&& this.price == u.getPrice()
-				&& this.priority.equals(u.getPriority());
+				&& this.description.compareTo(u.getDescription())== 0
+				&& this.price == u.getPrice()); // TODO shouldn't it be the id only?
 	}
 	
 }
