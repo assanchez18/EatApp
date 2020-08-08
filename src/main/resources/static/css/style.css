@@ -1,16 +1,18 @@
+html, body {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+
 h1, h2 {
 	font-family: lobster;
 	color: #000000;
 }
 
-.page {
-	height: 100%;
-	margin-top: 2%;
-}
-
 .main {
 	background: #CFE0F7;
 	height: 100%;
+	overflow: auto;
 }
 
 .jumbotron {
