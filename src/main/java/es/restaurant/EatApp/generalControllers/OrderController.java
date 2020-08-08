@@ -6,12 +6,11 @@ import java.util.Map;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
-import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.views.OrderView;
 
 public abstract class OrderController {
-	
+
 	protected Order order;
 
 	protected String createOrder() {
@@ -28,7 +27,7 @@ public abstract class OrderController {
 		}
 		return interact();
 	}
-	
+
 	private Order createOrder(Integer[] ids, Integer[] amounts, String parameters) {
 		Map<Product, Integer> products =  new HashMap<>();
 		ProductDao productDao = ProductDao.getProductDao();
@@ -41,8 +40,8 @@ public abstract class OrderController {
 		}
 		return new Order(products, parameters, new OrderState(OrderState.orderState.QUEUED));
 	}
-	
+
 	protected abstract String interact();
-	
+
 	protected abstract OrderView getView();
 }
