@@ -16,7 +16,7 @@ import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.ShowNotificationView;
 
 @Controller
-public class ShowWaiterNotificationsController {
+public class ShowNotificationsController {
 
 	@PostMapping("/showNotification")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {

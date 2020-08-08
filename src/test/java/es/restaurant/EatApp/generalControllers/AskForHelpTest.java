@@ -24,7 +24,7 @@ public class AskForHelpTest {
 
 	private StartController startController;
 	private AskForHelpController askController;
-	private ShowWaiterNotificationsController showController;
+	private ShowNotificationsController showController;
 	private CleanNotificationController cleanController;
 	private MockMvc mockMvcAsk;
 	private int tableCode;
@@ -34,7 +34,7 @@ public class AskForHelpTest {
 		this.tableCode = 123;
 		this.startController = new StartController();
 		this.askController = new AskForHelpController();
-		this.showController = new ShowWaiterNotificationsController();
+		this.showController = new ShowNotificationsController();
 		this.cleanController = new CleanNotificationController();
 		MockitoAnnotations.initMocks(this);
 		this.mockMvcAsk = MockMvcBuilders.standaloneSetup(this.startController,
