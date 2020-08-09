@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 
-import es.restaurant.EatApp.models.OrderReview;
+import es.restaurant.EatApp.models.Order;
 
 public class ReviewExperienceView extends OrderView {
 
@@ -20,7 +20,7 @@ public class ReviewExperienceView extends OrderView {
 		super(model,req,res);
 	}
 
-	public String interact(List<OrderReview> orders) {
+	public String interact(List<Order> orders) {
 		this.model.addAttribute(ORDERS_TO_REVIEW_TAG, orders);
 		setStatusOk();
 		return ORDERS_REVIEW_VIEW;

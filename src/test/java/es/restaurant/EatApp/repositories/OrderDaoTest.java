@@ -8,17 +8,17 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-public class OrderReviewDaoTest {
+public class OrderDaoTest {
 	
 	@Test
-	public void getAllOrdersWithoutReview() {
-		OrderReviewDao dao = OrderReviewDao.getOrderReviewDao();
+	public void getAllOrdersFromUser() {
+		OrderDao dao = OrderDao.getOrderDao();
 		int userIdTest = 3;
 		String review = "test review";
 		int orderIdTest = 2;
 		String reviewRestore = "";
 		//insert
-		assertNotNull("Error, cannot get the expected review", dao.getAllOrdersWithoutReviewFromUser(userIdTest));
+		assertNotNull("Error, cannot get the expected review", dao.getAllOrdersFromUser(userIdTest));
 		//modify
 		assertTrue("Error updating review", dao.updateReview(review, orderIdTest));
 		assertTrue("Error updating review back to empty", dao.updateReviewRestore(reviewRestore, orderIdTest));

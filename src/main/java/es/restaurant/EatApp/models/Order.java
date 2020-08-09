@@ -13,18 +13,30 @@ public class Order extends Observable {
 	private Map<Product, Integer> products;
 	private String parameters;
 	private int userId;
+	private String review;
 	private List<Observer> observers;
 	
 	public Order() {
 		this.id = 1;
 		this.state = new OrderState();
 		this.observers = new ArrayList<Observer>();
+		this.review = "";
 	}
 
 	public Order(Map<Product, Integer> products, String parameters, OrderState state) {
 		this.products = products;
 		this.parameters = parameters;
 		this.state = state;
+		this.review = "";
+	}
+	
+	public Order(int id, int userId, String review) {
+		this.id = id;
+		this.userId = userId;
+		this.review = review;
+		this.products = null;
+		this.parameters = "";
+		this.state = null;
 	}
 	
 	public void addObservers(Employee waiter) {
@@ -74,6 +86,10 @@ public class Order extends Observable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
 	}
 
 }
