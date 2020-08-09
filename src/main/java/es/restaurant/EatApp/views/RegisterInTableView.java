@@ -28,7 +28,7 @@ public class RegisterInTableView extends View {
 		return Integer.parseInt(this.request.getParameter(CODE_TAG));
 	}
 
-	public String redirect() {
+	public String interact() {
 		return REGISTRY_IN_TABLE_VIEW;
 	}
 

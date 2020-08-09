@@ -14,19 +14,17 @@ import es.restaurant.EatApp.views.RegisterInTableView;
 public class RegisterInTableController {
 
 	@GetMapping("/registerInTable")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String preapreRegisterInTableForm(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		return view.redirect();
+		return view.interact();
 	}
 
 	@PostMapping("/registerInTable")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		int code = view.getCode();
-		TableDao dao = TableDao.getTableDao();
-		if(dao.getTable(code) != null) {
-			return view.register();
+		if(TableDao.getTableDao().getTable(view.getCode()) == null) {
+			return view.errorNotFound();
 		}
-		return view.errorNotFound();
+		return view.register();
 	}
 }

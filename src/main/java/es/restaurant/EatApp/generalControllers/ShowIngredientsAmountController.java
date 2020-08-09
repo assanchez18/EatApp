@@ -17,7 +17,7 @@ import es.restaurant.EatApp.views.ShowIngredientsAmountView;
 public class ShowIngredientsAmountController {
 
 	@GetMapping("/showIngredientsAmount")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String showIngredientsAmount(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ShowIngredientsAmountView view = new ShowIngredientsAmountView(model, res);
 		List<Ingredient> ingredients = IngredientDao.getIngredientDao().getUnderMinimumQuantityIngredients();
 		return view.interact(ingredients);

@@ -23,6 +23,10 @@ public abstract class OrderView extends View {
 		super(model,req,res);
 	}
 
+	public OrderView(HttpServletResponse res) {
+		super(res);
+	}
+
 	public String getParameter() {
 		return this.request.getParameter(PARAMS_TAG);
 	}

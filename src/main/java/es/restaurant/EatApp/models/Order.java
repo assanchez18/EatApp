@@ -31,9 +31,9 @@ public class Order extends Observable {
 		this.observers.add(waiter);
 	}
 	
-	public void changeStatus(Notification.Type type, int i) {
+	public void changeStatus(Notification.Type type, int tableCode) {
 		this.setChanged();
-		this.notifyObservers(new Notification(type, i));
+		this.notifyObservers(new Notification(type, tableCode));
 	}
 
 	public OrderState getState() {

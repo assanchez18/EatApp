@@ -14,12 +14,18 @@ public class ShowOrderView extends OrderView {
 		super(model,req,res);
 	}
 
+	public ShowOrderView(HttpServletResponse res) {
+		super(res);
+	}	
+
 	public String interact() {
 		setStatusOk();
 		return SHOW_ORDER_VIEW;
 	}
 
 	public String interact(Order order) {
+		this.model.addAttribute(ORDER_TAG, order);
+		this.model.addAttribute(ORDER_IN_PROGRESS, true);
 		this.session.setAttribute(ORDER_TAG, order);
 		this.session.setAttribute(ORDER_IN_PROGRESS, true);
 		return interact();

@@ -29,31 +29,30 @@ public class CreateNewOrderController extends OrderController {
 	private CreateNewOrderView view;
 
 	@GetMapping("/createOrder")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String prepareCreatoOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new CreateNewOrderView(model, req, res);
-		boolean orderInProcess = this.view.isOrderInProgress();
 		Order baseOrder = createEmptyOrder();
-		if(orderInProcess) {
+		if(this.view.isOrderInProgress()) {
 			mergeOrders(baseOrder, this.view.getOrder());
 		}
 		return view.interact(baseOrder);
 	}
 
 	@PostMapping("/createOrder")
-	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String createOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view= new CreateNewOrderView(model, req, res);
 		return createOrder();
 	}
 
 	protected String interact() {
 		OrderDao.getOrderDao().saveInCache(this.order);
-		makeEmployersObserveOrder();
+		makeEmployeesObserveOrder();
 		this.order.changeStatus(Notification.Type.ORDER_QUEUED, view.getTableCode());
 		this.view.updateSession(order);
 		return this.view.interact(this.order);
 	}
 
-	private void makeEmployersObserveOrder() {
+	private void makeEmployeesObserveOrder() {
 		for (Employee w : WaiterDao.getWaiterDao().getWaiters()) {
 			w.addObserver(this.order);
 		}

@@ -16,16 +16,15 @@ import es.restaurant.EatApp.views.RegisterEmployeeView;
 public class RegisterEmployeeController {
 
 	@GetMapping("/registerEmployee")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String prepareRegisterEmployeeForm(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterEmployeeView view = new RegisterEmployeeView(res);
 		return view.showFrom();
 	}
 	
 	@PostMapping("/registerEmployee")
-	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String registerEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterEmployeeView view = new RegisterEmployeeView(model, req, res);
-		User user = UserDao.getUserDao().getUser(view.getReqEmail());
-		if (user != null) {
+		if (UserDao.getUserDao().getUser(view.getReqEmail()) != null) {
 			return view.errorUserExists();
 		}
 		if (!verifyPasswordMatchs(view.getPassword(), view.getRepeatedPassword())) {

@@ -17,13 +17,13 @@ import es.restaurant.EatApp.views.RemoveEmployeeView;
 public class RemoveEmployeeController {
 	
 	@GetMapping("/removeEmployee")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String prepareRemoveEmployeeForm(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RemoveEmployeeView view = new RemoveEmployeeView(model, req, res);
 		return view.showForm(EmployeeDao.getEmployeeDao().getAllEmployeesBut(view.getEmail()));
 	}
 
 	@PostMapping("/removeEmployee")
-	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String removeEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RemoveEmployeeView view = new RemoveEmployeeView(model, req, res);
 		User user = UserDao.getUserDao().getUser(view.getUserToRemove());
 		if(user == null) {

@@ -13,7 +13,7 @@ import es.restaurant.EatApp.views.LoginView;
 public class LoginController {
 
 	@PostMapping("/login")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String login(Model model, HttpServletRequest req, HttpServletResponse res) {
 		LoginView view = new LoginView(model, req, res);
 		User user = new User(view.getReqEmail(), view.getPassword());
 		if(!UserDao.getUserDao().isUserCorrect(user)) {

@@ -7,27 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.restaurant.EatApp.models.User;
-import es.restaurant.EatApp.models.UserType.userType;
 import es.restaurant.EatApp.models.Employee;
-import es.restaurant.EatApp.repositories.CookDao;
-import es.restaurant.EatApp.repositories.UserDao;
-import es.restaurant.EatApp.repositories.WaiterDao;
+import es.restaurant.EatApp.repositories.EmployeeDao;
 import es.restaurant.EatApp.views.ShowNotificationView;
 
 @Controller
 public class ShowNotificationsController {
 
 	@PostMapping("/showNotification")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String showNotifications(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ShowNotificationView view = new ShowNotificationView(model,req,res);
-		User user = UserDao.getUserDao().getUser(view.getEmail());
-		Employee employee;
-		if(user.getUserType().getType() == userType.WAITER) {
-			employee = WaiterDao.getWaiterDao().getWaiter(view.getEmail());
-		} else {
-			employee = CookDao.getCookDao().getCook(view.getEmail());
-		} // TODO Needs refactor, visitor??
+		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeFromCache(view.getEmail());
 		return view.interact(employee.getNotifications());
 	}
 

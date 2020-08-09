@@ -16,13 +16,13 @@ public class ShowOrderController extends OrderController {
 	private ShowOrderView view;
 
 	@GetMapping("/showNewOrder")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
-		this.view = new ShowOrderView(model, req, res);
+	public String prepareShowOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
+		this.view = new ShowOrderView(res);
 		return view.interact();
 	}
 
 	@PostMapping("/showNewOrder")
-	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String showNewOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new ShowOrderView(model, req, res);
 		return createOrder();	
 	}

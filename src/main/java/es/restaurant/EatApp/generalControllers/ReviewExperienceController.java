@@ -31,6 +31,9 @@ public class ReviewExperienceController {
 		else {
 			orders = OrderReviewDao.getOrderReviewDao().getAllOrdersWithoutReviewFromUser(UserDao.getUserDao().getUser(view.getEmail()).getId());
 		}
+		
+		//mostrar todas las ordenes
+		// cuando vuelva, mostrar la orden y dejar modificar/eliminar/añadir nueva
 		return view.interact(orders);
 	}
 	
