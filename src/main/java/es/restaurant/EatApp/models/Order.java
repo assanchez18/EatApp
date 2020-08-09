@@ -92,4 +92,7 @@ public class Order extends Observable {
 		this.review = review;
 	}
 
+	public String getReview() {
+		return this.review;
+	}
 }

@@ -12,7 +12,7 @@ import es.restaurant.EatApp.models.Order;
 public class ReviewExperienceView extends OrderView {
 
 	private static final String ORDERS_TO_REVIEW_TAG = "ordersToReview";
-	private static final String ORDERS_REVIEW_VIEW = "order_review";
+	private static final String ORDERS_REVIEW_VIEW = "orderReview";
 	private static final String REVIEW_TAG = "review";
 	private static final String ERROR_NO_REVIEW_MSG = "No has introducido ninguna review";
 	private static final String ORDER_ID_TAG = "orderId";

@@ -24,6 +24,18 @@ public class ReviewExperienceController {
 		List<Order> orders = OrderDao.getOrderDao().getAllOrdersFromUser(UserDao.getUserDao().getUser(view.getEmail()).getId());
 		return view.interact(orders);
 	}
+
+
+	/*@PostMapping("/showOrderToReview")
+	public String showOrderToReview(Model model, HttpServletRequest req, HttpServletResponse res) {
+		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
+		Order order = view.getOrderId();
+		// coger orderId de la vista
+		// recuperar la orden de la BBDD
+		// preparar la vista igual que ShowOrder, pero añadiendo un campo de texto para la review
+		// método controlPost recibe ese formulario y actualiza la bbdd
+		return view.showOrderToReview(order);
+	}*/
 	
 	@PostMapping("/reviewExperience")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
