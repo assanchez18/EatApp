@@ -28,6 +28,11 @@ public class UserDao extends Dao {
 		return !executeQuery(sql).isEmpty();
 	}
 
+	public boolean isUserCorrect(String mail) {
+		String sql = selectAllFrom(TABLE_NAME) + where("user.email=\""+ mail + "\"");
+		return !executeQuery(sql).isEmpty();
+	}
+
 	public String selectAllFromUser() {
 		return selectAllFrom(TABLE_NAME);
 	}

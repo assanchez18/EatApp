@@ -15,7 +15,7 @@ import es.restaurant.EatApp.views.AskForHelpView;
 public class AskForHelpController {
 
 	@GetMapping("/askForHelp")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String askForHelp(Model model, HttpServletRequest req, HttpServletResponse res) {
 		AskForHelpView view = new AskForHelpView(model, req, res); 
 		Table table = TableDao.getTableDao().getTable(view.getTableCode());
 		if (table == null) {
