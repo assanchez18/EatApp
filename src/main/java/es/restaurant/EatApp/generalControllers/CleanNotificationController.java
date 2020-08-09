@@ -21,7 +21,7 @@ public class CleanNotificationController {
 		if (!UserDao.getUserDao().isUserCorrect(view.getEmail())) {
 			return view.errorNoEmployee();
 		}
-		Employee employee = new EmployeeDao().getEmployee(view.getEmail());
+		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeFromCache(view.getEmail());
 		employee.completeNotification(view.getNotificationId());
 		return view.interact(employee.getNotifications());
 	}

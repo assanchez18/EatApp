@@ -35,14 +35,13 @@ public class UserDaoTest {
     @Test
     public void selectWrongUserTest() {
     	UserDao dao = UserDao.getUserDao();
-    	User user = new UserBuilder().email("wrong").build();
-        
-        assertTrue("Error, unexisting user found in db", dao.getUser(user) == null);        
+    	String wrongEmail = "wrong";
+        assertTrue("Error, unexisting user found in db", dao.getUser(wrongEmail) == null);        
     }
 
     @Test
     public void selectAllEmployeesButOneTest() {
-    	UserDao dao = UserDao.getUserDao();
+    	EmployeeDao dao = EmployeeDao.getEmployeeDao();
     	User user = new UserBuilder().admin().build();
     	List<User> listUser = dao.getAllEmployeesBut(user.getEmail());
         assertFalse("Error, query is not working", listUser.isEmpty());
@@ -50,14 +49,14 @@ public class UserDaoTest {
         	assertFalse("Error, the user to be excluded is in the list", u.equals(user));
         }
     }
-    
+
     @Test
     public void firstInsertThenUpdatePasswordThenUpdateEmailFinallyRemoveUserTest(){
     	User user = new UserBuilder().email("test@test.com").password("1234").type(UserType.userType.COMMENSAL).build();
     	UserDao dao = UserDao.getUserDao();
     	
     	//Insert new user
-    	assertTrue("Error at INSERT query", dao.insert(user));
+    	assertTrue("Error at INSERT query", dao.insertNewUser(user));
     	assertTrue("The user has not been inserted properly, does not exist in DB",dao.isUserCorrect(user));
     	
     	User updatedUser = new UserBuilder().email("test2@test.com").password("4321").type(UserType.userType.WAITER).build();
@@ -69,15 +68,15 @@ public class UserDaoTest {
     	//Update userType
     	assertTrue("Error at UPDATE User type query", dao.updateUserType(user, updatedUser.getUserType()));
     	assertTrue("The user type has not been updated properly, the current type does not match with the new one",
-    			   dao.getUser(user).equals(new User(user.getEmail(), updatedUser.getPassword(), updatedUser.getUserType())));
+    			   dao.getUser(user.getEmail()).equals(new User(user.getEmail(), updatedUser.getPassword(), updatedUser.getUserType())));
 
     	//Update email
     	assertTrue("Error at UPDATE email query", dao.updateEmail(user, updatedUser.getEmail()));
-    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.getUser(user) != null);
-    	assertTrue("The user email has not been updated properly, does not exist in DB",dao.getUser(updatedUser).equals(updatedUser));
+    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.getUser(user.getEmail()) != null);
+    	assertTrue("The user email has not been updated properly, does not exist in DB",dao.getUser(updatedUser.getEmail()).equals(updatedUser));
 
     	//Remove user
     	assertTrue("Error at DELETE  user query", dao.deleteUser(updatedUser));
-    	assertFalse("The user has not been delete properly, old data exists in DB",dao.getUser(updatedUser) != null);
+    	assertFalse("The user has not been delete properly, old data exists in DB",dao.getUser(updatedUser.getEmail()) != null);
     }
 }

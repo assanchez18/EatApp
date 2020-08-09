@@ -15,12 +15,10 @@ public class LoginController {
 	@PostMapping("/login")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		LoginView view = new LoginView(model, req, res);
-		
 		User user = new User(view.getReqEmail(), view.getPassword());
-		if(UserDao.getUserDao().isUserCorrect(user)) {
-			user = UserDao.getUserDao().getUser(user);
-			return view.login(user);
+		if(!UserDao.getUserDao().isUserCorrect(user)) {
+			return view.errorUnauthorized();	
 		}
-		return view.errorUnauthorized();
+		return view.login(UserDao.getUserDao().getUser(user.getEmail()));
 	}
 }

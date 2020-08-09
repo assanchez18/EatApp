@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.repositories.EmployeeDao;
 import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.RemoveEmployeeView;
 
@@ -18,7 +19,7 @@ public class RemoveEmployeeController {
 	@GetMapping("/removeEmployee")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RemoveEmployeeView view = new RemoveEmployeeView(model, req, res);
-		return view.showForm(UserDao.getUserDao().getAllEmployeesBut(view.getEmail()));
+		return view.showForm(EmployeeDao.getEmployeeDao().getAllEmployeesBut(view.getEmail()));
 	}
 
 	@PostMapping("/removeEmployee")

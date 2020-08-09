@@ -13,16 +13,16 @@ import es.restaurant.EatApp.repositories.IngredientDao;
 import es.restaurant.EatApp.views.ConfigureQuantityOfIngredientsView;
 
 @Controller
-public class ConfigureQuantityOfIngredientsController {
+public class ManageQuantityOfIngredientsController {
 
-	@GetMapping("/configureQuantityOfIngredients")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+	@GetMapping("/manageQuantityOfIngredient")
+	public String showIngredientsToManage(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, res);
-		return view.interactGet(IngredientDao.getIngredientDao().getIngredients());
+		return view.showIngredientsToManage(IngredientDao.getIngredientDao().getIngredients());
 	}
 
 	@PostMapping("/manageQuantityOfIngredient")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String manageIngredient(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, req, res);
 		Ingredient ingredient = IngredientDao.getIngredientDao().findIngredient(view.getIngredientId());
 		if(ingredient == null) {

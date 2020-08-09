@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import es.restaurant.EatApp.models.UserType;
 import es.restaurant.EatApp.models.Employee;
 
-public class WaiterDao extends UserDao{
+public class WaiterDao extends EmployeeDao {
 	
 	private List<Employee> waiters;
 	private static WaiterDao dao;
@@ -28,11 +28,11 @@ public class WaiterDao extends UserDao{
 		this.waiters = new ArrayList<Employee>();
 		loadWaiters();
 	}
-	
+
 	private void loadWaiters() {
 		this.waiters = executeWaiterQuery(selectAllWaiters());
 	}
-	
+
 	private RowMapper<Employee> buildWaiter() {
 		return new RowMapper<Employee>() {
 			public Employee mapRow(ResultSet result, int rowNum) throws SQLException {
@@ -45,15 +45,15 @@ public class WaiterDao extends UserDao{
 	public String selectAllWaiters() {
 		return selectAllFromUser() + where("type = " + USER_TYPE);
 	}
-	
+
 	public List<Employee> executeWaiterQuery(String sql) {
 		return this.db.getJdbcTemplate().query(sql, buildWaiter());
 	}
-	
+
 	public List<Employee> getWaiters() {
 		return this.waiters;
 	}
-	
+
 	public Employee getWaiter(String email) {
 		for(Employee w : this.waiters) {
 			if (w.getEmail().compareTo(email)==0) {

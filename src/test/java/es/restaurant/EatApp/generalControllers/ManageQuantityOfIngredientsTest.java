@@ -15,23 +15,23 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.views.ConfigureQuantityOfIngredientsView;
 
 @RunWith(SpringRunner.class)
-public class ConfigureQuantityOfIngredientsTest {
+public class ManageQuantityOfIngredientsTest {
 
-	private ConfigureQuantityOfIngredientsController configureQuantityOfIngredientsController;
+	private ManageQuantityOfIngredientsController manageQuantityOfIngredientsController;
 	private MockMvc mockMvc;
 	
 	@Before
 	public void setup() {
-		this.configureQuantityOfIngredientsController = new ConfigureQuantityOfIngredientsController();
+		this.manageQuantityOfIngredientsController = new ManageQuantityOfIngredientsController();
 		MockitoAnnotations.initMocks(this);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(this.configureQuantityOfIngredientsController).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(this.manageQuantityOfIngredientsController).build();
 		
 	}
 
 	@Test
 	public void changeQuantityOfIngredientsOk() throws Exception {
 		this.mockMvc.perform(
-				get("/configureQuantityOfIngredients"));
+				get("/manageQuantityOfIngredient"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
 						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
@@ -49,7 +49,7 @@ public class ConfigureQuantityOfIngredientsTest {
 	@Test
 	public void changeQuantityOfWrongIngredientId() throws Exception {
 		this.mockMvc.perform(
-				get("/configureQuantityOfIngredients"));
+				get("/manageQuantityOfIngredient"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
 						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "-1")

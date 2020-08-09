@@ -16,15 +16,15 @@ import es.restaurant.EatApp.views.StartView;
 public class StartController {
 
 	@GetMapping("/")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String start(Model model, HttpServletRequest req, HttpServletResponse res) {
 		StartView view = new StartView(req, res);	
 		waitersObserveTables();
 		return view.interact();
 	}
 	
 	private void waitersObserveTables() {
-		for (Employee w : WaiterDao.getWaiterDao().getWaiters()) {
-			w.addObserver(TableDao.getTableDao().getTables());
+		for (Employee waiter : WaiterDao.getWaiterDao().getWaiters()) {
+			waiter.addObserver(TableDao.getTableDao().getTables());
 		}
 	}
 }

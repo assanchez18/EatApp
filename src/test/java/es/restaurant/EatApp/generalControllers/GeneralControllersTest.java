@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	AskForHelpTest.class,
-	ConfigureQuantityOfIngredientsTest.class,
+	ManageQuantityOfIngredientsTest.class,
 	StartTest.class,
 	LoginTest.class,
 	LogoutTest.class,

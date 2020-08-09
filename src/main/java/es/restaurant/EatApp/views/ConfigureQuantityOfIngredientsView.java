@@ -24,7 +24,7 @@ public class ConfigureQuantityOfIngredientsView extends View {
 		super(model, req, res);
 	}
 
-	public String interactGet(Collection<Ingredient> collection) {
+	public String showIngredientsToManage(Collection<Ingredient> collection) {
 		this.model.addAttribute("ingredients", collection);
 		setStatusOk();
 		return MANAGE_INGREDIENT_VIEW;

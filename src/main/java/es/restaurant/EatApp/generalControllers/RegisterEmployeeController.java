@@ -32,7 +32,7 @@ public class RegisterEmployeeController {
 			return view.errorPasswordNotMatch();
 		}
 		User correctUser = new User(view.getReqEmail(), view.getPassword(), view.getUserType());
-		if(!UserDao.getUserDao().insert(correctUser)) {
+		if(!UserDao.getUserDao().insertNewUser(correctUser)) {
 			return view.errorUnableToPersistUser();
 		}
 		return view.interact();
