@@ -4,19 +4,19 @@ import es.restaurant.EatApp.models.UserType.userType;
 
 public class User {
 
-	protected Long id;
+	protected int id;
 	protected String email;
 	protected String password;
 	protected UserType type;
 	
-	public User (Long id, String email, String password, int type) {
+	public User (int id, String email, String password, int type) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.type = new UserType(type);
 	}
 
-	public User (Long id, String email, String password, UserType type) {
+	public User (int id, String email, String password, UserType type) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -24,14 +24,14 @@ public class User {
 	}
 	
 	public User (String email, String password, UserType type) {
-		this.id = -1L;
+		this.id = -1;
 		this.email = email;
 		this.password = password;
 		this.type = type;
 	}
 	
 	public User (String email, String password, int type) {
-		this.id = -1L;
+		this.id = -1;
 		this.email = email;
 		this.password = password;
 		this.type = new UserType(type);
@@ -71,5 +71,8 @@ public class User {
 		return this.type;
 	}
 
+	public int getId() {
+		return this.id;
+	}
 
 }

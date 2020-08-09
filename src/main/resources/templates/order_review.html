@@ -1,0 +1,36 @@
+<html lang="es">
+<head th:insert="base/head">
+</head>
+
+<body>
+	<div th:insert="base/navbar.html"></div>
+	<div class="page">
+		<main role="main" class="main container col-xl col-lg col-md col-sm">
+			<div class="starter-template">
+				<h2 class="intro">Por favor, deja tu opinion</h2>
+				<table th:if="ordersToReview" id="dataTable"
+					class="table table-striped display">
+					<thead>
+						<tr>
+							<th>Order ID</th>
+							<th>Opinion</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tr th:each="order: ${ordersToReview}">
+						<form action="reviewExperience" method="post">
+						<td><input type="hidden" name="orderId" th:text="${order.orderId}"
+							th:value="${order.orderId}" /></td>
+						<td><input type="text" required="required"
+							name="review" min="1" max="50" placeholder="opinion" /></td>
+						<td><button class="btn btn-success" type="submit">Confirmar</button></td>
+						</form>
+					</tr>
+				</table>
+			</div>
+		</main>
+	</div>
+	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
+</body>
+</html>

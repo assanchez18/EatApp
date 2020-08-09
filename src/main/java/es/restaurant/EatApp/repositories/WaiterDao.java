@@ -36,7 +36,7 @@ public class WaiterDao extends UserDao{
 	private RowMapper<Employee> buildWaiter() {
 		return new RowMapper<Employee>() {
 			public Employee mapRow(ResultSet result, int rowNum) throws SQLException {
-				Employee waiter = new Employee(result.getLong("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
+				Employee waiter = new Employee(result.getInt("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
 				return waiter;
         	}
 		};

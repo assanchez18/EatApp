@@ -50,7 +50,7 @@ public class UserDao extends Dao {
 	private RowMapper<User> buildUser() {
 		return new RowMapper<User>() {
 			public User mapRow(ResultSet result, int rowNum) throws SQLException {
-				User user = new User(result.getLong("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
+				User user = new User(result.getInt("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
 				return user;
         	}
 		};

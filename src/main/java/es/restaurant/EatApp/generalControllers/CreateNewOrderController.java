@@ -31,7 +31,7 @@ public class CreateNewOrderController extends OrderController {
 	@GetMapping("/createOrder")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new CreateNewOrderView(model, req, res);
-		boolean orderInProcess = this.view.getOrderInProcess();
+		boolean orderInProcess = this.view.isOrderInProgress();
 		Order baseOrder = createEmptyOrder();
 		if(orderInProcess) {
 			mergeOrders(baseOrder, this.view.getOrder());

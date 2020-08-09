@@ -36,7 +36,7 @@ public class CookDao extends UserDao{
 	private RowMapper<Employee> buildCook() {
 		return new RowMapper<Employee>() {
 			public Employee mapRow(ResultSet result, int rowNum) throws SQLException {
-				Employee employee = new Employee(result.getLong("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
+				Employee employee = new Employee(result.getInt("id"),result.getString("email"),result.getString("password"), result.getInt("type"));
 				return employee;
         	}
 		};

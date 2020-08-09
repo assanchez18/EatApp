@@ -60,9 +60,17 @@ public abstract class OrderView extends View {
 	protected String errorBadRequest(String message) {
 		return this.returnErrorWithMessage(message, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
 	}
-
+	
 	public Order getOrder() {
 		return (Order) this.session.getAttribute(ORDER_TAG);
+	}
+
+	public boolean isOrderInProgress() {
+		Object value = this.session.getAttribute(ORDER_IN_PROGRESS);
+		if(value == null) {
+			return false;
+		}
+		return (boolean) value;
 	}
 
 }

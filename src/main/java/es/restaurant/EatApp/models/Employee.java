@@ -14,7 +14,7 @@ public class Employee extends User implements Observer{
 		this.notifications = new ArrayList<Notification>();
 	}
 	
-	public Employee (Long id, String email, String password, int type) {
+	public Employee (int id, String email, String password, int type) {
 		super(id, email, password,type);
 		this.notifications = new ArrayList<Notification>();
 	}

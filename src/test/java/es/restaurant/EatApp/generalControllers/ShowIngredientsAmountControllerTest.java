@@ -27,7 +27,7 @@ public class ShowIngredientsAmountControllerTest {
 	
 	
     @Test
-    public void manageGroceriesHasIngredients() throws Exception {
+    public void showIngredientsAmount() throws Exception {
         this.mockMvc.perform(
                 get("/showIngredientsAmount"))
                 .andExpect(status().isOk());

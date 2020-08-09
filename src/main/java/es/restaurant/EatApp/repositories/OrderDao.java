@@ -5,7 +5,7 @@ import java.util.Map;
 
 import es.restaurant.EatApp.models.Order;
 
-public class OrderDao extends UserDao{
+public class OrderDao extends Dao {
 
 	private Map<Integer, Order> orders;
 	private static OrderDao dao;
