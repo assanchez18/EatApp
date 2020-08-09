@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Employee extends User implements Observer{
+public class Employee extends User implements Observer {
 
 	private List<Notification> notifications;
 	

@@ -12,7 +12,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	WaiterDaoTest.class,
 	IngredientsDaoTest.class,
 	ProductsDaoTest.class,
-	MenuDaoTest.class,
 	ProductsDaoTest.class,
 	OrderReviewDaoTest.class
 })
