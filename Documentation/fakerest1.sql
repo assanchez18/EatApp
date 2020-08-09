@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-08-2020 a las 18:46:49
+-- Tiempo de generación: 09-08-2020 a las 19:30:55
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.7
 
@@ -48,39 +48,44 @@ INSERT INTO `ingredients` (`id`, `name`, `amount`, `description`, `minimumAmount
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `menu`
+-- Estructura de tabla para la tabla `orders`
 --
 
-CREATE TABLE `menu` (
+CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `price` double NOT NULL,
-  `description` varchar(256) NOT NULL
+  `state` int(1) NOT NULL,
+  `parameters` varchar(140) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  `review` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `menu`
+-- Volcado de datos para la tabla `orders`
 --
 
-INSERT INTO `menu` (`id`, `price`, `description`) VALUES
-(1, 10, 'Menu de prueba');
+INSERT INTO `orders` (`id`, `state`, `parameters`, `userId`, `review`) VALUES
+(1, 0, 'test parameters', 3, ''),
+(2, 1, 'test parameters', 3, '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `menu_products`
+-- Estructura de tabla para la tabla `order_products`
 --
 
-CREATE TABLE `menu_products` (
-  `menu_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `order_products` (
+  `orderId` int(11) NOT NULL,
+  `amount` int(2) NOT NULL,
+  `productId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='relation between which products does each order have';
 
 --
--- Volcado de datos para la tabla `menu_products`
+-- Volcado de datos para la tabla `order_products`
 --
 
-INSERT INTO `menu_products` (`menu_id`, `product_id`) VALUES
-(1, 1);
+INSERT INTO `order_products` (`orderId`, `amount`, `productId`) VALUES
+(1, 1, 1),
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -174,17 +179,18 @@ ALTER TABLE `ingredients`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indices de la tabla `menu`
+-- Indices de la tabla `orders`
 --
-ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`,`userId`),
+  ADD KEY `userId` (`userId`);
 
 --
--- Indices de la tabla `menu_products`
+-- Indices de la tabla `order_products`
 --
-ALTER TABLE `menu_products`
-  ADD PRIMARY KEY (`menu_id`,`product_id`),
-  ADD KEY `product_id` (`product_id`);
+ALTER TABLE `order_products`
+  ADD PRIMARY KEY (`orderId`,`productId`),
+  ADD KEY `productId` (`productId`);
 
 --
 -- Indices de la tabla `products`
@@ -216,10 +222,10 @@ ALTER TABLE `ingredients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `menu`
+-- AUTO_INCREMENT de la tabla `orders`
 --
-ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
@@ -231,18 +237,24 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `menu_products`
+-- Filtros para la tabla `orders`
 --
-ALTER TABLE `menu_products`
-  ADD CONSTRAINT `menu_products_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `menu_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `order_products`
+--
+ALTER TABLE `order_products`
+  ADD CONSTRAINT `order_products_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_products_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `product_ingredients`
