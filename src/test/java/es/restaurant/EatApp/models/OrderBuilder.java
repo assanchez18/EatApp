@@ -1,5 +1,6 @@
 package es.restaurant.EatApp.models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class OrderBuilder {
@@ -11,8 +12,10 @@ public class OrderBuilder {
 	}
 
 	public OrderBuilder baseOrder() {
-		//default order in DB
 		this.order = new Order();
+		Map<Product, Integer> products = new HashMap<Product, Integer>();
+		products.put(new ProductBuilder().baseProduct().build(), 2);
+		this.products(products);
 		return this;
 	}
 
@@ -20,9 +23,19 @@ public class OrderBuilder {
 		this.order.setState(state);
 		return this;
 	}
-	
+
 	public OrderBuilder products(Map<Product, Integer> products) {
 		this.order.setProducts(products);
+		return this;
+	}
+
+	public OrderBuilder parameters(String parameters) {
+		this.order.setParameters(parameters);
+		return this;
+	}
+
+	public OrderBuilder userId(int id) {
+		this.order.setUserId(id);
 		return this;
 	}
 

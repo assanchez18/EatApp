@@ -14,23 +14,19 @@ public class CreateNewOrderView extends OrderView {
 	public CreateNewOrderView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
-
-	public String interactGet(Order order) {
+	
+	public String interact(Order order) {
 		this.model.addAttribute(ORDER_TAG, order);
 		setStatusOk();
+		if(this.getOrder() != null && !this.getOrderInProcess()) {
+			return SHOW_ORDER_VIEW;
+		}
 		return CREATE_NEW_ORDER_VIEW;
 	}
 
-	public String interactPost(Order order) {
-		this.model.addAttribute(ORDER_TAG, order);
+	public void updateSession(Order order) {
 		this.session.setAttribute(ORDER_TAG, order);
 		this.session.removeAttribute(ORDER_IN_PROGRESS);
-		setStatusOk();
-		return SHOW_ORDER_VIEW;
-	}
-
-	public Order getOrder() {
-		return (Order) this.session.getAttribute(ORDER_TAG);
 	}
 
 	public boolean getOrderInProcess() {

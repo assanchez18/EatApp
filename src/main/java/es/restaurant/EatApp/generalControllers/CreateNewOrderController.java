@@ -36,7 +36,7 @@ public class CreateNewOrderController extends OrderController {
 		if(orderInProcess) {
 			mergeOrders(baseOrder, this.view.getOrder());
 		}
-		return view.interactGet(baseOrder);
+		return view.interact(baseOrder);
 	}
 
 	@PostMapping("/createOrder")
@@ -49,7 +49,8 @@ public class CreateNewOrderController extends OrderController {
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployersObserveOrder();
 		this.order.changeStatus(Notification.Type.ORDER_QUEUED, view.getTableCode());
-		return this.view.interactPost(this.order);
+		this.view.updateSession(order);
+		return this.view.interact(this.order);
 	}
 
 	private void makeEmployersObserveOrder() {

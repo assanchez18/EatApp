@@ -19,8 +19,7 @@ public class ShowOrderController extends OrderController {
 	@GetMapping("/showNewOrder")
 	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new ShowOrderView(model, req, res);
-		this.order = OrderDao.getOrderDao().takeFromCacheWithUserId(1); // TODO change for user Id
-		return view.interactGet(this.order); // TODO is it neccessary interactGet??
+		return view.interact();
 	}
 
 	@PostMapping("/showNewOrder")
@@ -30,7 +29,7 @@ public class ShowOrderController extends OrderController {
 	}
 
 	protected String interact() {
-		return this.view.interactPost(this.order);
+		return this.view.interact(this.order);
 	}
 
 	protected ShowOrderView getView() {
