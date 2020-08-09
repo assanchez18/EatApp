@@ -18,7 +18,7 @@ public class CreateNewOrderView extends OrderView {
 	public String interact(Order order) {
 		this.model.addAttribute(ORDER_TAG, order);
 		setStatusOk();
-		if(this.getOrder() != null && !this.getOrderInProcess()) {
+		if(this.getOrder() != null && !this.isOrderInProgress()) {
 			return SHOW_ORDER_VIEW;
 		}
 		return CREATE_NEW_ORDER_VIEW;
@@ -27,14 +27,6 @@ public class CreateNewOrderView extends OrderView {
 	public void updateSession(Order order) {
 		this.session.setAttribute(ORDER_TAG, order);
 		this.session.removeAttribute(ORDER_IN_PROGRESS);
-	}
-
-	public boolean getOrderInProcess() {
-		Object value = this.session.getAttribute(ORDER_IN_PROGRESS);
-		if(value == null) {
-			return false;
-		}
-		return (boolean) value;
 	}
 
 	public int getTableCode() {

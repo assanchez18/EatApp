@@ -35,7 +35,7 @@ public class ReviewExperienceController {
 	}
 	
 	@PostMapping("/reviewExperience")
-	public String controlGet(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
 		String review = view.getReview();
 		if(review == null) {
