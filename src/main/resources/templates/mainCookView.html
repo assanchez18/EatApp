@@ -1,34 +1,45 @@
 <h2 class="intro">¿Qué puedes hacer en EatApp?</h2>
-<div class="row col-xl-11 offset-xl-1 col-lg-11 offset-lg-1">
-	<div class="mainNotifications column col-xl-12 col-lg-12 col-sm-12"
-		th:insert="base/notifications.html"></div>
-	<div
-		class="column mainOptions col-xl-5 col-lg-5 col-sm-12 float-md-center">
-		<a href="/manageQuantityOfIngredient">Configurar cantidad
-			minima de un ingrediente</a>
+<div class="row">
+	<div class="mainNotifications column offset-xl-3 offset-lg-3 col-xl-6 col-lg-6 col-sm-12"
+		th:insert="base/notifications.html">
 	</div>
-	<div
-		class="column mainOptions col-xl-5 offset-xl-1 col-lg-5 offset-lg-1  col-sm-12">
-		<a href="/">Gestionar menú</a>
-	</div>
-	<div class="column mainOptions col-xl-5 col-lg-5 col-sm-12">
-		<a href="/">Gestionar status de ingredientes</a>
-	</div>
-	<div
-		class="column mainOptions col-xl-5 col-lg-5 offset-lg-1 col-sm-12 ">
-		<a href="/">Cancelar producto</a>
-	</div>
-	<div class="column mainOptions col-xl-5 col-lg-5 col-sm-12">
-		<a href="/">Gestionar estado de producto</a>
-	</div>
-	<div class="column mainOptions col-xl-5 offset-xl-1 col-lg-5 col-sm-12">
-		<a href="/showIngredientsAmount">Ver cantidades de los
-			ingredientes</a>
-	</div>
-	<div
-		class="column mainOptions col-xl-5 col-lg-5 offset-lg-1 col-sm-12 ">
-		<a href="/logout">Cerrar sesión</a>
-	</div>
+</div>
+<div class="row">
+	<a href="#"
+		class="btn column mainOptions col-xl-4 col-lg-4 col-sm-12 col-xs-12"
+		role="button">
+		<p>Gestionar estado de producto</p>
+	</a>
+	<a href="#"
+		class="btn column mainOptions col-xl-4 col-lg-4 col-sm-12 col-xs-12"
+		role="button">
+		<p>Cancelar producto</p>
+	</a>
+	<a href="#"
+		class="btn column mainOptions col-xl-4 col-lg-4 col-sm-12 col-xs-12"
+		role="button">
+		<p>Gestionar menú</p>
+	</a>
+	<a href="#"
+		class="btn column mainOptions col-xl-4 col-lg-4 col-sm-12 col-xs-12"
+		role="button">
+		<p>Gestionar status de ingredientes</p>
+	</a>
+	<a href="/manageQuantityOfIngredient"
+		class="btn column mainOptions col-xl-4 col-lg-4 col-sm-12 col-xs-12"
+		role="button">
+		<p>Configurar cantidad minima de un ingrediente</p>
+	</a>
+	<a href="/showIngredientsAmount"
+		class="btn column mainOptions col-xl-4 col-lg-4 col-sm-12 col-xs-12"
+		role="button">
+		<p>Ver cantidades de los ingredientes</p>
+	</a>
+	<a href="/logout"
+		class="btn column mainOptions col-xl-12 col-lg-12 col-sm-12 col-xs-12"
+		role="button">
+		<p>Cerrar sesión</p>
+	</a>
 </div>
 
 <script src="js/notifRefresh.js"></script>
