@@ -18,7 +18,7 @@ public class OrderDaoTest {
 		int orderIdTest = 2;
 		String reviewRestore = "";
 		//insert
-		assertNotNull("Error, cannot get the expected review", dao.getAllOrdersFromUser(userIdTest));
+		assertNotNull("Error, cannot get the expected order", dao.getAllOrdersFromUser(userIdTest));
 		//modify
 		assertTrue("Error updating review", dao.updateReview(review, orderIdTest));
 		assertTrue("Error updating review back to empty", dao.updateReviewRestore(reviewRestore, orderIdTest));

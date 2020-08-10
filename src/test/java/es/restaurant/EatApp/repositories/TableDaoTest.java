@@ -23,8 +23,8 @@ public class TableDaoTest {
 		List<Table> tables = dao.executeQuery(dao.selectAllTables(condition));
 		Table table = new Table(code);
 
-		assertTrue("Error, missing base waiter", tables.size() == 1);
-		assertTrue("Error, waiter user is not correct", table.equals(tables.get(0)));
+		assertTrue("Error, missing base table", tables.size() == 1);
+		assertTrue("Error, table is not correct", table.equals(tables.get(0)));
 	}
 
 }

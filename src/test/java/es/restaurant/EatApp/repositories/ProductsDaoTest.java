@@ -13,7 +13,7 @@ import es.restaurant.EatApp.models.ProductPriority;
 
 @RunWith(SpringRunner.class)
 public class ProductsDaoTest {
-	
+
 	@Test
 	public void selectProductTest() {
 		ProductDao dao = ProductDao.getProductDao();
@@ -38,6 +38,6 @@ public class ProductsDaoTest {
 		assertTrue("Error updating price", dao.updatePrice(product, updatedProduct.getPrice()));
 		assertTrue("Error updating productPriority", dao.updatePriority(product, updatedProduct.getPriority()));
 		//remove
-		assertTrue("Error, unable to delete the ingredient", dao.deleteProduct(updatedProduct));
+		assertTrue("Error, unable to delete the product", dao.deleteProduct(updatedProduct));
 	}
 }
