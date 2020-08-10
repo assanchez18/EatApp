@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
+<html lang="es">
 <head th:insert="base/head">
-<meta charset="ISO-8859-1">
-<title>Remove employee</title>
 </head>
 <body>
 	<div th:insert="base/navbar.html"></div>
@@ -10,29 +7,28 @@
 		<main role="main" class="main container col-xl col-lg col-md col-sm">
 			<div class="starter-template">
 				<div>
-					<h1>Eliminar empleado</h1>
+					<h2 class="intro">Eliminar empleado</h2>
 					<div th:if="${not #lists.isEmpty(employees)}">
 						<form method="post" th:action="removeEmployee" >
 						<div>
-								<select name="userToRemove"> 
+								<select class="alert" name="userToRemove">
 									<option th:each="employee: ${employees}" th:value="${employee.email}">
 										<span th:text="${employee.email}"/>
 									</option>
 								</select>
 							</div>
 							<div>
-								<button class="btn btn-success" type="submit">Eliminar</button>
+								<button class="btn btn-danger" type="submit">Eliminar</button>
 							</div>
 						</form>
 					</div>
 					<div th:if="${#lists.isEmpty(employees)}">
-						<h1>No hay ningún empleado!</h1>
+						<h1>No hay ningÃºn empleado!</h1>
 					</div>
 				</div>
 			</div>
 		</main>
 	</div>
 	<footer th:insert="base/footer.html"> </footer>
-	<footer th:insert="base/dataTables.html"> </footer>
 </body>
 </html>
