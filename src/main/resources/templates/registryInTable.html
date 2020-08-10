@@ -7,10 +7,10 @@
 <body>
 	<div th:insert="base/navbar.html"></div>
 	<div class="page">
-		<main role="main" class="main container col-xl col-lg col-md col-sm">
+		<main role="main" class="main container col-xl col-lg col-md col-sm col-">
 			<div class="starter-template">
 				<form id="scanner" method="post" action="registerInTable">
-					<div id="reader" class="col-xl-12 col-lg-12 col-md-12 col-sm-12"></div>
+					<div id="reader" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
 					<input type="number" required="required" name="code" min="1"
 						max="100000" placeholder="Code" class="code" id="code" />
 					<div th:if="${error}" class="alert alert-danger" role="alert">
