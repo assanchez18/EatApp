@@ -15,6 +15,18 @@ h1, h2 {
 	overflow: auto;
 }
 
+.nav-item > a {
+    border-right: 1px solid #000000;
+}
+
+.nav-item > li:last-child > a {
+    border-right: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: black;
+}
+
 .jumbotron {
 	margin-top: 5%;
 	width: 50%;
