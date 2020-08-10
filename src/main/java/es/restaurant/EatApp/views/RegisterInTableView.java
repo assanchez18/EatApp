@@ -8,7 +8,7 @@ public class RegisterInTableView extends View {
 	
 	public static final String CODE_TAG = "code";
 	private static final String CODE_ERROR_MSG = "El código escaneado es incorrecto";
-	private static final String REGISTRY_IN_TABLE_VIEW = "registryInTable";
+	public static final String REGISTRY_IN_TABLE_VIEW = "registryInTable";
 	
 	public RegisterInTableView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);

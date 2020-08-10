@@ -31,6 +31,9 @@ public class CreateNewOrderController extends OrderController {
 	@GetMapping("/createOrder")
 	public String prepareCreatoOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new CreateNewOrderView(model, req, res);
+		if(this.view.getTableCode() == null) {
+			return this.view.redirectToRegistryInTable();
+		}
 		Order baseOrder = createEmptyOrder();
 		if(this.view.isOrderInProgress()) {
 			mergeOrders(baseOrder, this.view.getOrder());

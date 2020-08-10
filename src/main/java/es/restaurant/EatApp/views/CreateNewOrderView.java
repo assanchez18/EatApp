@@ -29,8 +29,12 @@ public class CreateNewOrderView extends OrderView {
 		this.session.removeAttribute(ORDER_IN_PROGRESS);
 	}
 
-	public int getTableCode() {
-		return (int) this.session.getAttribute(TABLE_TAG);
+	public Integer getTableCode() {
+		return (Integer) this.session.getAttribute(TABLE_TAG);
+	}
+
+	public String redirectToRegistryInTable() {
+		return RegisterInTableView.REGISTRY_IN_TABLE_VIEW;
 	}
 
 }
