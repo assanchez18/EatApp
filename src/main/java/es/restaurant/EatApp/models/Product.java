@@ -6,11 +6,13 @@ public class Product {
 	private String name;
 	private String description;
 	private double price;
+	private ProductState state;
 	private ProductPriority priority;
 	
 	public Product(int id, String name, String description, double price, int priority) {
 		this.id = id;
 		this.name = name;
+		this.state = new ProductState();
 		this.description = description;
 		this.price = price;
 		this.priority = new ProductPriority(priority);
@@ -19,9 +21,18 @@ public class Product {
 	public Product(int id, String name, String description, double price, ProductPriority priority) {
 		this.id = id;
 		this.name = name;
+		this.state = new ProductState();
 		this.description = description;
 		this.price = price;
 		this.priority = priority;
+	}
+
+	public ProductState getState() {
+		return state;
+	}
+
+	public void setState(ProductState state) {
+		this.state = state;
 	}
 
 	public int getId() {

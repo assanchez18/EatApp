@@ -37,6 +37,11 @@ public class ProductBuilder {
 		return this;
 	}
 
+	public ProductBuilder state(ProductState state) {
+		this.product.setState(state);
+		return this;
+	}
+
 	public ProductBuilder priority(ProductPriority priority) {
 		this.product.setPriority(priority);
 		return this;

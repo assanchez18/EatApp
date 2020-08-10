@@ -2,6 +2,7 @@ package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,11 @@ public class OrderDao extends Dao {
 		this.orders.put(1, new Order());
 	}
 
-	public void saveInCache(Order order) {
+	public Collection<Order> getOrdersFromCache() {
+		return this.orders.values();
+	}
+
+	public void saveInCache(Order order) { // TODO TEST
 		this.orders.put(order.getId(), order);
 	}
 
