@@ -1,6 +1,7 @@
 package es.restaurant.EatApp.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -8,32 +9,29 @@ import java.util.Observer;
 
 public class Order extends Observable {
 	
-	private int id;
+	protected int id;
 	private OrderState state;
 	private Map<Product, Integer> products;
 	private String parameters;
 	private int userId;
-	private String review;
 	private List<Observer> observers;
 	
 	public Order() {
 		this.id = 1;
 		this.state = new OrderState();
 		this.observers = new ArrayList<Observer>();
-		this.review = "";
+		this.products = new HashMap<Product, Integer>();
 	}
 
 	public Order(Map<Product, Integer> products, String parameters, OrderState state) {
 		this.products = products;
 		this.parameters = parameters;
 		this.state = state;
-		this.review = "";
 	}
 	
-	public Order(int id, int userId, String review) {
+	public Order(int id, int userId) {
 		this.id = id;
 		this.userId = userId;
-		this.review = review;
 		this.products = null;
 		this.parameters = "";
 		this.state = null;
@@ -86,13 +84,5 @@ public class Order extends Observable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public void setReview(String review) {
-		this.review = review;
-	}
-
-	public String getReview() {
-		return this.review;
 	}
 }

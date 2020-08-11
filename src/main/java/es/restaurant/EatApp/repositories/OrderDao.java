@@ -14,7 +14,7 @@ public class OrderDao extends Dao {
 
 	private Map<Integer, Order> orders;
 	private static OrderDao dao;
-	private static final String TABLE_NAME = "orders";
+	protected static final String TABLE_ORDERS = "orders";
 	
 	public static OrderDao getOrderDao() {
 		if(dao == null) {
@@ -41,31 +41,30 @@ public class OrderDao extends Dao {
 		return this.orders.get(userId);
 	}
 
-	private RowMapper<Order> buildOrderForReview() {
-		return new RowMapper<Order>() {
-			public Order mapRow(ResultSet result, int rowNum) throws SQLException {
-				Order order = new Order(result.getInt("id"),
-										result.getInt("userId"),
-										result.getString("review"));
-				return order;
-			}
-		};
-	}
-
-	public List<Order> getAllOrdersFromUser(int userId) {
-		String sql = selectAllFrom(TABLE_NAME) + where("userId = " + userId);
-		List<Order> orders = this.db.getJdbcTemplate().query(sql, buildOrderForReview());
-		return orders.isEmpty() ? null : orders;
-	}
-
 	public boolean updateReview(String review, int orderId) {
-        String sql = update(TABLE_NAME, "review=?" + where("id=?"));
+        String sql = update(TABLE_ORDERS, "review=?" + where("id=?"));
         return (this.db.getJdbcTemplate().update(sql, review, orderId) == 1);
 	}
 	
 	public boolean updateReviewRestore(String review, int orderId) {
-        String sql = update(TABLE_NAME, "review=?" + where("id=?"));
+        String sql = update(TABLE_ORDERS, "review=?" + where("id=?"));
         return (this.db.getJdbcTemplate().update(sql, review, orderId) == 1);
+	
+	
+	}
+
+	private RowMapper<String> buildReview() {
+		return new RowMapper<String>() {
+			public String mapRow(ResultSet result, int rowNum) throws SQLException {
+				String review = result.getString("review");
+				return review;
+			}
+		};
 	}
 	
+	public String getReviewFromOrder(int orderId) {
+		String sql = select("review") + from(TABLE_ORDERS) + where("id=" + orderId);
+		List<String> review = this.db.getJdbcTemplate().query(sql, buildReview());
+		return review.isEmpty() ? null : review.get(0);
+	}
 }

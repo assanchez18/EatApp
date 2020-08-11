@@ -10,8 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.models.OrderToReview;
 import es.restaurant.EatApp.repositories.OrderDao;
+import es.restaurant.EatApp.repositories.OrderProductsDao;
 import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.ReviewExperienceView;
 
@@ -21,21 +22,21 @@ public class ReviewExperienceController {
 	@GetMapping("/reviewExperience")
 	public String showReviewExperienceOptions(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
-		List<Order> orders = OrderDao.getOrderDao().getAllOrdersFromUser(UserDao.getUserDao().getUser(view.getEmail()).getId());
+		List<OrderToReview> orders = OrderProductsDao.getOrderProductsDao().getAllOrdersFromUser(UserDao.getUserDao().getUser(view.getEmail()).getId());
+		//INTRODUCIR NOMBRE RESTAURANTE Y FECHA EN EL MODELO (Y EN LA BBDD) PARA MEJORAR COMPRENSIÓN
 		return view.interact(orders);
 	}
 
 
-	/*@PostMapping("/showOrderToReview")
+	@PostMapping("/showOrderToReview")
 	public String showOrderToReview(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
-		Order order = view.getOrderId();
-		// coger orderId de la vista
-		// recuperar la orden de la BBDD
-		// preparar la vista igual que ShowOrder, pero añadiendo un campo de texto para la review
-		// método controlPost recibe ese formulario y actualiza la bbdd
+		OrderToReview order = OrderProductsDao.getOrderProductsDao().getOrderToReviewById(view.getOrderId());
+		if (order == null ) {
+			view.errorIncorrectId();
+		}
 		return view.showOrderToReview(order);
-	}*/
+	}
 	
 	@PostMapping("/reviewExperience")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -44,7 +45,8 @@ public class ReviewExperienceController {
 		if(review == null) {
 			return view.noReviewError();
 		}
-		OrderDao.getOrderDao().updateReview(review, view.getOrderId());
+		int id = view.getOrderId();
+		OrderDao.getOrderDao().updateReview(review, id);
 		return view.interact();
 	}
 	

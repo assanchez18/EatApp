@@ -35,5 +35,13 @@ public abstract class Dao {
 	protected String delete(String table, String condition) {
 		return "DELETE FROM " + table + condition;
 	}
+	
+	protected String from(String condition) {
+		return " FROM " + condition;
+	}
+
+	protected String select(String condition) {
+		return "SELECT " + condition;
+	}
 
 }
