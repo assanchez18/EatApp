@@ -43,20 +43,21 @@
 						<h3 th:text="${session.order.parameters}"></h3>
 					</div>
 					<form
-						th:if="${session.orderInProgress == null or session.orderInProgress == false}"
+						th:unless="${(session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).BASE) or
+						(session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).OPEN)}"
 						action="changeOrder">
 						<button type="submit" class="btn btn-success">Cambiar el
 							pedido</button>
 					</form>
 					<form
-						th:unless="${session.orderInProgress == null or session.orderInProgress == false}"
+						th:if="${session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).OPEN}"
 						action="createOrder">
 						<button type="submit" class="btn btn-success">Seguir
 							creando el pedido</button>
 					</form>
 				</div>
 				<div
-					th:if="${session.order == null and (session.orderInProgress == null or session.orderInProgress == false)}">
+					th:if="${session.order == null}">
 					<h2>Vaya, parece que no tienes un pedido en proceso, ¡crea
 						uno!</h2>
 					<form action="createOrder">

@@ -13,7 +13,6 @@ public abstract class OrderView extends View {
 	public static final String IDS_TAG = "ids[]";
 	public static final String AMOUNTS_TAG = "amounts[]";
 	public static final String PARAMS_TAG = "parameters";
-	public static final String ORDER_IN_PROGRESS = "orderInProgress";
 	protected static final String ERROR_EMPTY_ORDER_MSG = "Vaya!, parece que tu pedido estaba vacío";
 	protected static final String ERROR_MSG = "Ha habido un problema con tu pedido, vuelve a intentarlo";
 
@@ -67,14 +66,6 @@ public abstract class OrderView extends View {
 	
 	public Order getOrder() {
 		return (Order) this.session.getAttribute(ORDER_TAG);
-	}
-
-	public boolean isOrderInProgress() {
-		Object value = this.session.getAttribute(ORDER_IN_PROGRESS);
-		if(value == null) {
-			return false;
-		}
-		return (boolean) value;
 	}
 
 }

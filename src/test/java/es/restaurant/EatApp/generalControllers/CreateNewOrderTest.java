@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderBuilder;
+import es.restaurant.EatApp.models.OrderState;
+import es.restaurant.EatApp.models.OrderState.orderState;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.CleanNotificationView;
@@ -61,11 +63,10 @@ public class CreateNewOrderTest {
 
 	@Test
 	public void createOrderOkGetRequestWhenAnOrderIsInProgress() throws Exception {
-		Order orderInProgress = new OrderBuilder().baseOrder().build();
+		Order orderInProgress = new OrderBuilder().baseOrder().state(new OrderState(orderState.OPEN)).build();
 		this.mockMvc.perform(
 				get("/createOrder")
-				.sessionAttr(OrderView.ORDER_TAG, orderInProgress)
-				.sessionAttr(OrderView.ORDER_IN_PROGRESS, true))
+				.sessionAttr(OrderView.ORDER_TAG, orderInProgress))
 		.andExpect(status().isOk());
 	}
 

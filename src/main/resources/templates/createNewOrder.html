@@ -9,8 +9,8 @@
 	<div class="page">
 		<main role="main" class="main container col-xl col-lg col-md col-sm col-">
 			<div class="starter-template">
-					<h2 th:unless="${session.orderInProgress}" class="intro">¿Qué te apetece?</h2>
-					<h2 th:if="${session.orderInProgress}" class="intro">Así dejaste tu pedido</h2>
+					<h2 th:if="${order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).BASE}" class="intro">¿Qué te apetece?</h2>
+					<h2 th:unless="${order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).BASE}" class="intro">Así dejaste tu pedido</h2>
 					<form formaction="createOrder" method="post">
 						<table th:if="${order.products}" id="dataTable"
 							class="table table-striped display">

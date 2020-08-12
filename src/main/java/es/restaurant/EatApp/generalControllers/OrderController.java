@@ -38,7 +38,7 @@ public abstract class OrderController {
 			}
 			products.put(product, amounts[i]);
 		}
-		return new Order(products, parameters, new OrderState(OrderState.orderState.QUEUED));
+		return new Order(products, parameters, new OrderState());
 	}
 
 	protected abstract String interact();

@@ -20,14 +20,15 @@
 		<p>Pedir ayuda</p>
 	</a>
 	<a
-		th:unless="${session.order != null and (session.orderInProgress == null or session.orderInProgress == false)}"
+		th:if="${(session.order == null) or (session.order != null and (session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).BASE) or
+						(session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).OPEN))}"
 		href="/createOrder"
 		class="btn column mainOptions col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"
 		role="button">
 		<p>Crear nuevo pedido</p>
 	</a>
 	<a
-		th:if="${session.order != null and (session.orderInProgress == null or session.orderInProgress == false)}"
+		th:unless="${(session.order == null) or (session.order != null and (session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).BASE) or						(session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).OPEN))}"
 		href="/createOrder"
 		class="btn column mainOptions col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"
 		role="button">

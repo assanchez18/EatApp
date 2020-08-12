@@ -3,6 +3,7 @@ package es.restaurant.EatApp.models;
 public class OrderState {
 
 	public enum orderState {
+		BASE,
 		OPEN,
 		QUEUED,
 		COOKING,
@@ -14,7 +15,7 @@ public class OrderState {
 	private orderState state;
 
 	public OrderState() {
-		this.state = orderState.OPEN;
+		this.state = orderState.BASE;
 	}
 
 	public OrderState(orderState state) {

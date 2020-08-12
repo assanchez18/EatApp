@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.models.OrderState;
 
 public class CreateNewOrderView extends OrderView {
 
@@ -16,17 +17,17 @@ public class CreateNewOrderView extends OrderView {
 	}
 	
 	public String interact(Order order) {
-		this.model.addAttribute(ORDER_TAG, order);
 		setStatusOk();
-		if(this.getOrder() != null && !this.isOrderInProgress()) {
+		Order sessionOrder = this.getOrder();
+		if(sessionOrder != null && !(sessionOrder.getState().getTypeOrdinal() == OrderState.orderState.OPEN.ordinal())) {
 			return SHOW_ORDER_VIEW;
 		}
+		this.model.addAttribute(ORDER_TAG, order);
 		return CREATE_NEW_ORDER_VIEW;
 	}
 
 	public void updateSession(Order order) {
 		this.session.setAttribute(ORDER_TAG, order);
-		this.session.removeAttribute(ORDER_IN_PROGRESS);
 	}
 
 	public Integer getTableCode() {

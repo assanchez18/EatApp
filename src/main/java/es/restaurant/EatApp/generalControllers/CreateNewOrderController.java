@@ -1,3 +1,4 @@
+
 package es.restaurant.EatApp.generalControllers;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
+import es.restaurant.EatApp.models.OrderState.orderState;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.models.Employee;
 import es.restaurant.EatApp.repositories.CookDao;
@@ -29,13 +31,13 @@ public class CreateNewOrderController extends OrderController {
 	private CreateNewOrderView view;
 
 	@GetMapping("/createOrder")
-	public String prepareCreatoOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String prepareCreateOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new CreateNewOrderView(model, req, res);
 		if(this.view.getTableCode() == null) {
 			return this.view.redirectToRegistryInTable();
 		}
 		Order baseOrder = createEmptyOrder();
-		if(this.view.isOrderInProgress()) {
+		if(this.view.getOrder() != null && this.view.getOrder().getState().getTypeOrdinal() == OrderState.orderState.OPEN.ordinal()) {
 			mergeOrders(baseOrder, this.view.getOrder());
 		}
 		return view.interact(baseOrder);
@@ -48,6 +50,7 @@ public class CreateNewOrderController extends OrderController {
 	}
 
 	protected String interact() {
+		this.order.setState(new OrderState(orderState.QUEUED));
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployeesObserveOrder();
 		this.order.changeStatus(Notification.Type.ORDER_QUEUED, view.getTableCode());
@@ -74,7 +77,7 @@ public class CreateNewOrderController extends OrderController {
 		for(Product product : productDao.getProducts()) {
 			products.put(product, 0);
 		}
-		return new Order(products, "", new OrderState(OrderState.orderState.QUEUED));
+		return new Order(products, "", new OrderState());
 	}
 
 	private void mergeOrders(Order baseOrder, Order otherOrder) {
@@ -86,5 +89,6 @@ public class CreateNewOrderController extends OrderController {
 			} 
 		} 
 		baseOrder.setParameters(otherOrder.getParameters());
+		baseOrder.setState(otherOrder.getState());
 	}
 }
