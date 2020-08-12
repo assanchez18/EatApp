@@ -26,7 +26,6 @@ public class OrderDao extends Dao {
 	private OrderDao() {
 		super();
 		this.orders = new HashMap<Integer, Order>();
-		this.orders.put(1, new Order());
 	}
 
 	public Collection<Order> getOrdersFromCache() {
