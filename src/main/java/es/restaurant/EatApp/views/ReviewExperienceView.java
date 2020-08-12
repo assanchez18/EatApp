@@ -13,15 +13,14 @@ public class ReviewExperienceView extends OrderView {
 	private static final String ORDERS_TO_REVIEW_TAG = "ordersToReview";
 	private static final String SHOW_ALL_USER_ORDERS_TO_REVIEW_VIEW = "orderReview";
 	private static final String SHOW_ORDER_TO_REVIEW_VIEW = "showOrderToReview";
-	private static final String REVIEW_TAG = "review";
-	private static final String ERROR_NO_REVIEW_MSG = "No has introducido ninguna review";
-	private static final String ORDER_ID_TAG = "orderId";
+	public static final String REVIEW_TAG = "review";
+	public static final String ORDER_ID_TAG = "orderId";
 	private static final String ERROR_WRONG_ORDER_ID = "El id de la orden es incorrecto";
 	public ReviewExperienceView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
 
-	public String interact(List<OrderToReview> orders) {
+	public String showAllOrdersToReview(List<OrderToReview> orders) {
 		this.model.addAttribute(ORDERS_TO_REVIEW_TAG, orders);
 		setStatusOk();
 		return SHOW_ALL_USER_ORDERS_TO_REVIEW_VIEW;
@@ -33,12 +32,7 @@ public class ReviewExperienceView extends OrderView {
 	}
 	
 	public String getReview() {
-		String opinion = this.request.getParameter(REVIEW_TAG);
-		return opinion.isEmpty() ? null : opinion;
-	}
-
-	public String noReviewError() {
-		return errorBadRequest(ERROR_NO_REVIEW_MSG);
+		return this.request.getParameter(REVIEW_TAG);
 	}
 
 	public int getOrderId() {
@@ -46,11 +40,12 @@ public class ReviewExperienceView extends OrderView {
 	}
 
 	public String errorIncorrectId() {
-		return errorBadRequest(ERROR_WRONG_ORDER_ID);
+		return returnErrorWithMessage(ERROR_WRONG_ORDER_ID, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
 	}
 
 	public String showOrderToReview(OrderToReview order) {
 		this.model.addAttribute(ORDER_TAG, order);
+		setStatusOk();
 		return SHOW_ORDER_TO_REVIEW_VIEW;
 	}
 

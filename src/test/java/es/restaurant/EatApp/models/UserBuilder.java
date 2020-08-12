@@ -43,7 +43,10 @@ public class UserBuilder {
 		return this.email("waiter@waiter.com").password("waiter").type(userType.WAITER);
 	}
 	
-	
+	public UserBuilder commensal() {
+		return this.email("comensal@comensal.com").password("commensal").type(userType.COMMENSAL);
+	}
+		
 	public UserBuilder type(userType type) {
 		this.type = new UserType(type);
 		return this;

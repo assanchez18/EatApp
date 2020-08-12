@@ -27,4 +27,8 @@ public class OrderToReview extends Order {
 	public List<Pair<String,Integer>> getProductReviews() {
 		return this.productReviews;
 	}
+
+	public boolean isValid() {
+		return !(this.productReviews == null);
+	}
 }

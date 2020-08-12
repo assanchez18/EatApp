@@ -24,16 +24,16 @@ public class ReviewExperienceController {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
 		List<OrderToReview> orders = OrderProductsDao.getOrderProductsDao().getAllOrdersFromUser(UserDao.getUserDao().getUser(view.getEmail()).getId());
 		//INTRODUCIR NOMBRE RESTAURANTE Y FECHA EN EL MODELO (Y EN LA BBDD) PARA MEJORAR COMPRENSIÓN
-		return view.interact(orders);
+		return view.showAllOrdersToReview(orders);
 	}
 
 
-	@PostMapping("/showOrderToReview")
+	@PostMapping("/showOrderReview")
 	public String showOrderToReview(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
 		OrderToReview order = OrderProductsDao.getOrderProductsDao().getOrderToReviewById(view.getOrderId());
-		if (order == null ) {
-			view.errorIncorrectId();
+		if (order == null || !order.isValid()) {
+			return view.errorIncorrectId();
 		}
 		return view.showOrderToReview(order);
 	}
@@ -41,12 +41,7 @@ public class ReviewExperienceController {
 	@PostMapping("/reviewExperience")
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
-		String review = view.getReview();
-		if(review == null) {
-			return view.noReviewError();
-		}
-		int id = view.getOrderId();
-		OrderDao.getOrderDao().updateReview(review, id);
+		OrderDao.getOrderDao().updateReview(view.getReview(), view.getOrderId());
 		return view.interact();
 	}
 	

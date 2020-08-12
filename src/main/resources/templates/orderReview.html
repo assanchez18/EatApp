@@ -17,11 +17,9 @@
 						</tr>
 					</thead>
 					<tr th:each="order: ${ordersToReview}">
-						<form action="showOrderToReview" method="post">
+						<form action="showOrderReview" method="post">
 						<td><input type="hidden" name="orderId" th:text="${order.id}"
 							th:value="${order.id}" /></td>
-						<!--<td><input type="text" required="required"
-							name="review" min="1" max="50" placeholder="opinion" /></td>-->
 						<td th:if="${order.review == ''}"><button class="btn btn-success" name="newOpinion" type="submit">Dejar nueva opinion</button></td>
 						<td th:if="not ${order.review == ''}"><button class="btn btn-success" name="modifyOpinion" type="submit">Modificar opinion</button></td>
 						</form>
