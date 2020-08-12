@@ -13,6 +13,9 @@ import es.restaurant.EatApp.models.Order;
 public class ManageProductStatusView extends OrderView {
 	
 	private static final String ORDERS_TAG = "orders";
+	private static final String USER_ID_TAG = "userId";
+	private static final String OPERATION_TAG = "operation";
+	private static final String PRODUCT_ID_TAG = "productId";
 	private static final String MANAGE_PRODUCT_STATUS_ORDERS_VIEW = "manageProductStatusOrders.html";
 
 	public ManageProductStatusView(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -25,4 +28,15 @@ public class ManageProductStatusView extends OrderView {
 		return MANAGE_PRODUCT_STATUS_ORDERS_VIEW;
 	}
 
+	public int getUserId() {
+		return Integer.decode(this.request.getParameter(USER_ID_TAG));
+	}
+
+	public int getProductId() {
+		return Integer.decode(this.request.getParameter(PRODUCT_ID_TAG));
+	}
+
+	public String getOperation() {
+		return this.request.getParameter(OPERATION_TAG);
+	}
 }

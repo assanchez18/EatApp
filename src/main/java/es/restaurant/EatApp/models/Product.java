@@ -1,5 +1,7 @@
 package es.restaurant.EatApp.models;
 
+import es.restaurant.EatApp.models.ProductState.productState;
+
 public class Product {
 
 	private int id;
@@ -73,6 +75,12 @@ public class Product {
 	public void setPriority(ProductPriority priority) {
 		this.priority = priority;
 	}
+	
+	public void setNextState() {
+		if(this.state != new ProductState(productState.SERVED)) {
+			this.state = new ProductState(this.state.getTypeOrdinal()+1);
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -84,6 +92,10 @@ public class Product {
 		return (this.name.compareTo(u.getName())== 0 
 				&& this.description.compareTo(u.getDescription())== 0
 				&& this.price == u.getPrice()); // TODO shouldn't it be the id only?
+	}
+
+	public void cancel() {
+		this.state = new ProductState(productState.CANCELLED);
 	}
 	
 }

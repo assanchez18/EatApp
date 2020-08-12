@@ -15,7 +15,7 @@ public class ProductState {
 	public ProductState() {
 		this.state = productState.OPEN;
 	}
-
+	
 	public ProductState(productState state) {
 		this.state = state;
 	}
@@ -36,8 +36,10 @@ public class ProductState {
 			break;
 		case 4:
 			this.state = productState.SERVED;
+			break;
 		case 5:
 			this.state = productState.CANCELLED;
+			break;
 		default:
 			this.state = productState.OPEN;
 			break;

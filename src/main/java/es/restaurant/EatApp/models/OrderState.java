@@ -3,19 +3,51 @@ package es.restaurant.EatApp.models;
 public class OrderState {
 
 	public enum orderState {
-		BASE,
 		OPEN,
 		QUEUED,
 		COOKING,
 		FINISHED,
 		CANCELLED,
 		PAYED,
-		REVIEWED
+		REVIEWED,
+		BASE
 	}
 	private orderState state;
 
 	public OrderState() {
 		this.state = orderState.BASE;
+	}
+
+	public OrderState(int state) {
+		switch(state) {
+		case 0:
+			this.state = orderState.OPEN;
+			break;
+		case 1:
+			this.state = orderState.QUEUED;
+			break;
+		case 2:
+			this.state = orderState.COOKING;
+			break;
+		case 3:
+			this.state = orderState.FINISHED;
+			break;
+		case 4:
+			this.state = orderState.CANCELLED;
+			break;
+		case 5:
+			this.state = orderState.PAYED;
+			break;
+		case 6:
+			this.state = orderState.REVIEWED;
+			break;
+		case 7:
+			this.state = orderState.BASE;
+			break;
+		default:
+			this.state = orderState.BASE;
+			break;
+		}
 	}
 
 	public OrderState(orderState state) {

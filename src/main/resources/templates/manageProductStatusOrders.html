@@ -28,20 +28,41 @@
 										<th>Producto</th>
 										<th>Cantidad</th>
 										<th>Estado</th>
-										<th>Acciones</th>
+										<th>Siguiente estado</th>
+										<th>Cancelar</th>
 									</tr>
 								</thead>
 								<tr th:each="product: ${order.products}">
+									<form method="put" action="/manageProductStatus">
 									<td th:text="${product.key.name}"></td>
 									<td th:text="${product.value}"></td>
 									<td th:text="${product.key.state.state}"></td>
 									<td>
-										<form>
-											<button formaction="#" type="submit" class="btn btn-success">Siguiente
-												estado</button>
-											<button formaction="#" type="submit" class="btn btn-danger">Cancelar
-												producto</button>
-										</form>
+									<span
+										th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED}">
+											<form method="post" action="/manageProductStatus">
+												<button formmethod="post" formaction="/manageProductStatus"
+													type="submit" class="btn btn-success">Siguiente
+													estado</button>
+												<input type="hidden" name="userId"
+													th:value="${order.userId}" /> <input type="hidden"
+													name="productId" th:value="${product.key.id}" /> <input
+													type="hidden" name=operation value="change" />
+											</form>
+									</span>
+									</td>
+									<td>
+									<span
+										th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED}">
+											<form method="post" action="/manageProductStatus">
+												<button name="cancel" type="submit" class="btn btn-danger">Cancelar
+													producto</button>
+												<input type="hidden" name="userId"
+													th:value="${order.userId}" /> <input type="hidden"
+													name="productId" th:value="${product.key.id}" /> <input
+													type="hidden" name="operation" value="cancel" />
+											</form>
+									</span>
 									</td>
 								</tr>
 							</table>

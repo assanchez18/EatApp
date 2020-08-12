@@ -8,14 +8,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Order extends Observable {
-	
+
 	protected int id;
 	private OrderState state;
 	private Map<Product, Integer> products;
 	private String parameters;
 	private int userId;
 	private List<Observer> observers;
-	
+
 	public Order() {
 		this.id = 1;
 		this.state = new OrderState();
@@ -28,7 +28,7 @@ public class Order extends Observable {
 		this.parameters = parameters;
 		this.state = state;
 	}
-	
+
 	public Order(int id, int userId) {
 		this.id = id;
 		this.userId = userId;
@@ -36,11 +36,11 @@ public class Order extends Observable {
 		this.parameters = "";
 		this.state = null;
 	}
-	
+
 	public void addObservers(Employee waiter) {
 		this.observers.add(waiter);
 	}
-	
+
 	public void changeStatus(Notification.Type type, int tableCode) {
 		this.setChanged();
 		this.notifyObservers(new Notification(type, tableCode));
@@ -54,6 +54,24 @@ public class Order extends Observable {
 		this.state = state;
 	}
 
+	public void calculateNextState() {
+		int state = ProductState.productState.values().length;
+		for(Product product : this.products.keySet()) {
+			if(product.getState().getTypeOrdinal()<state) {
+				state = product.getState().getTypeOrdinal();
+			}
+		}
+		if(state < 3) {
+			this.state = new OrderState(state);
+		} else if(state == 4) {
+			this.state = new OrderState(OrderState.orderState.FINISHED);
+		} else if(state == 5) {
+			this.state = new OrderState(OrderState.orderState.CANCELLED);
+		} else {
+			this.state = new OrderState(); // TODO Handle PAYED and REVIEWED
+		}
+	}
+
 	public Map<Product, Integer> getProducts() {
 		return products;
 	}
@@ -61,11 +79,11 @@ public class Order extends Observable {
 	public void setProducts(Map<Product, Integer> products) {
 		this.products = products;
 	}
-	
+
 	public void setParameters(String parameters) {
 		this.parameters = parameters;
 	}
-	
+
 	public String getParameters() {
 		return this.parameters;
 	}
