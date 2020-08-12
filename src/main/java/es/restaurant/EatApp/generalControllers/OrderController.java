@@ -6,6 +6,7 @@ import java.util.Map;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.models.ProductState;
 import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.views.OrderView;
 
@@ -39,6 +40,12 @@ public abstract class OrderController {
 			products.put(product, amounts[i]);
 		}
 		return new Order(products, parameters, new OrderState());
+	}
+
+	protected void initializeProductStates(ProductState state) {
+		for(Product product : this.order.getProducts().keySet()) {
+			product.setState(state);
+		}
 	}
 
 	protected abstract String interact();

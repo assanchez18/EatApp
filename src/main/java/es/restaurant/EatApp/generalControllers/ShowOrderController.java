@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.OrderState;
+import es.restaurant.EatApp.models.ProductState;
+import es.restaurant.EatApp.models.ProductState.productState;
 import es.restaurant.EatApp.models.OrderState.orderState;
 import es.restaurant.EatApp.views.ShowOrderView;
 
@@ -31,6 +33,7 @@ public class ShowOrderController extends OrderController {
 
 	protected String interact() {
 		this.order.setState(new OrderState(orderState.OPEN));
+		this.initializeProductStates(new ProductState(productState.OPEN));
 		return this.view.interact(this.order);
 	}
 

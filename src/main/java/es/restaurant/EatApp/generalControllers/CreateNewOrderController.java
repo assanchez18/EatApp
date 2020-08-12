@@ -17,7 +17,9 @@ import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.OrderState.orderState;
+import es.restaurant.EatApp.models.ProductState.productState;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.models.ProductState;
 import es.restaurant.EatApp.models.Employee;
 import es.restaurant.EatApp.repositories.CookDao;
 import es.restaurant.EatApp.repositories.OrderDao;
@@ -51,6 +53,7 @@ public class CreateNewOrderController extends OrderController {
 
 	protected String interact() {
 		this.order.setState(new OrderState(orderState.QUEUED));
+		this.initializeProductStates(new ProductState(productState.QUEUED));
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployeesObserveOrder();
 		this.order.changeStatus(Notification.Type.ORDER_QUEUED, view.getTableCode());
