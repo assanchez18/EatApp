@@ -44,13 +44,6 @@ public class OrderDao extends Dao {
         String sql = update(TABLE_ORDERS, "review=?" + where("id=?"));
         return (this.db.getJdbcTemplate().update(sql, review, orderId) == 1);
 	}
-	
-	public boolean updateReviewRestore(String review, int orderId) {
-        String sql = update(TABLE_ORDERS, "review=?" + where("id=?"));
-        return (this.db.getJdbcTemplate().update(sql, review, orderId) == 1);
-	
-	
-	}
 
 	private RowMapper<String> buildReview() {
 		return new RowMapper<String>() {

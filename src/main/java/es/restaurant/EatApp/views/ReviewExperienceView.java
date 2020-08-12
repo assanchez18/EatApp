@@ -11,7 +11,8 @@ import es.restaurant.EatApp.models.OrderToReview;
 public class ReviewExperienceView extends OrderView {
 
 	private static final String ORDERS_TO_REVIEW_TAG = "ordersToReview";
-	private static final String ORDERS_REVIEW_VIEW = "orderReview";
+	private static final String SHOW_ALL_USER_ORDERS_TO_REVIEW_VIEW = "orderReview";
+	private static final String SHOW_ORDER_TO_REVIEW_VIEW = "showOrderToReview";
 	private static final String REVIEW_TAG = "review";
 	private static final String ERROR_NO_REVIEW_MSG = "No has introducido ninguna review";
 	private static final String ORDER_ID_TAG = "orderId";
@@ -23,7 +24,7 @@ public class ReviewExperienceView extends OrderView {
 	public String interact(List<OrderToReview> orders) {
 		this.model.addAttribute(ORDERS_TO_REVIEW_TAG, orders);
 		setStatusOk();
-		return ORDERS_REVIEW_VIEW;
+		return SHOW_ALL_USER_ORDERS_TO_REVIEW_VIEW;
 	}
 
 	public String interact() {
@@ -49,8 +50,8 @@ public class ReviewExperienceView extends OrderView {
 	}
 
 	public String showOrderToReview(OrderToReview order) {
-		this.model.addAttribute("order", order);
-		return "showOrderToReview";
+		this.model.addAttribute(ORDER_TAG, order);
+		return SHOW_ORDER_TO_REVIEW_VIEW;
 	}
 
 	

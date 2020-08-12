@@ -13,6 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	IngredientsDaoTest.class,
 	ProductsDaoTest.class,
 	ProductsDaoTest.class,
+	OrderProductsDaoTest.class,
 	OrderDaoTest.class
 })
 public class DaosTest {

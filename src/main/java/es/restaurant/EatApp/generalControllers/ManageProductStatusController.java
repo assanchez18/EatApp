@@ -1,7 +1,5 @@
 package es.restaurant.EatApp.generalControllers;
 
-import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
