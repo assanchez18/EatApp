@@ -6,6 +6,7 @@ public class OrderState {
 		OPEN,
 		QUEUED,
 		COOKING,
+		READY,
 		FINISHED,
 		CANCELLED,
 		PAYED,
@@ -30,18 +31,21 @@ public class OrderState {
 			this.state = orderState.COOKING;
 			break;
 		case 3:
-			this.state = orderState.FINISHED;
+			this.state = orderState.READY;
 			break;
 		case 4:
-			this.state = orderState.CANCELLED;
+			this.state = orderState.FINISHED;
 			break;
 		case 5:
-			this.state = orderState.PAYED;
+			this.state = orderState.CANCELLED;
 			break;
 		case 6:
-			this.state = orderState.REVIEWED;
+			this.state = orderState.PAYED;
 			break;
 		case 7:
+			this.state = orderState.REVIEWED;
+			break;
+		case 8:
 			this.state = orderState.BASE;
 			break;
 		default:

@@ -16,6 +16,7 @@ public class OrderBuilder {
 		Map<Product, Integer> products = new HashMap<Product, Integer>();
 		products.put(new ProductBuilder().baseProduct().build(), 2);
 		this.products(products);
+		this.userId(1);
 		return this;
 	}
 

@@ -24,26 +24,30 @@ public class ManageProductStatusController {
 		this.view = new ManageProductStatusView(model, req, res);
 		return this.view.interact(OrderDao.getOrderDao().getOrdersFromCache());
 	}
-	
+
 	@PostMapping("/manageProductStatus")
 	public String processingManageProductStatus(Model model, HttpServletRequest req, HttpServletResponse res) {
-		System.out.println("post");
 		this.view = new ManageProductStatusView(model, req, res);
 		int userId = this.view.getUserId();
 		int productId = this.view.getProductId();
+		return this.handleStates(userId, productId);
+	}
+
+	private String handleStates(int userId, int productId) {
 		Order order = OrderDao.getOrderDao().takeFromCacheWithUserId(userId);
-		for(Product product : order.getProducts().keySet()) {
-			if(product.getId() == productId) {
-				if(this.view.getOperation().equals(CANCEL_TAG)) {
-					product.cancel();
-				} else {
-					product.setNextState();
+		if(order != null) {
+			for(Product product : order.getProducts().keySet()) {
+				if(product.getId() == productId) {
+					if(this.view.getOperation().equals(CANCEL_TAG)) {
+						product.cancel(); // TODO this will be to cancel product UC
+					} else {
+						product.setNextState();
+					}
+					order.calculateNextState();
+					return this.view.interact(OrderDao.getOrderDao().getOrdersFromCache());
 				}
 			}
 		}
-		order.calculateNextState();
-		// TODO filter orders to show depending on the employee type
-		return this.view.interact(OrderDao.getOrderDao().getOrdersFromCache());
+		return this.view.error();
 	}
-
 }

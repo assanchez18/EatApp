@@ -13,10 +13,11 @@ import es.restaurant.EatApp.models.Order;
 public class ManageProductStatusView extends OrderView {
 	
 	private static final String ORDERS_TAG = "orders";
-	private static final String USER_ID_TAG = "userId";
-	private static final String OPERATION_TAG = "operation";
-	private static final String PRODUCT_ID_TAG = "productId";
+	public static final String USER_ID_TAG = "userId";
+	public static final String OPERATION_TAG = "operation";
+	public static final String PRODUCT_ID_TAG = "productId";
 	private static final String MANAGE_PRODUCT_STATUS_ORDERS_VIEW = "manageProductStatusOrders.html";
+	private static final String ERROR_PROBLEM = "Ha habido un problema modificando el producto";
 
 	public ManageProductStatusView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
@@ -38,5 +39,9 @@ public class ManageProductStatusView extends OrderView {
 
 	public String getOperation() {
 		return this.request.getParameter(OPERATION_TAG);
+	}
+
+	public String error() {	
+		return returnErrorWithMessage(ERROR_PROBLEM, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
 	}
 }

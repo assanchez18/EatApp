@@ -40,6 +40,10 @@ public class OrderDao extends Dao {
 		return this.orders.get(userId);
 	}
 
+	public void deleteFromCache(int userId) {
+		this.orders.remove(userId);
+	}
+
 	public boolean updateReview(String review, int orderId) {
         String sql = update(TABLE_ORDERS, "review=?" + where("id=?"));
         return (this.db.getJdbcTemplate().update(sql, review, orderId) == 1);
@@ -59,4 +63,5 @@ public class OrderDao extends Dao {
 		List<String> review = this.db.getJdbcTemplate().query(sql, buildReview());
 		return review.isEmpty() ? null : review.get(0);
 	}
+
 }

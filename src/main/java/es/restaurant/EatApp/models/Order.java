@@ -57,19 +57,12 @@ public class Order extends Observable {
 	public void calculateNextState() {
 		int state = ProductState.productState.values().length;
 		for(Product product : this.products.keySet()) {
-			if(product.getState().getTypeOrdinal()<state) {
+			if(product.getState().getTypeOrdinal() < state) {
 				state = product.getState().getTypeOrdinal();
 			}
 		}
-		if(state < 3) {
-			this.state = new OrderState(state);
-		} else if(state == 4) {
-			this.state = new OrderState(OrderState.orderState.FINISHED);
-		} else if(state == 5) {
-			this.state = new OrderState(OrderState.orderState.CANCELLED);
-		} else {
-			this.state = new OrderState(); // TODO Handle PAYED and REVIEWED
-		}
+		this.state = new OrderState(state);
+		// TODO Handle PAYED and REVIEWED and test
 	}
 
 	public Map<Product, Integer> getProducts() {
