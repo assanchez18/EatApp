@@ -40,7 +40,7 @@ public class CreateNewOrderController extends OrderController {
 		}
 		Order baseOrder = createEmptyOrder();
 		if(this.view.getOrder() != null && this.view.getOrder().getState().getTypeOrdinal() == OrderState.orderState.OPEN.ordinal()) {
-			mergeOrders(baseOrder, this.view.getOrder());
+			baseOrder = mergeOrders(baseOrder, this.view.getOrder());
 		}
 		return view.interact(baseOrder);
 	}
@@ -74,7 +74,7 @@ public class CreateNewOrderController extends OrderController {
 		return this.view;
 	}
 
-	private Order createEmptyOrder() {
+	Order createEmptyOrder() {
 		Map<Product, Integer> products =  new HashMap<Product, Integer>();
 		ProductDao productDao = ProductDao.getProductDao();
 		for(Product product : productDao.getProducts()) {
@@ -83,15 +83,18 @@ public class CreateNewOrderController extends OrderController {
 		return new Order(products, "", new OrderState());
 	}
 
-	private void mergeOrders(Order baseOrder, Order otherOrder) {
+	Order mergeOrders(Order baseOrder, Order otherOrder) {
 		for(Entry<Product, Integer> product : otherOrder.getProducts().entrySet()) {
 			for(Entry<Product, Integer>baseProduct : baseOrder.getProducts().entrySet()) {
 				if(baseProduct.getKey().equals(product.getKey())) {
 					baseProduct.setValue(product.getValue()); 
 				} 
 			} 
-		} 
+		}
+		baseOrder.setUserId(otherOrder.getUserId());
 		baseOrder.setParameters(otherOrder.getParameters());
 		baseOrder.setState(otherOrder.getState());
+		baseOrder.setId(otherOrder.getId());
+		return baseOrder;
 	}
 }

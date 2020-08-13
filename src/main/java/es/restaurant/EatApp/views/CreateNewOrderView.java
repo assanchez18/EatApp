@@ -35,6 +35,7 @@ public class CreateNewOrderView extends OrderView {
 	}
 
 	public String redirectToRegistryInTable() {
+		this.response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
 		return RegisterInTableView.REGISTRY_IN_TABLE_VIEW;
 	}
 
