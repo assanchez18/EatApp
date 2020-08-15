@@ -51,15 +51,15 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
                 post("/registerEmployee")
-                	.param(RegisterEmployeeView.EMAIL_TAG, user.getEmail())
-                    .param(RegisterEmployeeView.PASSWORD_TAG, user.getPassword())
-                    .param(RegisterEmployeeView.USER_TYPE_TAG, Integer.toString(user.getUserType().getTypeOrdinal()))
-                    .param(RegisterEmployeeView.REPEATED_PASSWORD_TAG, user.getPassword()))
+                	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
+                    .param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
+                    .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
+                    .param(RegisterEmployeeView.TAG_REPEATED_PASSWORD, user.getPassword()))
                 .andExpect(status().isOk());
 		
 		this.mockMvc.perform(
 				post("/removeEmployee")
-					.param(RemoveEmployeeView.USER_TO_REMOVE_TAG, user.getEmail()))
+					.param(RemoveEmployeeView.TAG_USER_TO_REMOVE, user.getEmail()))
 				.andExpect(status().isOk());
 	}
 	
@@ -68,7 +68,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().admin().build();
 		this.mockMvc.perform(
                 post("/registerEmployee")
-                	.param(RegisterEmployeeView.EMAIL_TAG, user.getEmail()))
+                	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail()))
                 .andExpect(status().isBadRequest());
 	}
 
@@ -77,10 +77,10 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
                 post("/registerEmployee")
-                	.param(RegisterEmployeeView.EMAIL_TAG, user.getEmail())
-                	.param(RegisterEmployeeView.PASSWORD_TAG, user.getPassword())
-                    .param(RegisterEmployeeView.USER_TYPE_TAG, Integer.toString(user.getUserType().getTypeOrdinal()))
-                    .param(RegisterEmployeeView.REPEATED_PASSWORD_TAG, "1"))
+                	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
+                	.param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
+                    .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
+                    .param(RegisterEmployeeView.TAG_REPEATED_PASSWORD, "1"))
                 .andExpect(status().isBadRequest());
 	}
 
@@ -89,7 +89,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
                 post("/removeEmployee")
-                	.param(RemoveEmployeeView.USER_TO_REMOVE_TAG, user.getEmail()))
+                	.param(RemoveEmployeeView.TAG_USER_TO_REMOVE, user.getEmail()))
                 .andExpect(status().isBadRequest());
 	}
 }

@@ -22,7 +22,7 @@ public class RegisterInTableController {
 	@PostMapping("/registerInTable")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		if(TableDao.getTableDao().getTable(view.getCode()) == null) {
+		if(TableDao.getTableDao().getTable(view.getTableCode()) == null) {
 			return view.errorNotFound();
 		}
 		return view.register();

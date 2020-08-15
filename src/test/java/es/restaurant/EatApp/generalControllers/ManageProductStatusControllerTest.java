@@ -66,9 +66,9 @@ public class ManageProductStatusControllerTest {
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.queryParam(ManageProductStatusView.USER_ID_TAG, String.valueOf(userId))
-				.queryParam(ManageProductStatusView.PRODUCT_ID_TAG, String.valueOf(productId))
-				.queryParam(ManageProductStatusView.OPERATION_TAG, operation))
+				.queryParam(ManageProductStatusView.TAG_USER_ID, String.valueOf(userId))
+				.queryParam(ManageProductStatusView.TAG_PRODUCT_ID, String.valueOf(productId))
+				.queryParam(ManageProductStatusView.TAG_OPERATION, operation))
 		.andExpect(status().isBadRequest());
 	}
 	
@@ -80,9 +80,9 @@ public class ManageProductStatusControllerTest {
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.queryParam(ManageProductStatusView.USER_ID_TAG, String.valueOf(userId))
-				.queryParam(ManageProductStatusView.PRODUCT_ID_TAG, String.valueOf(productId))
-				.queryParam(ManageProductStatusView.OPERATION_TAG, operation))
+				.queryParam(ManageProductStatusView.TAG_USER_ID, String.valueOf(userId))
+				.queryParam(ManageProductStatusView.TAG_PRODUCT_ID, String.valueOf(productId))
+				.queryParam(ManageProductStatusView.TAG_OPERATION, operation))
 		.andExpect(status().isBadRequest());
 	}
 	
@@ -98,9 +98,9 @@ public class ManageProductStatusControllerTest {
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.queryParam(ManageProductStatusView.USER_ID_TAG, String.valueOf(userId))
-				.queryParam(ManageProductStatusView.PRODUCT_ID_TAG, String.valueOf(productId))
-				.queryParam(ManageProductStatusView.OPERATION_TAG, operation))
+				.queryParam(ManageProductStatusView.TAG_USER_ID, String.valueOf(userId))
+				.queryParam(ManageProductStatusView.TAG_PRODUCT_ID, String.valueOf(productId))
+				.queryParam(ManageProductStatusView.TAG_OPERATION, operation))
 		.andExpect(status().isOk());
 	}
 }

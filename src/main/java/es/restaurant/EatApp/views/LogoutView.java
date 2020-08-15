@@ -12,7 +12,7 @@ public class LogoutView extends View {
 
 	public String logout(User user) {
 		this.session.invalidate();		
-		return INDEX_VIEW;
+		return VIEW_INDEX;
 	}
 
 }

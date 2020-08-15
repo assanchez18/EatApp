@@ -32,7 +32,7 @@ public class StartTest {
 
 		this.mockMvc.perform(
 				get("/")
-				.sessionAttr(View.EMAIL_TAG, user.getEmail()))
+				.sessionAttr(View.TAG_EMAIL, user.getEmail()))
 			.andExpect(status().isOk());
 	}
 	

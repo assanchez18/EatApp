@@ -73,4 +73,8 @@ public class OrderState {
 	public boolean equals(OrderState u) {
 		return getTypeOrdinal() == u.getTypeOrdinal();
 	}
+
+	public boolean isOpen() {
+		return this.state == orderState.OPEN;
+	}
 }

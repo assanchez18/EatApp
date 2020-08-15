@@ -39,8 +39,8 @@ public class LoginTest {
 		User user = new UserBuilder().sergio().build();
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.EMAIL_TAG, user.getEmail())
-                        .param(LoginView.PASSWORD_TAG, user.getPassword()))
+                        .param(View.TAG_EMAIL, user.getEmail())
+                        .param(LoginView.TAG_PASSWORD, user.getPassword()))
                 .andExpect(status().isOk());
     }
 
@@ -51,8 +51,8 @@ public class LoginTest {
 
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.EMAIL_TAG, u.getEmail())
-                        .param(LoginView.PASSWORD_TAG, wrongPassword))
+                        .param(View.TAG_EMAIL, u.getEmail())
+                        .param(LoginView.TAG_PASSWORD, wrongPassword))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -62,8 +62,8 @@ public class LoginTest {
 
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.EMAIL_TAG, u.getEmail())
-                        .param(LoginView.PASSWORD_TAG, u.getPassword()))
+                        .param(View.TAG_EMAIL, u.getEmail())
+                        .param(LoginView.TAG_PASSWORD, u.getPassword()))
                 .andExpect(status().isUnauthorized());
     }
 }

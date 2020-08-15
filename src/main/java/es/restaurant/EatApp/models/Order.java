@@ -96,4 +96,8 @@ public class Order extends Observable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+	public boolean isOpen() {
+		return this.state.isOpen();
+	}
 }

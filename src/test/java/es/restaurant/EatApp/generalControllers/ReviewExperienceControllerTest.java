@@ -35,7 +35,7 @@ public class ReviewExperienceControllerTest {
         User commensal = new UserBuilder().commensal().build();
 		this.mockMvc.perform(
                 get("/reviewExperience")
-                .sessionAttr(View.EMAIL_TAG, commensal.getEmail()))
+                .sessionAttr(View.TAG_EMAIL, commensal.getEmail()))
                 .andExpect(status().isOk());
     }
 	
@@ -44,13 +44,13 @@ public class ReviewExperienceControllerTest {
         String orderId = "1";
 		this.mockMvc.perform(
                 post("/showOrderReview")
-                .param(ReviewExperienceView.ORDER_ID_TAG, orderId))
+                .param(ReviewExperienceView.TAG_ORDER_ID, orderId))
                 .andExpect(status().isOk());
 		
 		String wrongOrderId = "-1";
 		this.mockMvc.perform(
 				post("/showOrderReview")
-                .param(ReviewExperienceView.ORDER_ID_TAG, wrongOrderId))
+                .param(ReviewExperienceView.TAG_ORDER_ID, wrongOrderId))
                 .andExpect(status().isBadRequest());
     }
 
@@ -60,15 +60,15 @@ public class ReviewExperienceControllerTest {
         String orderId = "1";
 		this.mockMvc.perform(
                 post("/reviewExperience")
-                .param(ReviewExperienceView.REVIEW_TAG, reviewTest)
-                .param(ReviewExperienceView.ORDER_ID_TAG, orderId))
+                .param(ReviewExperienceView.TAG_REVIEW, reviewTest)
+                .param(ReviewExperienceView.TAG_ORDER_ID, orderId))
                 .andExpect(status().isOk());
 		//restore
 		String emptyReview = "";
 		this.mockMvc.perform(
 				post("/reviewExperience")
-                .param(ReviewExperienceView.REVIEW_TAG, emptyReview)
-                .param(ReviewExperienceView.ORDER_ID_TAG, orderId))
+                .param(ReviewExperienceView.TAG_REVIEW, emptyReview)
+                .param(ReviewExperienceView.TAG_ORDER_ID, orderId))
                 .andExpect(status().isOk());
     }
 }

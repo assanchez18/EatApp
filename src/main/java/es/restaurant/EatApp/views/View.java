@@ -13,12 +13,12 @@ public abstract class View {
 	protected HttpServletResponse response;
 	protected Model model;
 
-	public static final String TABLE_TAG = "table";
-	public static final String EMAIL_TAG = "email";
-	protected static final String ERROR_TAG = "error";
-	protected static final String MAIN_USER_VIEW = "mainUserView";
-	protected static final String ERROR_VIEW = "error";
-	protected static final String INDEX_VIEW = "index";
+	public static final String TAG_TABLE = "table";
+	public static final String TAG_EMAIL = "email";
+	protected static final String TAG_ERROR = "error";
+	protected static final String VIEW_MAIN_USER = "mainUserView";
+	protected static final String VIEW_ERROR = "error";
+	protected static final String VIEW_INDEX = "index";
 	
 	public View () {
 		this.request = null;
@@ -63,20 +63,24 @@ public abstract class View {
 	}
 
 	public String getEmail() {
-		return (String) this.session.getAttribute(EMAIL_TAG);
+		return (String) this.session.getAttribute(TAG_EMAIL);
 	}
-	
+
+	public Integer getTableCode() {
+		return (Integer) this.session.getAttribute(TAG_TABLE);
+	}
+
 	protected void setStatusOk() {
 		this.response.setStatus(HttpServletResponse.SC_OK);
 	}
 	
-	public String returnErrorWithMessage(String message, int code, String errorPage) {
+	public String returnErrorWithMessage(String message, int code, String view) {
 		this.addError(message);
 		this.response.setStatus(code);
-		return errorPage;
+		return view;
 	}
 	
 	private void addError(String msg) {
-		this.model.addAttribute(ERROR_TAG, msg);
+		this.model.addAttribute(TAG_ERROR, msg);
 	}
 }

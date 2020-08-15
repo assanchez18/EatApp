@@ -11,10 +11,10 @@ import es.restaurant.EatApp.models.Ingredient;
 
 public class ConfigureQuantityOfIngredientsView extends View {
 
-	public final static String INGREDIENT_ID = "ingredientId";
-	public final static String NEW_AMOUNT = "newAmount";
-	private final static String ERROR_MSG = "El ingrediente no existe.";
-	private final static String MANAGE_INGREDIENT_VIEW = "manageIngredient";
+	public final static String TAG_INGREDIENT_ID = "ingredientId";
+	public final static String TAG_NEW_AMOUNT = "newAmount";
+	private final static String MSG_ERROR = "El ingrediente no existe.";
+	private final static String VIEW_MANAGE_INGREDIENT = "manageIngredient";
 
 	public ConfigureQuantityOfIngredientsView(Model model, HttpServletResponse res) {
 		super(model,res);
@@ -27,23 +27,23 @@ public class ConfigureQuantityOfIngredientsView extends View {
 	public String showIngredientsToManage(Collection<Ingredient> collection) {
 		this.model.addAttribute("ingredients", collection);
 		setStatusOk();
-		return MANAGE_INGREDIENT_VIEW;
+		return VIEW_MANAGE_INGREDIENT;
 	}
 
 	public String interact() {
 		setStatusOk();
-		return MAIN_USER_VIEW;
+		return VIEW_MAIN_USER;
 	}
 
 	public int getIngredientId() {
-		return Integer.decode(this.request.getParameter(INGREDIENT_ID));
+		return Integer.decode(this.request.getParameter(TAG_INGREDIENT_ID));
 	}
 
 	public double getNewAmount() {
-		return Double.valueOf(this.request.getParameter(NEW_AMOUNT));
+		return Double.valueOf(this.request.getParameter(TAG_NEW_AMOUNT));
 	}
 
-	public String error() {
-		return returnErrorWithMessage(ERROR_MSG, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
+	public String errorIngredientNotFound() {
+		return returnErrorWithMessage(MSG_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
 	}
 }

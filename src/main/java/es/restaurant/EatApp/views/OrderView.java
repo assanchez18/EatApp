@@ -9,12 +9,12 @@ import es.restaurant.EatApp.models.Order;
 
 public abstract class OrderView extends View {
 
-	public static final String ORDER_TAG = "order";
-	public static final String IDS_TAG = "ids[]";
-	public static final String AMOUNTS_TAG = "amounts[]";
-	public static final String PARAMS_TAG = "parameters";
-	protected static final String ERROR_EMPTY_ORDER_MSG = "Vaya!, parece que tu pedido estaba vacío";
-	protected static final String ERROR_MSG = "Ha habido un problema con tu pedido, vuelve a intentarlo";
+	public static final String TAG_ORDER = "order";
+	public static final String TAG_IDS = "ids[]";
+	public static final String TAG_AMOUNTS = "amounts[]";
+	public static final String TAG_PARAMS = "parameters";
+	protected static final String MSG_EMPTY_ORDER_ERROR = "Vaya!, parece que tu pedido estaba vacío";
+	protected static final String MSG_ORDER_ERROR = "Ha habido un problema con tu pedido, vuelve a intentarlo";
 
 	protected static final String SHOW_ORDER_VIEW = "showOrder";
 
@@ -27,15 +27,15 @@ public abstract class OrderView extends View {
 	}
 
 	public String getParameter() {
-		return this.request.getParameter(PARAMS_TAG);
+		return this.request.getParameter(TAG_PARAMS);
 	}
 
 	public Integer[] getAmounts() {
-		return getParameterArray(AMOUNTS_TAG);
+		return getParameterArray(TAG_AMOUNTS);
 	}
 
 	public Integer[] getIds() {
-		return getParameterArray(IDS_TAG);
+		return getParameterArray(TAG_IDS);
 	}
 
 	private Integer[] getParameterArray(String parameterName) {
@@ -53,19 +53,19 @@ public abstract class OrderView extends View {
 	}
 
 	public String errorWithOrder() {
-		return errorBadRequest(ERROR_MSG);
+		return errorBadRequest(MSG_ORDER_ERROR);
 	}
 
 	public String errorEmptyOrder() {
-		return errorBadRequest(ERROR_EMPTY_ORDER_MSG);
+		return errorBadRequest(MSG_EMPTY_ORDER_ERROR);
 	}
 
 	protected String errorBadRequest(String message) {
-		return this.returnErrorWithMessage(message, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
+		return this.returnErrorWithMessage(message, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
 	}
 	
 	public Order getOrder() {
-		return (Order) this.session.getAttribute(ORDER_TAG);
+		return (Order) this.session.getAttribute(TAG_ORDER);
 	}
 
 }

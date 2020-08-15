@@ -24,13 +24,13 @@ public class RegisterEmployeeController {
 	@PostMapping("/registerEmployee")
 	public String registerEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterEmployeeView view = new RegisterEmployeeView(model, req, res);
-		if (UserDao.getUserDao().getUser(view.getReqEmail()) != null) {
+		if (UserDao.getUserDao().getUser(view.getEmail()) != null) {
 			return view.errorUserExists();
 		}
 		if (!verifyPasswordMatchs(view.getPassword(), view.getRepeatedPassword())) {
 			return view.errorPasswordNotMatch();
 		}
-		User correctUser = new User(view.getReqEmail(), view.getPassword(), view.getUserType());
+		User correctUser = new User(view.getEmail(), view.getPassword(), view.getUserType());
 		if(!UserDao.getUserDao().insertNewUser(correctUser)) {
 			return view.errorUnableToPersistUser();
 		}

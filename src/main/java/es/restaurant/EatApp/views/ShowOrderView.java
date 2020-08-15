@@ -24,8 +24,8 @@ public class ShowOrderView extends OrderView {
 	}
 
 	public String interact(Order order) {
-		this.model.addAttribute(ORDER_TAG, order);
-		this.session.setAttribute(ORDER_TAG, order);
+		this.model.addAttribute(TAG_ORDER, order);
+		this.session.setAttribute(TAG_ORDER, order);
 		return interact();
 	}
 

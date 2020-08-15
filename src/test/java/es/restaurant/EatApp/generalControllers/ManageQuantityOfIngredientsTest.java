@@ -34,14 +34,14 @@ public class ManageQuantityOfIngredientsTest {
 				get("/manageQuantityOfIngredient"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
-						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "10"))
+						.param(ConfigureQuantityOfIngredientsView.TAG_INGREDIENT_ID, "1")
+						.param(ConfigureQuantityOfIngredientsView.TAG_NEW_AMOUNT, "10"))
 		.andExpect(status().isOk());
 		//restore ingredient
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "1")
-						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "1"))
+						.param(ConfigureQuantityOfIngredientsView.TAG_INGREDIENT_ID, "1")
+						.param(ConfigureQuantityOfIngredientsView.TAG_NEW_AMOUNT, "1"))
 		.andExpect(status().isOk());
 
 	}
@@ -52,8 +52,8 @@ public class ManageQuantityOfIngredientsTest {
 				get("/manageQuantityOfIngredient"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.param(ConfigureQuantityOfIngredientsView.INGREDIENT_ID, "-1")
-						.param(ConfigureQuantityOfIngredientsView.NEW_AMOUNT, "10"))
+						.param(ConfigureQuantityOfIngredientsView.TAG_INGREDIENT_ID, "-1")
+						.param(ConfigureQuantityOfIngredientsView.TAG_NEW_AMOUNT, "10"))
 		.andExpect(status().isBadRequest());
 	}
 }

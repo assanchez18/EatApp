@@ -36,7 +36,7 @@ public class RegisterInTableTest {
     	int code = 123;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(RegisterInTableView.CODE_TAG, Integer.toString(code)))
+                        .param(RegisterInTableView.TAG_CODE, Integer.toString(code)))
                 .andExpect(status().isOk());
     }
 	
@@ -52,7 +52,7 @@ public class RegisterInTableTest {
 		int code = 5000;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(RegisterInTableView.CODE_TAG, Integer.toString(code)))
+                        .param(RegisterInTableView.TAG_CODE, Integer.toString(code)))
                 .andExpect(status().isNotFound());
     }
 

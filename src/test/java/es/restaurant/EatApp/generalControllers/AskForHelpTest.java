@@ -48,8 +48,8 @@ public class AskForHelpTest {
 		User w = new UserBuilder().waiter().build();
 		this.mockMvcAsk.perform(
 				post("/cleanNotification")
-					.sessionAttr(View.EMAIL_TAG, w.getEmail())
-					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(this.tableCode)))
+					.sessionAttr(View.TAG_EMAIL, w.getEmail())
+					.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(this.tableCode)))
 				.andExpect(status().isOk())
 				.andExpect(model().attribute("notifications",
 						org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
@@ -61,12 +61,12 @@ public class AskForHelpTest {
 				get("/"));
 		this.mockMvcAsk.perform(
 				get("/askForHelp")
-					.sessionAttr(View.TABLE_TAG, this.tableCode))
+					.sessionAttr(View.TAG_TABLE, this.tableCode))
 				.andExpect(status().isOk());
 		this.mockMvcAsk.perform(
 				post("/showNotification")
-					.sessionAttr(View.TABLE_TAG, this.tableCode)
-					.sessionAttr(View.EMAIL_TAG, "waiter@waiter.com"))
+					.sessionAttr(View.TAG_TABLE, this.tableCode)
+					.sessionAttr(View.TAG_EMAIL, "waiter@waiter.com"))
 				.andExpect(status().isOk())
 				.andExpect(model().attribute("notifications",
 						org.hamcrest.collection.IsIterableWithSize.iterableWithSize(1)));
@@ -78,7 +78,7 @@ public class AskForHelpTest {
 				get("/"));
 		this.mockMvcAsk.perform(
 				get("/askForHelp")
-					.sessionAttr(View.TABLE_TAG, -1))
+					.sessionAttr(View.TAG_TABLE, -1))
 				.andExpect(status().isBadRequest());
 	}
 }

@@ -53,8 +53,8 @@ public class CreateNewOrderTest {
 		User w = new UserBuilder().waiter().build();
 		this.mockMvc.perform(
 				post("/cleanNotification")
-				.sessionAttr(View.EMAIL_TAG, w.getEmail())
-				.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(this.tableCode)))
+				.sessionAttr(View.TAG_EMAIL, w.getEmail())
+				.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(this.tableCode)))
 		.andExpect(status().isOk())
 		.andExpect(model().attribute("notifications",
 				org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
@@ -72,7 +72,7 @@ public class CreateNewOrderTest {
 		int table = 123;
 		this.mockMvc.perform(
 				get("/createOrder")
-				.sessionAttr(OrderView.TABLE_TAG, table))
+				.sessionAttr(OrderView.TAG_TABLE, table))
 		.andExpect(status().isOk());
 	}
 
@@ -82,8 +82,8 @@ public class CreateNewOrderTest {
 		Order order = new OrderBuilder().baseOrder().build();
 		this.mockMvc.perform(
 				get("/createOrder")
-				.sessionAttr(OrderView.TABLE_TAG, table)
-				.sessionAttr(OrderView.ORDER_TAG, order))
+				.sessionAttr(OrderView.TAG_TABLE, table)
+				.sessionAttr(OrderView.TAG_ORDER, order))
 		.andExpect(status().isOk());
 	}
 
@@ -91,8 +91,8 @@ public class CreateNewOrderTest {
 	public void createOrderOkGetRequestWhenTableCodeIsNotNullAndThereIsOrderInSessionOpen() throws Exception {
 		int table = 123; Order order = new OrderBuilder().baseOrder().state(new OrderState(OrderState.orderState.OPEN)).build();
 		this.mockMvc.perform(get("/createOrder")
-				.sessionAttr(OrderView.TABLE_TAG, table)
-				.sessionAttr(OrderView.ORDER_TAG, order))
+				.sessionAttr(OrderView.TAG_TABLE, table)
+				.sessionAttr(OrderView.TAG_ORDER, order))
 		.andExpect(status().isOk());
 	}
 
@@ -104,10 +104,10 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.queryParam(OrderView.PARAMS_TAG, parameters)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.queryParam(OrderView.TAG_PARAMS, parameters)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isOk());
 	}
 
@@ -117,9 +117,9 @@ public class CreateNewOrderTest {
 		String[] amounts = {"1","2"};
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isOk());
 	}
 
@@ -130,10 +130,10 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.queryParam(OrderView.PARAMS_TAG, parameters)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.queryParam(OrderView.TAG_PARAMS, parameters)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 
@@ -144,10 +144,10 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.queryParam(OrderView.PARAMS_TAG, parameters)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.queryParam(OrderView.TAG_PARAMS, parameters)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isOk());
 	}
 
@@ -158,10 +158,10 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.queryParam(OrderView.PARAMS_TAG, parameters)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.queryParam(OrderView.TAG_PARAMS, parameters)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 
@@ -172,10 +172,10 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.queryParam(OrderView.PARAMS_TAG, parameters)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.queryParam(OrderView.TAG_PARAMS, parameters)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 
@@ -186,10 +186,10 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
-				.queryParam(OrderView.IDS_TAG, ids)
-				.queryParam(OrderView.AMOUNTS_TAG, amounts)
-				.queryParam(OrderView.PARAMS_TAG, parameters)
-				.sessionAttr(OrderView.TABLE_TAG, tableCode))
+				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(OrderView.TAG_AMOUNTS, amounts)
+				.queryParam(OrderView.TAG_PARAMS, parameters)
+				.sessionAttr(OrderView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 

@@ -10,16 +10,16 @@ import es.restaurant.EatApp.models.Ingredient;
 
 public class ShowIngredientsAmountView extends View {
 
-	private static final String MANAGE_GROCERIES_VIEW = "showIngredientsAmountView";
-	private static final String INGREDIENT_TAG = "ingredients";
+	private static final String VIEW_MANAGE_GROCERIES = "showIngredientsAmountView";
+	private static final String TAG_INGREDIENT = "ingredients";
 	
 	public ShowIngredientsAmountView(Model model, HttpServletResponse res) {
 		super(model, res);
 	}
 
 	public String interact(List<Ingredient> ingredients) {
-		this.model.addAttribute(INGREDIENT_TAG,ingredients);
+		this.model.addAttribute(TAG_INGREDIENT,ingredients);
 		setStatusOk();
-		return MANAGE_GROCERIES_VIEW;
+		return VIEW_MANAGE_GROCERIES;
 	}
 }

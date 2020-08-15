@@ -26,7 +26,7 @@ public class ManageQuantityOfIngredientsController {
 		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, req, res);
 		Ingredient ingredient = IngredientDao.getIngredientDao().findIngredient(view.getIngredientId());
 		if(ingredient == null) {
-			return view.error();
+			return view.errorIngredientNotFound();
 		}
 		IngredientDao.getIngredientDao().updateMinimumAmount(ingredient, view.getNewAmount());
 		return view.interact();

@@ -35,7 +35,7 @@ public class LogoutTest {
 
 		this.mockMvc.perform(
 				get("/logout")
-				.sessionAttr(View.EMAIL_TAG, user.getEmail()))
+				.sessionAttr(View.TAG_EMAIL, user.getEmail()))
 		.andExpect(status().isOk());
 	}
 

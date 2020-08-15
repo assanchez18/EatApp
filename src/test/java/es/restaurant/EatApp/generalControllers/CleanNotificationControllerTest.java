@@ -45,12 +45,12 @@ public class CleanNotificationControllerTest {
 				get("/"));
 		this.mockMvc.perform(
                 get("/askForHelp")
-                        .sessionAttr(View.TABLE_TAG, tableCode))
+                        .sessionAttr(View.TAG_TABLE, tableCode))
                 .andExpect(status().isOk());
 		this.mockMvc.perform(
 				post("/cleanNotification")
-					.sessionAttr(View.EMAIL_TAG, w.getEmail())
-					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(tableCode)))
+					.sessionAttr(View.TAG_EMAIL, w.getEmail())
+					.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(tableCode)))
 		.andExpect(status().isOk())
 		.andExpect(model().attribute("notifications",
 		        		org.hamcrest.collection.IsIterableWithSize.iterableWithSize(0)));
@@ -62,8 +62,8 @@ public class CleanNotificationControllerTest {
 		User w = new UserBuilder().email("wrong@email.com").build();
 		this.mockMvc.perform(
 				post("/cleanNotification")
-					.sessionAttr(View.EMAIL_TAG, w.getEmail())
-					.param(CleanNotificationView.NOTIFICATION_ID, Integer.toString(tableCode)))
+					.sessionAttr(View.TAG_EMAIL, w.getEmail())
+					.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(tableCode)))
 		.andExpect(status().isBadRequest());
 	}
 }

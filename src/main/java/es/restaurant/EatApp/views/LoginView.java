@@ -8,9 +8,9 @@ import es.restaurant.EatApp.models.User;
 
 public class LoginView extends View {
 
-	public static final String PASSWORD_TAG = "password";
-	private static final String LOGIN_ERROR_MSG = "El usuario o la contraseña son incorrectos";
-	private static final String TYPE_TAG = "type";
+	public static final String TAG_PASSWORD = "password";
+	private static final String TAG_TYPE = "type";
+	private static final String MSG_LOGIN_ERROR = "El usuario o la contraseña son incorrectos";
 	
 	public LoginView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
@@ -25,21 +25,22 @@ public class LoginView extends View {
 	}
 
 	public String login(User user) {
-		this.session.setAttribute(EMAIL_TAG, this.getReqEmail());
-		this.session.setAttribute(TYPE_TAG, user.getUserType().getTypeName());
+		this.session.setAttribute(TAG_EMAIL, this.getEmail());
+		this.session.setAttribute(TAG_TYPE, user.getUserType().getTypeName());
 		setStatusOk();
-		return MAIN_USER_VIEW;
+		return VIEW_MAIN_USER;
 	}
 
 	public String errorUnauthorized() {
-		return this.returnErrorWithMessage(LOGIN_ERROR_MSG, HttpServletResponse.SC_UNAUTHORIZED, ERROR_VIEW);
+		return this.returnErrorWithMessage(MSG_LOGIN_ERROR, HttpServletResponse.SC_UNAUTHORIZED, VIEW_ERROR);
 	}
 
 	public String getPassword() {
-		return this.request.getParameter(PASSWORD_TAG);
+		return this.request.getParameter(TAG_PASSWORD);
 	}
 
-	public String getReqEmail() {
-		return this.request.getParameter(EMAIL_TAG);
+	@Override
+	public String getEmail() {
+		return this.request.getParameter(TAG_EMAIL);
 	}
 }

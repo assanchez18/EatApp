@@ -7,25 +7,21 @@ import org.springframework.ui.Model;
 
 public class AskForHelpView extends View {
 
-	private static final String HELP_TAG = "help";
-	private static final String HELP_MSG = "Gracias. Un camarero viene a ayudarte!";
-	private static final String ERROR_MSG = "El código de la mesa no existe. No se ha podido solicitar ayuda.";
+	private static final String TAG_HELP = "help";
+	private static final String MSG_HELP = "Gracias. Un camarero viene a ayudarte!";
+	private static final String MSG_ERROR = "El código de la mesa no existe. No se ha podido solicitar ayuda.";
 	
 	public AskForHelpView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
 	
 	public String interact() {
-		this.model.addAttribute(HELP_TAG, HELP_MSG);
+		this.model.addAttribute(TAG_HELP, MSG_HELP);
 		setStatusOk();
-		return MAIN_USER_VIEW;
-	}
-	
-	public int getTableCode() {
-		return (int) this.session.getAttribute(TABLE_TAG);
+		return VIEW_MAIN_USER;
 	}
 
 	public String wrongTableCode() {
-		return returnErrorWithMessage(ERROR_MSG, HttpServletResponse.SC_BAD_REQUEST, ERROR_VIEW);
+		return returnErrorWithMessage(MSG_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
 	}
 }

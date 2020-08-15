@@ -6,30 +6,31 @@ import org.springframework.ui.Model;
 
 public class RegisterInTableView extends View {
 	
-	public static final String CODE_TAG = "code";
-	private static final String CODE_ERROR_MSG = "El código escaneado es incorrecto";
-	public static final String REGISTRY_IN_TABLE_VIEW = "registryInTable";
+	public static final String TAG_CODE = "code";
+	private static final String MSG_CODE_ERROR = "El código escaneado es incorrecto";
+	public static final String VIEW_REGISTRY_IN_TABLE = "registryInTable";
 	
 	public RegisterInTableView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
 	
 	public String register() {
-		this.session.setAttribute(TABLE_TAG, this.getCode());
+		this.session.setAttribute(TAG_TABLE, this.getTableCode());
 		setStatusOk();
-		return MAIN_USER_VIEW;
+		return VIEW_MAIN_USER;
 	}
 	
 	public String errorNotFound() {
-		return this.returnErrorWithMessage(CODE_ERROR_MSG, HttpServletResponse.SC_NOT_FOUND, REGISTRY_IN_TABLE_VIEW);
+		return this.returnErrorWithMessage(MSG_CODE_ERROR, HttpServletResponse.SC_NOT_FOUND, VIEW_REGISTRY_IN_TABLE);
 	}
 	
-	public int getCode() {
-		return Integer.parseInt(this.request.getParameter(CODE_TAG));
+	@Override
+	public Integer getTableCode() {
+		return Integer.valueOf(this.request.getParameter(TAG_CODE));
 	}
 
 	public String interact() {
-		return REGISTRY_IN_TABLE_VIEW;
+		return VIEW_REGISTRY_IN_TABLE;
 	}
 
 }
