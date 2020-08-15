@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.repositories.UserDao;
-import es.restaurant.EatApp.views.RegisterEmployeeView;
+import es.restaurant.EatApp.views.RegisterView;
+import es.restaurant.EatApp.views.RegisterViewBuilder;
 
 @Controller
-public class RegisterEmployeeController {
-
-	@GetMapping("/registerEmployee")
-	public String prepareRegisterEmployeeForm(Model model, HttpServletRequest req, HttpServletResponse res) {
-		RegisterEmployeeView view = new RegisterEmployeeView(res);
-		return view.showFrom();
-	}
+public class RegisterController {
 	
-	@PostMapping("/registerEmployee")
+	@GetMapping("/register")
+	public String showRegisterFrom(Model model, HttpServletRequest req, HttpServletResponse res) {
+		return new RegisterViewBuilder().build(model, req, res).showFrom();
+	}
+
+	@PostMapping("/register")
 	public String registerEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
-		RegisterEmployeeView view = new RegisterEmployeeView(model, req, res);
+		RegisterView view = new RegisterViewBuilder().build(model, req, res);
 		if (UserDao.getUserDao().getUser(view.getEmail()) != null) {
 			return view.errorUserExists();
 		}
@@ -37,7 +37,8 @@ public class RegisterEmployeeController {
 		return view.interact();
 	}
 
-	public boolean verifyPasswordMatchs(String password1, String repeatedPass) {
+	private boolean verifyPasswordMatchs(String password1, String repeatedPass) {
 		return (password1.compareTo(repeatedPass) == 0);
 	}
+
 }

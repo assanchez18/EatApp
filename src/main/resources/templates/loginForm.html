@@ -5,14 +5,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form th:action="!${session.type} ? 'login' : 'registerEmployee'" method="post" >
+	<form th:action="!${session.type} ? 'login' : 'register'" method="post" >
 	
 		<input type="email" required="required" name="email"
 			placeholder="Email" class="email" />
 		<input th:type="${session.type} ? 'text' : 'password'"
 			required="required" name="password" placeholder="password"
 			class="password" />
-		<input th:if="${session.type}" type="text" required="required" name="password2"
+		<input th:if="${registerUser}" type="text" required="required" name="repeatedPassword"
 		    placeholder="repeat password" class="password"/>
 		<div>
 			<span th:if="${session.type}">Tipo de usuario</span>

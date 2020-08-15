@@ -21,13 +21,13 @@ import es.restaurant.EatApp.views.RemoveEmployeeView;
 @RunWith(SpringRunner.class)
 public class RegisterAndRemoveEmployeeControllerTest {
 	
-	private RegisterEmployeeController registerController;
+	private RegisterController registerController;
 	private RemoveEmployeeController removeController;
 	private MockMvc mockMvc;
 	
 	@Before
 	public void setup() {
-		this.registerController = new RegisterEmployeeController();
+		this.registerController = new RegisterController();
 		this.removeController = new RemoveEmployeeController();
 		MockitoAnnotations.initMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.registerController,
@@ -35,11 +35,17 @@ public class RegisterAndRemoveEmployeeControllerTest {
 	}
 
 	@Test
-	public void registerAndRemoveEmployeeGet() throws Exception {
+	public void registerNewUserAsEmployeeAndRemoveEmployeeGet() throws Exception {
+		User user = new UserBuilder().admin().build();
 		this.mockMvc.perform(
-                get("/registerEmployee"))
+                get("/register"))
                 .andExpect(status().isOk());
 		
+		this.mockMvc.perform(
+                get("/register")
+                .sessionAttr(RegisterEmployeeView.TAG_EMAIL, user.getEmail()))
+                .andExpect(status().isOk());
+
 		this.mockMvc.perform(
 				get("/removeEmployee"))
 				.andExpect(status().isOk())
@@ -50,7 +56,8 @@ public class RegisterAndRemoveEmployeeControllerTest {
 	public void firstRegisterNewEmployeeThenRemoveThisEmployee() throws Exception {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
-                post("/registerEmployee")
+                post("/register")
+                	.sessionAttr(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
                 	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
                     .param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
                     .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
@@ -67,7 +74,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 	public void wrongMailToRegisterThenError() throws Exception {
 		User user = new UserBuilder().admin().build();
 		this.mockMvc.perform(
-                post("/registerEmployee")
+                post("/register")
                 	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail()))
                 .andExpect(status().isBadRequest());
 	}
@@ -76,7 +83,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 	public void wrongPasswordToRegisterThenError() throws Exception {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
-                post("/registerEmployee")
+                post("/register")
                 	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
                 	.param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
                     .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))

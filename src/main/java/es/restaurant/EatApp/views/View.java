@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
-public abstract class View {
+public class View {
 	
 	protected HttpServletRequest request;
 	protected HttpSession session;

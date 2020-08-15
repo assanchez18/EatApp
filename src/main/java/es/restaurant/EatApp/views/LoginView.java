@@ -15,14 +15,6 @@ public class LoginView extends View {
 	public LoginView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 	}
-	
-	protected LoginView(Model model, HttpServletResponse res) {
-		super(model, res);
-	}
-
-	protected LoginView(HttpServletResponse res) {
-		super(res);
-	}
 
 	public String login(User user) {
 		this.session.setAttribute(TAG_EMAIL, this.getEmail());
