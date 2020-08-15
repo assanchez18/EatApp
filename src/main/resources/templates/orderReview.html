@@ -20,8 +20,8 @@
 						<form action="showOrderReview" method="post">
 						<td><input type="hidden" name="orderId" th:text="${order.id}"
 							th:value="${order.id}" /></td>
-						<td th:if="${order.review == ''}"><button class="btn btn-success" name="newOpinion" type="submit">Dejar nueva opinion</button></td>
-						<td th:if="not ${order.review == ''}"><button class="btn btn-success" name="modifyOpinion" type="submit">Modificar opinion</button></td>
+						<td th:if="${order.review == ''}"><button class="btn btn-success" type="submit">Dejar nueva opinion</button></td>
+						<td th:if="not ${order.review == ''}"><button class="btn btn-success" type="submit">Modificar opinion</button></td>
 						</form>
 					</tr>
 				</table>
