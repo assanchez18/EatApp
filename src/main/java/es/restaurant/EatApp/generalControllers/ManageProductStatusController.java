@@ -15,6 +15,8 @@ import es.restaurant.EatApp.views.ProductView;
 @Controller
 public class ManageProductStatusController extends ProductStatusController {
 
+	ProductView view;
+
 	@GetMapping("/manageProductStatus")
 	public String prepareOrdersManageProductStatus(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new ProductView(model, req, res);
@@ -31,4 +33,13 @@ public class ManageProductStatusController extends ProductStatusController {
 		product.setNextState();
 	}
 
+	@Override
+	protected ProductView getView() {
+		return this.view;
+	}
+
+	@Override
+	protected String interact() {
+		return this.view.interact(OrderDao.getOrderDao().getOrdersFromCache());
+	}
 }

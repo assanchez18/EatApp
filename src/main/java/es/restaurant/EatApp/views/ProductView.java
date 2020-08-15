@@ -15,8 +15,7 @@ public class ProductView extends View {
 	public static final String TAG_USER_ID = "userId";
 	public static final String TAG_PRODUCT_ID = "productId";
 	private static final String MSG_PRODUCT_MODIFICATION_ERROR = "Ha habido un problema modificando el producto";
-	private static final String VIEW_MANAGE_PRODUCT_STATUS_ORDERS = "manageProductStatusOrders.html";
-	private static final String VIEW_SHOW_ORDER = "showOrder.html";
+	protected static final String VIEW_MANAGE_PRODUCT_STATUS_ORDERS = "manageProductStatusOrders.html";
 
 	public ProductView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
@@ -37,31 +36,15 @@ public class ProductView extends View {
 	public String error() {	
 		return returnErrorWithMessage(MSG_PRODUCT_MODIFICATION_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
 	}
-	
-	public String interact(Collection<Order> orders) {
-		setResponse(orders);
-		return VIEW_MANAGE_PRODUCT_STATUS_ORDERS;
-	}
 
-	public String interact(Collection<Order> orders, boolean isCommensal) {
-		setResponse(orders);
-		if(isCommensal) {
-			return redirectCommensal();
-		}
-		return redirectEmployee();
-	}
-
-	private void setResponse(Collection<Order> orders) {
+	protected void setResponse(Collection<Order> orders) {
 		this.model.addAttribute(TAG_ORDERS, orders);
 		setStatusOk();
 	}
 
-	private String redirectEmployee() {
+	public String interact(Collection<Order> orders) {
+		this.setResponse(orders);
 		return VIEW_MANAGE_PRODUCT_STATUS_ORDERS;
-	}
-
-	private String redirectCommensal() {
-		return VIEW_SHOW_ORDER;
 	}
 
 }

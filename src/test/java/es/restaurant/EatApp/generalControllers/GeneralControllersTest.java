@@ -18,7 +18,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	RegisterAndRemoveEmployeeControllerTest.class,
 	ShowIngredientsAmountControllerTest.class,
 	ReviewExperienceControllerTest.class,
-	ManageProductStatusControllerTest.class
+	ManageProductStatusControllerTest.class,
+	CancelProductControllerTest.class
 })
 public class GeneralControllersTest {
 
