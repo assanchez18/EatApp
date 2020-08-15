@@ -16,12 +16,18 @@ public abstract class ProductStatusController {
 				if(product.getId() == productId) {
 					this.doAction(product);
 					order.calculateNextState();
-					order.changeStatus(new Notification(product, 123/* TODO table in order - order.getTable()*/));
+					this.processNotification(order, product, 123);
 					return this.interact();
 				}
 			}
 		}
 		return this.getView().error();
+	}
+
+	private void processNotification(Order order, Product product, int i) { // i will be order.getTable()
+		if(product.isCancelled() || product.isReady()) {
+			order.changeStatus(new Notification(product, i/* TODO table in order - order.getTable()*/));
+		}
 	}
 
 	protected abstract String interact();
