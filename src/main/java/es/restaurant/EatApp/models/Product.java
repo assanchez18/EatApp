@@ -97,5 +97,13 @@ public class Product {
 	public void cancel() {
 		this.state = new ProductState(productState.CANCELLED);
 	}
+
+	public boolean isReady() {
+		return this.state.isReady();
+	}
+
+	public boolean isCancelled() {
+		return this.state.isCancelled();
+	}
 	
 }

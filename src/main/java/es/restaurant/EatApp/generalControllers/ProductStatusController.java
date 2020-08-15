@@ -1,5 +1,6 @@
 package es.restaurant.EatApp.generalControllers;
 
+import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.repositories.OrderDao;
@@ -15,6 +16,7 @@ public abstract class ProductStatusController {
 				if(product.getId() == productId) {
 					this.doAction(product);
 					order.calculateNextState();
+					order.changeStatus(new Notification(product, 123/* TODO table in order - order.getTable()*/));
 					return this.interact();
 				}
 			}

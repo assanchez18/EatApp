@@ -56,7 +56,7 @@ public class CreateNewOrderController extends OrderController {
 		this.initializeProductStates(new ProductState(productState.QUEUED));
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployeesObserveOrder();
-		this.order.changeStatus(Notification.Type.ORDER_QUEUED, view.getTableCode());
+		this.order.changeStatus(new Notification(Notification.Type.ORDER_QUEUED, view.getTableCode()));
 		this.view.updateSession(order);
 		return this.view.interact(this.order);
 	}

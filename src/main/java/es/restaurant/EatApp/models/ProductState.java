@@ -1,5 +1,7 @@
 package es.restaurant.EatApp.models;
 
+import es.restaurant.EatApp.models.OrderState.orderState;
+
 public class ProductState {
 
 	public enum productState {
@@ -60,5 +62,13 @@ public class ProductState {
 
 	public boolean equals(ProductState u) {
 		return getTypeOrdinal() == u.getTypeOrdinal();
+	}
+
+	public boolean isReady() {
+		return this.state == productState.READY;
+	}
+
+	public boolean isCancelled() {
+		return this.state == productState.CANCELLED;
 	}
 }
