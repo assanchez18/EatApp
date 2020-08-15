@@ -22,7 +22,7 @@ public class RegisterController {
 	}
 
 	@PostMapping("/register")
-	public String registerEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String register(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterView view = new RegisterViewBuilder().build(model, req, res);
 		if (UserDao.getUserDao().getUser(view.getEmail()) != null) {
 			return view.errorUserExists();
