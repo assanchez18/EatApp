@@ -75,4 +75,8 @@ public class User {
 		return this.id;
 	}
 
+	public boolean isCommensal() {
+		return this.type.isCommensal();
+	}
+
 }

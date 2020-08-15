@@ -7,7 +7,8 @@
 <body>
 	<div th:insert="base/navbar.html"></div>
 	<div class="page">
-		<main role="main" class="main container col-xl col-lg col-md col-sm col-">
+		<main role="main"
+			class="main container col-xl col-lg col-md col-sm col-">
 			<div class="starter-template">
 				<div th:if="${session.order}">
 					<h2 class="intro">Este es tu pedido:</h2>
@@ -19,6 +20,7 @@
 								<th>Precio</th>
 								<th>Cantidad</th>
 								<th>Estado</th>
+								<th>Cancelar producto</th>
 							</tr>
 						</thead>
 						<tr th:each="product: ${session.order.products}">
@@ -26,6 +28,16 @@
 							<td th:text="${product.key.description}"></td>
 							<td th:text="${product.key.Price}"></td>
 							<td th:text="${product.value}"></td>
+							<td>
+								<form method="post" th:if="${product.key.state.state == T(es.restaurant.EatApp.models.ProductState.productState).QUEUED}">
+									<button formaction="/cancelProduct" type="submit"
+										class="btn btn-danger">Cancelar producto</button>
+									<input type="hidden" name="userId"
+										th:value="${session.order.userId}" />
+									<input type="hidden"
+										name="productId" th:value="${product.key.id}" />
+								</form>
+							</td>
 							<td th:text="${product.key.state.state}"></td>
 						</tr>
 						<tr>
@@ -35,6 +47,7 @@
 							<td></td>
 							<!-- TODO Price -->
 							<td></td>
+							<td></td>
 							<td th:text="${session.order.state.state}"></td>
 						</tr>
 					</table>
@@ -42,21 +55,13 @@
 						<h3 th:text="${session.order.parameters}"></h3>
 					</div>
 					<form
-						th:unless="${(session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).BASE) or
-						(session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).OPEN)}"
-						action="changeOrder">
-						<button type="submit" class="btn btn-success">Cambiar el
-							pedido</button>
-					</form>
-					<form
 						th:if="${session.order.state.state == T(es.restaurant.EatApp.models.OrderState.orderState).OPEN}"
 						action="createOrder">
 						<button type="submit" class="btn btn-success">Seguir
 							creando el pedido</button>
 					</form>
 				</div>
-				<div
-					th:if="${session.order == null}">
+				<div th:if="${session.order == null}">
 					<h2>Vaya, parece que no tienes un pedido en proceso, ¡crea
 						uno!</h2>
 					<form action="createOrder">

@@ -49,4 +49,8 @@ public class UserType {
 	public boolean equals(UserType u) {
 		return getTypeOrdinal() == u.getTypeOrdinal();
 	}
+
+	public boolean isCommensal() {
+		return this.type.equals(userType.COMMENSAL);
+	}
 }

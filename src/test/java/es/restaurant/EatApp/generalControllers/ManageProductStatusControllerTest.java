@@ -16,8 +16,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderBuilder;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.repositories.OrderDao;
-import es.restaurant.EatApp.views.ManageProductStatusView;
+import es.restaurant.EatApp.views.ProductView;
+import es.restaurant.EatApp.views.View;
 
 @RunWith(SpringRunner.class)
 public class ManageProductStatusControllerTest {
@@ -62,13 +64,11 @@ public class ManageProductStatusControllerTest {
 			productId = product.getId();
 			break;
 		}
-		String operation = "change";
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.queryParam(ManageProductStatusView.TAG_USER_ID, String.valueOf(userId))
-				.queryParam(ManageProductStatusView.TAG_PRODUCT_ID, String.valueOf(productId))
-				.queryParam(ManageProductStatusView.TAG_OPERATION, operation))
+				.queryParam(ProductView.TAG_USER_ID, String.valueOf(userId))
+				.queryParam(ProductView.TAG_PRODUCT_ID, String.valueOf(productId)))
 		.andExpect(status().isBadRequest());
 	}
 	
@@ -76,13 +76,11 @@ public class ManageProductStatusControllerTest {
 	public void manageProductErrorInProductId() throws Exception {
 		int userId = this.order.getUserId();
 		int productId = 400;
-		String operation = "change";
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.queryParam(ManageProductStatusView.TAG_USER_ID, String.valueOf(userId))
-				.queryParam(ManageProductStatusView.TAG_PRODUCT_ID, String.valueOf(productId))
-				.queryParam(ManageProductStatusView.TAG_OPERATION, operation))
+				.queryParam(ProductView.TAG_USER_ID, String.valueOf(userId))
+				.queryParam(ProductView.TAG_PRODUCT_ID, String.valueOf(productId)))
 		.andExpect(status().isBadRequest());
 	}
 	
@@ -94,13 +92,12 @@ public class ManageProductStatusControllerTest {
 			productId = product.getId();
 			break;
 		}		
-		String operation = "change";
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.queryParam(ManageProductStatusView.TAG_USER_ID, String.valueOf(userId))
-				.queryParam(ManageProductStatusView.TAG_PRODUCT_ID, String.valueOf(productId))
-				.queryParam(ManageProductStatusView.TAG_OPERATION, operation))
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().waiter().build().getEmail())
+				.queryParam(ProductView.TAG_USER_ID, String.valueOf(userId))
+				.queryParam(ProductView.TAG_PRODUCT_ID, String.valueOf(productId)))
 		.andExpect(status().isOk());
 	}
 }

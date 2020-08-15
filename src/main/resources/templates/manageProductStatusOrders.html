@@ -33,37 +33,26 @@
 									</tr>
 								</thead>
 								<tr th:each="product: ${order.products}">
-									<form method="put" action="/manageProductStatus">
 									<td th:text="${product.key.name}"></td>
 									<td th:text="${product.value}"></td>
 									<td th:text="${product.key.state.state}"></td>
-									<td>
-									<span
-										th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED}">
-											<form method="post" action="/manageProductStatus">
-												<button formmethod="post" formaction="/manageProductStatus"
-													type="submit" class="btn btn-success">Siguiente
-													estado</button>
-												<input type="hidden" name="userId"
-													th:value="${order.userId}" /> <input type="hidden"
-													name="productId" th:value="${product.key.id}" /> <input
-													type="hidden" name=operation value="change" />
-											</form>
-									</span>
-									</td>
-									<td>
-									<span
-										th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED}">
-											<form method="post" action="/manageProductStatus">
-												<button name="cancel" type="submit" class="btn btn-danger">Cancelar
-													producto</button>
-												<input type="hidden" name="userId"
-													th:value="${order.userId}" /> <input type="hidden"
-													name="productId" th:value="${product.key.id}" /> <input
-													type="hidden" name="operation" value="cancel" /> <!--  TODO In other controller to cancel product -->
-											</form>
-									</span>
-									</td>
+									<form method="post">
+										<td>
+											<button formaction="/manageProductStatus"
+												type="submit" class="btn btn-success" th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED}">Siguiente
+												estado
+											</button>
+										</td>
+										<td>
+											<button formaction="/cancelProduct"
+												type="submit" class="btn btn-danger" th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED}">Cancelar
+												producto
+											</button>
+										</td>
+										<input type="hidden" name="userId" th:value="${order.userId}" />
+										<input type="hidden" name="productId"
+											th:value="${product.key.id}" />
+									</form>
 								</tr>
 							</table>
 						</td>
