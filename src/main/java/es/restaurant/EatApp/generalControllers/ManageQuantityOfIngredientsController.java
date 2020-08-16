@@ -21,6 +21,7 @@ public class ManageQuantityOfIngredientsController {
 		return view.showIngredientsToManage(IngredientDao.getIngredientDao().getIngredients());
 	}
 
+	
 	@PostMapping("/manageQuantityOfIngredient")
 	public String manageQuantityOfIngredient(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, req, res);
