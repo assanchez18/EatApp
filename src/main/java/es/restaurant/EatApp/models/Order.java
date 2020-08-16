@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import es.restaurant.EatApp.models.ProductState.productState;
-
 public class Order extends Observable {
 
 	protected int id;
@@ -30,7 +28,7 @@ public class Order extends Observable {
 		this.parameters = parameters;
 		this.state = new OrderState();
 	}
-	
+
 	public Order(Map<Product, Integer> products) {
 		this.products = products;
 		this.parameters = "";
@@ -55,20 +53,32 @@ public class Order extends Observable {
 	}
 
 	public void updateState() {
-		int state = ProductState.productState.values().length;
+		int state = OrderState.orderState.values().length;
+		int isQueuedOrCancelled = 0;
 		for(Product product : this.products.keySet()) {
-			if(product.getState().isQueued()) {
+			if(product.getState().isQueued() || product.getState().isCancelled()) {
+				isQueuedOrCancelled++;
 				continue;
 			}
 			if(product.getState().getTypeOrdinal() < state) {
 				state = product.getState().getTypeOrdinal();
 			}
 		}
-		if(state == ProductState.productState.values().length) {
-			state = ProductState.productState.QUEUED.ordinal();
+		if(isQueuedOrCancelled == this.products.size()) {
+			setQueuedOrCancelledState();
+			return;
 		}
 		this.state = new OrderState(state);
-		// TODO Handle PAYED and REVIEWED and test
+	}
+
+	private void setQueuedOrCancelledState() {
+		for(Product product : this.products.keySet()) {
+			if(product.getState().isQueued()) {
+				this.state = new OrderState(OrderState.orderState.QUEUED);
+				return;
+			}
+		}
+		this.state = new OrderState(OrderState.orderState.CANCELLED);
 	}
 
 	public Map<Product, Integer> getProducts() {

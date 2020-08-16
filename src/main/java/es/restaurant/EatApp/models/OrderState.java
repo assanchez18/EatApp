@@ -77,4 +77,25 @@ public class OrderState {
 	public boolean isOpen() {
 		return this.state == orderState.OPEN;
 	}
+
+	public boolean isQueued() {
+		return this.state == orderState.QUEUED;
+	}
+
+	public boolean isFinished() {
+		return this.state == orderState.FINISHED;
+
+	}
+
+	public boolean isCancelled() {
+		return this.state == orderState.CANCELLED;
+	}
+
+	public boolean isCooking() {
+		return this.state == orderState.COOKING;
+	}
+
+	public boolean isReady() {
+		return this.state == orderState.READY;
+	}
 }
