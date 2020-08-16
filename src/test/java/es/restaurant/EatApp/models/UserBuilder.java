@@ -34,7 +34,7 @@ public class UserBuilder {
 	}
 	
 	public UserBuilder sergio() {
-		return this.email("sergio@admin.com").password("mag1cPassW0rd!*").type(userType.ADMIN);
+		return this.email("sergio@admin.com").password("mag1cPassW0rd!*").id(2).type(userType.ADMIN);
 	}
 	
 	public UserBuilder admin() {
