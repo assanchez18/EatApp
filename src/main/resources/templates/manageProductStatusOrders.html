@@ -14,13 +14,14 @@
 						<tr>
 							<th>Order</th>
 							<th>Mesa</th>
-							<th>Productos</th>
 							<th>Estado</th>
+							<th>Productos</th>
 						</tr>
 					</thead>
 					<tr th:each="order: ${orders}" th:if="${order.state.state != T(es.restaurant.EatApp.models.OrderState.orderState).FINISHED and order.state.state != T(es.restaurant.EatApp.models.OrderState.orderState).CANCELLED}">
 						<td th:text="${order.id}" /></td>
 						<td>Mesa</td>
+						<td th:text="${order.state.state}"></td>
 						<td>
 							<table id="dataTable" class="table table-striped display">
 								<thead>
@@ -30,6 +31,7 @@
 										<th>Estado</th>
 										<th>Siguiente estado</th>
 										<th>Cancelar</th>
+										<th th:if="${session.type == 'WAITER'}">Devolver a cocina</th>
 									</tr>
 								</thead>
 								<tr th:each="product: ${order.products}">
@@ -52,11 +54,15 @@
 										<input type="hidden" name="userId" th:value="${order.userId}" />
 										<input type="hidden" name="productId"
 											th:value="${product.key.id}" />
+										<td th:if="${session.type == 'WAITER'}">
+											<button formaction="/ManageProductStatusBackToKitchen"
+												type="submit" class="btn btn-success" th:if="${product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).SERVED and product.key.state.state != T(es.restaurant.EatApp.models.ProductState.productState).CANCELLED}">Devolver a cocina
+											</button>
+										</td>
 									</form>
 								</tr>
 							</table>
 						</td>
-						<td th:text="${order.state.state}"></td>
 					</tr>
 				</table>
 			</div>

@@ -25,7 +25,7 @@ public abstract class ProductStatusController {
 	}
 
 	private void processNotification(Order order, Product product, int i) { // i will be order.getTable()
-		if(product.isCancelled() || product.isReady()) {
+		if(product.isCancelled() || product.isReady() || product.isQueued()) {
 			order.changeStatus(new Notification(product, i/* TODO table in order - order.getTable()*/));
 		}
 	}

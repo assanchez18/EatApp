@@ -8,6 +8,7 @@ public class Notification {
 		ORDER_QUEUED,//More Order States whith ManageOrderStatus UC
 		ORDER_CANCELLED,
 		// Product Status
+		PRODUCT_QUEUED,
 		PRODUCT_READY,
 		PRODUCT_CANCELLED,
 		MANAGE_GROCERIES, //Se divirá dependiendo de qué haga falta
@@ -27,6 +28,8 @@ public class Notification {
 			this.type = Type.PRODUCT_READY;
 		} else if(product.isCancelled()) {
 			this.type = Type.PRODUCT_CANCELLED;
+		} else if(product.isQueued()) {
+			this.type = Type.PRODUCT_QUEUED;
 		}
 		this.owner = whoIsAskingFor;
 	}

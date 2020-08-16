@@ -82,6 +82,10 @@ public class Product {
 		}
 	}
 
+	public void setBackToKitchen() {
+		this.state = new ProductState(productState.QUEUED);
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
