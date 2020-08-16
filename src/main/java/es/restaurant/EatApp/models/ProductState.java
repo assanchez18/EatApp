@@ -1,6 +1,5 @@
 package es.restaurant.EatApp.models;
 
-import es.restaurant.EatApp.models.OrderState.orderState;
 
 public class ProductState {
 
