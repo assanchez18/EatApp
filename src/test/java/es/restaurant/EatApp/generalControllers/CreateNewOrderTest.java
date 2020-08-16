@@ -104,6 +104,7 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
@@ -117,6 +118,7 @@ public class CreateNewOrderTest {
 		String[] amounts = {"1","2"};
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.sessionAttr(OrderView.TAG_TABLE, tableCode))
@@ -130,6 +132,7 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
@@ -144,6 +147,7 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
@@ -158,6 +162,7 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
@@ -172,6 +177,7 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
@@ -186,6 +192,7 @@ public class CreateNewOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/createOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)

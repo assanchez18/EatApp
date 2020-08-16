@@ -1,6 +1,5 @@
 package es.restaurant.EatApp.models;
 
-
 public class ProductState {
 
 	public enum productState {

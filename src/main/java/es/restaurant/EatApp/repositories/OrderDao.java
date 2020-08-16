@@ -33,7 +33,7 @@ public class OrderDao extends Dao {
 	}
 
 	public void saveInCache(Order order) { // TODO TEST
-		this.orders.put(order.getId(), order);
+		this.orders.put(order.getUserId(), order);
 	}
 
 	public Order takeFromCacheWithUserId(int userId) {

@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.OrderView;
+import es.restaurant.EatApp.views.View;
 
 @RunWith(SpringRunner.class)
 public class ShowOrderTest {
@@ -43,6 +45,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -55,6 +58,7 @@ public class ShowOrderTest {
 		String[] amounts = {"1","2"};
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts))
 		.andExpect(status().isOk());
@@ -67,6 +71,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -75,11 +80,12 @@ public class ShowOrderTest {
 
 	@Test
 	public void showOrderErrorIsValidButOneProductIdInDatabase() throws Exception {
-		String[] ids = {"1","24"};// TODO Secure database -> Failing
+		String[] ids = {"1","24"};
 		String[] amounts = {"1","2"};
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -88,11 +94,12 @@ public class ShowOrderTest {
 
 	@Test
 	public void showOrderErrorIsNotValidProductIdInDatabase() throws Exception {
-		String[] ids = {"24"};// TODO Secure database -> Failing
+		String[] ids = {"24"};
 		String[] amounts = {"1"};
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -106,6 +113,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -119,6 +127,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
+				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))

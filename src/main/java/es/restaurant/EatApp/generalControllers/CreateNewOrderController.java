@@ -80,7 +80,7 @@ public class CreateNewOrderController extends OrderController {
 		for(Product product : productDao.getProducts()) {
 			products.put(product, 0);
 		}
-		return new Order(products, "", new OrderState());
+		return new Order(products);
 	}
 
 	Order mergeOrders(Order baseOrder, Order otherOrder) {

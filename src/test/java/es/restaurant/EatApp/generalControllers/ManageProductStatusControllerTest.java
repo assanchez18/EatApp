@@ -16,30 +16,32 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderBuilder;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.views.ProductView;
-import es.restaurant.EatApp.views.View;
 
 @RunWith(SpringRunner.class)
 public class ManageProductStatusControllerTest {
 
 	private ManageProductStatusController controller;
 	private MockMvc mockMvc;
-	private Order order;
+	private Order orderWaiter;
 
 	@Before
 	public void setup() {
 		this.controller = new ManageProductStatusController();
 		MockitoAnnotations.initMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
-		this.order = new OrderBuilder().baseOrder().build();
-		OrderDao.getOrderDao().saveInCache(this.order);
+		User waiter = new UserBuilder().waiter().build();
+		this.orderWaiter = new OrderBuilder().baseOrder().userId(waiter.getId()).build();
+		OrderDao.getOrderDao().saveInCache(this.orderWaiter);
+
 	}
 	
 	@After
 	public void tearDown() throws Exception {
-		OrderDao.getOrderDao().deleteFromCache(this.order.getUserId());
+		OrderDao.getOrderDao().deleteFromCache(this.orderWaiter.getUserId());
 	}
 
 	@Test
@@ -60,7 +62,7 @@ public class ManageProductStatusControllerTest {
 	public void manageProductErrorInUserId() throws Exception {
 		int userId = 400;
 		int productId = 1;
-		for(Product product : this.order.getProducts().keySet()) {
+		for(Product product : this.orderWaiter.getProducts().keySet()) {
 			productId = product.getId();
 			break;
 		}
@@ -74,7 +76,7 @@ public class ManageProductStatusControllerTest {
 	
 	@Test
 	public void manageProductErrorInProductId() throws Exception {
-		int userId = this.order.getUserId();
+		int userId = this.orderWaiter.getUserId();
 		int productId = 400;
 
 		this.mockMvc.perform(
@@ -86,16 +88,15 @@ public class ManageProductStatusControllerTest {
 	
 	@Test
 	public void manageProductCorrectly() throws Exception {
-		int userId = this.order.getUserId();
+		int userId = this.orderWaiter.getUserId();
 		int productId = 1;
-		for(Product product : this.order.getProducts().keySet()) {
+		for(Product product : this.orderWaiter.getProducts().keySet()) {
 			productId = product.getId();
 			break;
-		}		
+		}
 
 		this.mockMvc.perform(
 				post("/manageProductStatus")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().waiter().build().getEmail())
 				.queryParam(ProductView.TAG_USER_ID, String.valueOf(userId))
 				.queryParam(ProductView.TAG_PRODUCT_ID, String.valueOf(productId)))
 		.andExpect(status().isOk());

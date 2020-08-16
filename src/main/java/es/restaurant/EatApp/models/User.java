@@ -23,13 +23,6 @@ public class User {
 		this.type = type;
 	}
 	
-	public User (String email, String password, UserType type) {
-		this.id = -1;
-		this.email = email;
-		this.password = password;
-		this.type = type;
-	}
-	
 	public User (String email, String password, int type) {
 		this.id = -1;
 		this.email = email;

@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import es.restaurant.EatApp.models.Order;
-import es.restaurant.EatApp.models.OrderState;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.models.ProductState;
 import es.restaurant.EatApp.repositories.ProductDao;
+import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.OrderView;
 
 public abstract class OrderController {
@@ -26,6 +26,7 @@ public abstract class OrderController {
 		if(order.getProducts().size() == 0) {
 			return view.errorEmptyOrder();
 		}
+		this.order.setUserId(UserDao.getUserDao().getUser(this.getView().getEmail()).getId());
 		return interact();
 	}
 
@@ -39,7 +40,7 @@ public abstract class OrderController {
 			}
 			products.put(product, amounts[i]);
 		}
-		return new Order(products, parameters, new OrderState());
+		return new Order(products, parameters);
 	}
 
 	protected void initializeProductStates(ProductState state) {

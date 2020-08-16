@@ -29,7 +29,8 @@ public class CancelProductControllerTest {
 	private CancelProductController cancelProductController;
 	private CleanNotificationController cleanController;
 	private MockMvc mockMvc;
-	private Order order;
+	private Order orderWaiter;
+	private Order orderCommensal;
 	private int tableCode = 123;
 
 	@Before
@@ -38,13 +39,18 @@ public class CancelProductControllerTest {
 		this.cleanController = new CleanNotificationController();
 		MockitoAnnotations.initMocks(this);
 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.cancelProductController, this.cleanController).build();
-		this.order = new OrderBuilder().baseOrder().build();
-		OrderDao.getOrderDao().saveInCache(this.order);
+		User waiter = new UserBuilder().waiter().build();
+		this.orderWaiter = new OrderBuilder().baseOrder().userId(waiter.getId()).build();
+		OrderDao.getOrderDao().saveInCache(this.orderWaiter);
+		User commensal = new UserBuilder().commensal().build();
+		this.orderCommensal = new OrderBuilder().baseOrder().userId(commensal.getId()).build();
+		OrderDao.getOrderDao().saveInCache(this.orderCommensal);
 	}
 	
 	@After
 	public void tearDown() throws Exception {
-		OrderDao.getOrderDao().deleteFromCache(this.order.getUserId());
+		OrderDao.getOrderDao().deleteFromCache(this.orderWaiter.getUserId());
+		OrderDao.getOrderDao().deleteFromCache(this.orderCommensal.getUserId());
 		User w = new UserBuilder().waiter().build();
 		this.mockMvc.perform(
 				post("/cleanNotification")
@@ -59,7 +65,7 @@ public class CancelProductControllerTest {
 	public void cancelProductErrorInUserId() throws Exception {
 		int userId = 400;
 		int productId = 1;
-		for(Product product : this.order.getProducts().keySet()) {
+		for(Product product : this.orderWaiter.getProducts().keySet()) {
 			productId = product.getId();
 			break;
 		}
@@ -73,7 +79,7 @@ public class CancelProductControllerTest {
 	
 	@Test
 	public void cancelProductErrorInProductId() throws Exception {
-		int userId = this.order.getUserId();
+		int userId = this.orderWaiter.getUserId();
 		int productId = 400;
 
 		this.mockMvc.perform(
@@ -85,9 +91,9 @@ public class CancelProductControllerTest {
 	
 	@Test
 	public void cancelProductCorrectlyWhenIsEmployee() throws Exception {
-		int userId = this.order.getUserId();
+		int userId = this.orderWaiter.getUserId();
 		int productId = 1;
-		for(Product product : this.order.getProducts().keySet()) {
+		for(Product product : this.orderWaiter.getProducts().keySet()) {
 			productId = product.getId();
 			break;
 		}		
@@ -102,9 +108,9 @@ public class CancelProductControllerTest {
 	
 	@Test
 	public void cancelProductCorrectlyWhenIsCommensal() throws Exception {
-		int userId = this.order.getUserId();
+		int userId = this.orderCommensal.getUserId();
 		int productId = 1;
-		for(Product product : this.order.getProducts().keySet()) {
+		for(Product product : this.orderCommensal.getProducts().keySet()) {
 			productId = product.getId();
 			break;
 		}		

@@ -7,8 +7,10 @@ public class UserBuilder {
 	private String email;
 	private String password;
 	private UserType type;
+	private int id;
 	
 	public UserBuilder() {
+		this.id = -1;
 		this.email = "empty@empty";
 		this.password = "empty";
 		this.type = new UserType(userType.COMMENSAL);
@@ -36,15 +38,20 @@ public class UserBuilder {
 	}
 	
 	public UserBuilder admin() {
-		return this.email("admin@admin.com").password("admin").type(userType.ADMIN);
+		return this.email("admin@admin.com").password("admin").id(1).type(userType.ADMIN);
 	}
 	
 	public UserBuilder waiter() {
-		return this.email("waiter@waiter.com").password("waiter").type(userType.WAITER);
+		return this.email("waiter@waiter.com").password("waiter").id(4).type(userType.WAITER);
 	}
 	
 	public UserBuilder commensal() {
-		return this.email("comensal@comensal.com").password("commensal").type(userType.COMMENSAL);
+		return this.email("comensal@comensal.com").password("commensal").id(3).type(userType.COMMENSAL);
+	}
+	
+	public UserBuilder id(int id) {
+		this.id = id;
+		return this;
 	}
 		
 	public UserBuilder type(userType type) {
@@ -53,7 +60,7 @@ public class UserBuilder {
 	}
 	
 	public User build() {
-		return new User(this.email, this.password, this.type);
+		return new User(this.id, this.email, this.password, this.type);
 	}
 
 }

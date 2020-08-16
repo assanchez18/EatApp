@@ -17,24 +17,22 @@ public class Order extends Observable {
 	private List<Observer> observers;
 
 	public Order() {
-		this.id = 1;
 		this.state = new OrderState();
-		this.observers = new ArrayList<Observer>();
 		this.products = new HashMap<Product, Integer>();
+		this.parameters = "";
+		this.observers = new ArrayList<Observer>();
 	}
 
-	public Order(Map<Product, Integer> products, String parameters, OrderState state) {
+	public Order(Map<Product, Integer> products, String parameters) {
 		this.products = products;
 		this.parameters = parameters;
-		this.state = state;
+		this.state = new OrderState();
 	}
-
-	public Order(int id, int userId) {
-		this.id = id;
-		this.userId = userId;
-		this.products = null;
+	
+	public Order(Map<Product, Integer> products) {
+		this.products = products;
 		this.parameters = "";
-		this.state = null;
+		this.state = new OrderState();
 	}
 
 	public void addObservers(Employee waiter) {

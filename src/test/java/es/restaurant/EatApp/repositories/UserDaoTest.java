@@ -68,7 +68,7 @@ public class UserDaoTest {
     	//Update userType
     	assertTrue("Error at UPDATE User type query", dao.updateUserType(user, updatedUser.getUserType()));
     	assertTrue("The user type has not been updated properly, the current type does not match with the new one",
-    			   dao.getUser(user.getEmail()).equals(new User(user.getEmail(), updatedUser.getPassword(), updatedUser.getUserType())));
+    			   dao.getUser(user.getEmail()).equals(new User(user.getId(), user.getEmail(), updatedUser.getPassword(), updatedUser.getUserType())));
 
     	//Update email
     	assertTrue("Error at UPDATE email query", dao.updateEmail(user, updatedUser.getEmail()));
