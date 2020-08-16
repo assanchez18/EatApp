@@ -2,7 +2,6 @@ package es.restaurant.EatApp.repositories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -29,9 +28,10 @@ public class ProductDao extends Dao {
 		return new RowMapper<Product>() {
 			public Product mapRow(ResultSet result, int rowNum) throws SQLException {
 				Product product = new Product(result.getInt("id"),
-						result.getString("name"),
-						result.getString("description"),
-						result.getDouble("price"), result.getInt("priority"));
+											  result.getString("name"),
+											  result.getString("description"),
+											  result.getDouble("price"),
+											  result.getInt("priority"));
 				return product;
 			}
 		};
@@ -44,7 +44,7 @@ public class ProductDao extends Dao {
 		return this.db.getJdbcTemplate().query(sql, buildProduct());
 	}
 
-	public Collection<Product> getProducts() {
+	public List<Product> getProducts() {
 		return executeQuery(selectAllProducts());
 	}
 
