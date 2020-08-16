@@ -69,4 +69,9 @@ public class ProductState {
 	public boolean isCancelled() {
 		return this.state == productState.CANCELLED;
 	}
+	
+	public boolean isQueued() {
+		return this.state == productState.QUEUED;
+	}
+
 }

@@ -15,7 +15,7 @@ public abstract class ProductStatusController {
 			for(Product product : order.getProducts().keySet()) {
 				if(product.getId() == productId) {
 					this.doAction(product);
-					order.calculateNextState();
+					order.updateState();
 					this.processNotification(order, product, 123);
 					return this.interact();
 				}

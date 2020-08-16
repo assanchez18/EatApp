@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import es.restaurant.EatApp.models.ProductState.productState;
+
 public class Order extends Observable {
 
 	protected int id;
@@ -52,12 +54,18 @@ public class Order extends Observable {
 		this.state = state;
 	}
 
-	public void calculateNextState() {
+	public void updateState() {
 		int state = ProductState.productState.values().length;
 		for(Product product : this.products.keySet()) {
+			if(product.getState().isQueued()) {
+				continue;
+			}
 			if(product.getState().getTypeOrdinal() < state) {
 				state = product.getState().getTypeOrdinal();
 			}
+		}
+		if(state == ProductState.productState.values().length) {
+			state = ProductState.productState.QUEUED.ordinal();
 		}
 		this.state = new OrderState(state);
 		// TODO Handle PAYED and REVIEWED and test

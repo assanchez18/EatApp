@@ -106,4 +106,8 @@ public class Product {
 		return this.state.isCancelled();
 	}
 	
+	public boolean isQueued() {
+		return this.state.isQueued();
+	}
+	
 }
