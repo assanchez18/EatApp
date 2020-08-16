@@ -15,6 +15,7 @@ import es.restaurant.EatApp.models.Table;
 public class TableDao extends Dao{
 	
 	private Map<Integer, Table> tables;
+	private Map<Integer, Integer> usersInTables;
 	private static TableDao dao;
 	private static final String TABLE_NAME = "tables";
 
@@ -28,6 +29,7 @@ public class TableDao extends Dao{
 	private TableDao() {
 		super();
 		this.tables = new HashMap<Integer, Table>();
+		this.usersInTables = new HashMap<Integer, Integer>();
 		loadTables();
 	}
 
@@ -69,5 +71,17 @@ public class TableDao extends Dao{
 
 	public Table getTable(int code) {
 		return this.tables.get(code);
+	}
+
+	public void linkUserToTable(int userId, int tableId) {
+		usersInTables.put(userId, tableId);
+	}
+
+	public void unlinkUserToTable(int userId) {
+		usersInTables.remove(userId);
+	}
+
+	public int getTableWithUserId(int userId) {
+		return usersInTables.getOrDefault(userId, 0);
 	}
 }

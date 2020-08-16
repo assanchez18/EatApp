@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.repositories.TableDao;
+import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.RegisterInTableView;
 
 @Controller
@@ -22,9 +23,11 @@ public class RegisterInTableController {
 	@PostMapping("/registerInTable")
 	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		if(TableDao.getTableDao().getTable(view.getTableCode()) == null) {
+		TableDao tableDao = TableDao.getTableDao();
+		if(tableDao.getTable(view.getTableCode()) == null) {
 			return view.errorNotFound();
 		}
+		tableDao.linkUserToTable(UserDao.getUserDao().getUser(view.getEmail()).getId(), view.getTableCode());
 		return view.register();
 	}
 }

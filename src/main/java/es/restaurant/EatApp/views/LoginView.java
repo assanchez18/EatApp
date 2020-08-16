@@ -41,4 +41,8 @@ public class LoginView extends View {
 	public String getEmail() {
 		return this.request.getParameter(TAG_EMAIL);
 	}
+
+	public void recuperateTable(int code) {
+		this.session.setAttribute(TAG_TABLE, code);
+	}
 }

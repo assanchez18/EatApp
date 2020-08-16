@@ -16,6 +16,7 @@ import es.restaurant.EatApp.models.OrderBuilder;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.repositories.OrderDao;
+import es.restaurant.EatApp.repositories.TableDao;
 import es.restaurant.EatApp.views.LoginView;
 import es.restaurant.EatApp.views.View;
 
@@ -34,9 +35,11 @@ public class LoginTest {
 	}
 
     @Test
-    public void existingUserLoginWitOrderInCache() throws Exception {
+    public void existingUserLoginWitOrderAndTableInCache() throws Exception {
 		User user = new UserBuilder().sergio().build();
 		Order order = new OrderBuilder().baseOrder().userId(user.getId()).build();
+		int table = 123;
+		TableDao.getTableDao().linkUserToTable(user.getId(), table);
 		OrderDao.getOrderDao().saveInCache(order);
         this.mockMvc.perform(
                 post("/login")
@@ -44,8 +47,9 @@ public class LoginTest {
                         .param(LoginView.TAG_PASSWORD, user.getPassword()))
                 .andExpect(status().isOk());
 		OrderDao.getOrderDao().deleteFromCache(user.getId());
+		TableDao.getTableDao().unlinkUserToTable(user.getId());
     }
-    
+
     @Test
     public void existingUserLoginWithoutOrderInCache() throws Exception {
 		User user = new UserBuilder().sergio().build();
