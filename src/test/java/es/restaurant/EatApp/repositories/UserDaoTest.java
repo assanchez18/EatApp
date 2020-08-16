@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.models.UserType;
-import es.restaurant.EatApp.repositories.UserDao;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

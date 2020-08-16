@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.restaurant.EatApp.models.Employee;
-import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 

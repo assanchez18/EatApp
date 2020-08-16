@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import es.restaurant.EatApp.models.Table;
-import es.restaurant.EatApp.repositories.TableDao;
 
 @RunWith(SpringRunner.class)
 public class TableDaoTest {
