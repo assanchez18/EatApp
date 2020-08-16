@@ -18,7 +18,7 @@
 							<th>Estado</th>
 						</tr>
 					</thead>
-					<tr th:each="order: ${orders}">
+					<tr th:each="order: ${orders}" th:if="${order.state.state != T(es.restaurant.EatApp.models.OrderState.orderState).FINISHED and order.state.state != T(es.restaurant.EatApp.models.OrderState.orderState).CANCELLED}">
 						<td th:text="${order.id}" /></td>
 						<td>Mesa</td>
 						<td>
