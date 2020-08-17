@@ -20,7 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	ReviewExperienceControllerTest.class,
 	ManageProductStatusControllerTest.class,
 	CancelProductControllerTest.class,
-	TakeBackToKitchenControllerTest.class
+	TakeBackToKitchenControllerTest.class,
 	ManageMenuControllerTest.class
 })
 public class GeneralControllersTest {
