@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import es.restaurant.EatApp.models.UserType;
 import es.restaurant.EatApp.models.Employee;
 
-public class CookDao extends UserDao{
+public class CookDao extends UserDao {
 	
 	private List<Employee> employees;
 	private static CookDao dao;

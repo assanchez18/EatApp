@@ -1,5 +1,6 @@
+
+Memoria 
 Agradecimientos
-	Luis Fernandez --> el primero!
 	Papa y mamá
 
 Introduction
@@ -10,7 +11,7 @@ Requisitos
 	Actores y CU
 	Contexto de CU
 	Especificación de CU
-	Prototipo de Interfaz
+	Prototipo de Interfaz --> parecido a balsamic
 
 Diseño
 	Análisis de arquitectura
@@ -25,7 +26,28 @@ Implementación y pruebas
 	Pruebas de sistema --> explicando que prueban todo menos la pantalla
 
 Conclusiones
-
+	+ líneas futuras
+		
 
 
 Copiar teoría de cada apartado adaptándolo a nuestro sistema.
+
+ppt
+	1 carátula
+	1 indices
+	1 objetivos: reunir conocimientos blablabla
+	1 modelo de dominio
+	1 actores y CU
+	1 contexto
+	1 especificación con 1 CU
+	1 de prototipo
+	1 de analisis dee arquitec
+	1 de análsis de CU
+	1 de diseño de CU
+	1 de diseño de persistencia
+	1 de estilo de codificación
+	1 de pruebas
+	1 de pruebas del sistema
+	1 de conclusiones
+	
+	Resumir la memoria una o dos diapos por cada apartado
