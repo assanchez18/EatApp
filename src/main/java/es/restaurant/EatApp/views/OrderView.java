@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
 
-public abstract class OrderView extends View {
+public class OrderView extends View {
 
 	public static final String TAG_ORDER = "order";
 	public static final String TAG_IDS = "ids[]";
@@ -26,6 +26,10 @@ public abstract class OrderView extends View {
 		super(res);
 	}
 
+	public OrderView(HttpServletRequest req) {
+		super(req);
+	}
+
 	public String getParameter() {
 		return this.request.getParameter(TAG_PARAMS);
 	}
@@ -38,7 +42,7 @@ public abstract class OrderView extends View {
 		return getParameterArray(TAG_IDS);
 	}
 
-	private Integer[] getParameterArray(String parameterName) {
+	public Integer[] getParameterArray(String parameterName) {
 		String[] parameters_string = this.request.getParameterValues(parameterName);
 		Integer[] parameters = new Integer[parameters_string.length];
 		for(int i = 0;i < parameters_string.length;i++)

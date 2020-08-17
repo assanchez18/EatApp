@@ -1,0 +1,59 @@
+<html lang="es">
+<head>
+<head th:insert="base/head">
+</head>
+</head>
+
+<body>
+	<div th:insert="base/navbar.html"></div>
+	<div class="page">
+		<main role="main"
+			class="main container col-xl col-lg col-md col-sm col-">
+			<div class="starter-template">
+				<div>
+					<h2 class="intro">Este es el menu</h2>
+					<form method="post">
+						<table id="dataTable" class="table table-striped display">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Descripcion</th>
+									<th>Precio</th>
+									<th>Prioridad</th>
+									<th />
+								</tr>
+							</thead>
+							<tr th:each="product: ${products}">
+								<td th:text="${product.id}"/>
+								<td th:text="${product.name}"/>
+								<td th:text="${product.description}"/>
+								<td th:text="${product.price}"/>
+								<td th:text="${product.priority.priority}"/>
+								<td>
+									<button class="btn btn-info" name="productId" th:value="${product.id}" type="submit" formaction="changeProductInMenu">Modificar</button>
+									<button class="btn btn-danger" name="productId" th:value="${product.id}" type="submit" formaction="removeProductInMenu">Eliminar</button>
+								</td>
+							</tr>
+							<tr>
+								<td/>
+								<td/>
+								<td/>
+								<td/>
+								<td/>
+								<td>
+									<button type="submit" class="btn btn-success" formaction="addProductInMenu">Nuevo Producto</button>
+								</td>
+							</tr>
+						</table>
+
+					</form>
+
+				</div>
+			</div>
+		</main>
+	</div>
+	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
+</body>
+</html>

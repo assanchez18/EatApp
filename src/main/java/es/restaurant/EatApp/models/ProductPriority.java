@@ -30,6 +30,10 @@ public class ProductPriority {
 		}
 	}
 
+	public ProductPriority() {
+		this.priority = productPriority.FIRST;
+	}
+	
 	public ProductPriority(productPriority priority) {
 		this.priority = priority;
 	}

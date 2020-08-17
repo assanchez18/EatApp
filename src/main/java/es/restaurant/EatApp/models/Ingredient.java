@@ -16,6 +16,12 @@ public class Ingredient {
 		this.minimumAmount = minimumAmount;
 	}
 	
+	public Ingredient(int id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
 	public void setMinimumAmount(double newAmount) {
 		this.minimumAmount = newAmount;
 	}

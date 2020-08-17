@@ -66,13 +66,18 @@ public class ProductDao extends Dao {
 	}
 
 	public boolean insert(Product product) {
+		String sql = insertInto(TABLE_PRODUCTS, "(name, description, price, priority) VALUES (?,?,?,?)");
+		return (this.db.getJdbcTemplate().update(sql, product.getName(), product.getDescription(), product.getPrice(), product.getPriority().getTypeOrdinal()) == 1);
+	}
+	
+	public boolean insertWithId(Product product) {
 		String sql = insertInto(TABLE_PRODUCTS, "(id, name, description, price, priority) VALUES (?,?,?,?,?)");
 		return (this.db.getJdbcTemplate().update(sql, product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getPriority().getTypeOrdinal()) == 1);
 	}
-
-	public boolean deleteProduct(Product product) {
+	
+	public boolean deleteProduct(int productId) {
 		String sql = delete(TABLE_PRODUCTS, where("id=?"));
-		return (this.db.getJdbcTemplate().update(sql, product.getId()) == 1);
+		return (this.db.getJdbcTemplate().update(sql, productId) == 1);
 	}
 
 	public boolean updateName(Product product, String newValue) {
@@ -93,5 +98,14 @@ public class ProductDao extends Dao {
 	public boolean updatePriority(Product product, ProductPriority newValue) {
 		String sql = update(TABLE_PRODUCTS, "priority=?" + where("id=?"));
 		return (this.db.getJdbcTemplate().update(sql, newValue.getTypeOrdinal(), product.getId()) == 1);
+	}
+
+	public boolean updateProduct(Product product) {
+		String sql = update(TABLE_PRODUCTS, "name=?, description=?, price=?, priority=?" + where("id=?"));
+		return (this.db.getJdbcTemplate().update(sql, product.getName(),
+													  product.getDescription(),
+													  product.getPrice(),
+													  product.getPriority().getTypeOrdinal(),
+													  product.getId()) == 1);
 	}
 }

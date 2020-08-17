@@ -1,0 +1,62 @@
+<html lang="es">
+<head th:insert="base/head">
+</head>
+
+<body>
+	<div th:insert="base/navbar.html"></div>
+	<div class="page">
+		<main role="main"
+			class="main container col-xl col-lg col-md col-sm col-">
+			<div class="starter-template">
+				<h2 class="intro">
+					Ingredientes actuales de <span th:text=${productName}></span>
+				</h2>
+				<form method="post">
+					<table id="dataTable" class="table table-striped display">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Descripcion</th>
+								<th>Lo lleva?</th>
+							</tr>
+						</thead>
+
+						<tr th:each="ingredient: ${productIngredients}">
+							<td><input type="hidden" name="ids[]"
+								th:value="${ingredient.id}" /><span th:text="${ingredient.id}" /></td>
+							<td th:text="${ingredient.name}"></td>
+							<td th:text="${ingredient.description}"></td>
+							<td><select name="contains[]">
+									<option value=0>No</option>
+									<option selected value=1>Si</option>
+							</select></td>
+						</tr>
+						<tr th:each="ingredient: ${allIngredients}">
+							<td><input type="hidden" name="ids[]"
+								th:value="${ingredient.id}" /><span th:text="${ingredient.id}" /></td>
+							<td th:text="${ingredient.name}"></td>
+							<td th:text="${ingredient.description}"></td>
+							<td><select name="contains[]">
+									<option selected value=0>No</option>
+									<option value=1>Si</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td />
+							<td />
+							<td />
+							<td>
+								<button type="submit" class="btn btn-success"
+									th:value="${productId}" formaction="newProductIngredients">Confirmar</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</main>
+	</div>
+	<footer th:insert="base/footer.html"> </footer>
+	<footer th:insert="base/dataTables.html"> </footer>
+</body>
+</html>

@@ -10,7 +10,7 @@ import es.restaurant.EatApp.models.Ingredient;
 public class IngredientDao extends Dao {
 	
 	private static IngredientDao dao;
-	private static final String TABLE_NAME = "ingredients";
+	public static final String TABLE_INGREDIENTS_NAME = "ingredients";
 	
 	public static IngredientDao getIngredientDao() {
 		if(dao == null) {
@@ -37,7 +37,7 @@ public class IngredientDao extends Dao {
 	}
 
 	public String selectAllIngredients() {
-		return selectAllFrom(TABLE_NAME);
+		return selectAllFrom(TABLE_INGREDIENTS_NAME);
 	}
 	public List<Ingredient> executeQuery(String sql) {
 		return this.db.getJdbcTemplate().query(sql, buildIngredient());
@@ -48,7 +48,7 @@ public class IngredientDao extends Dao {
 	}
 
 	public boolean updateMinimumAmount(Ingredient ingredient, double newValue) {
-		String sql = update(TABLE_NAME, "minimumAmount=?" + where("id=?"));
+		String sql = update(TABLE_INGREDIENTS_NAME, "minimumAmount=?" + where("id=?"));
         ingredient = this.findIngredient(ingredient);
         ingredient.setMinimumAmount(newValue);
         return updateIngredient(sql, ingredient, Double.toString(newValue));
@@ -68,7 +68,7 @@ public class IngredientDao extends Dao {
 
 	public boolean insert(Ingredient ingredient) {
 		if(findIngredient(ingredient.getId()) == null) {
-			String sql = insertInto(TABLE_NAME, "(id, name, amount, description, minimumAmount) VALUES (?,?,?,?,?)");
+			String sql = insertInto(TABLE_INGREDIENTS_NAME, "(id, name, amount, description, minimumAmount) VALUES (?,?,?,?,?)");
 			if (this.db.getJdbcTemplate().update(sql, ingredient.getId(),
 													  ingredient.getName(),
 													  ingredient.getAmount(),
@@ -81,7 +81,7 @@ public class IngredientDao extends Dao {
 	}
 
 	public boolean deleteIngredient(Ingredient ingredient) {
-        String sql = delete(TABLE_NAME, where("id=?"));
+        String sql = delete(TABLE_INGREDIENTS_NAME, where("id=?"));
         if (this.db.getJdbcTemplate().update(sql, ingredient.getId()) == 1) {
         	return true;
         }
@@ -89,21 +89,21 @@ public class IngredientDao extends Dao {
 	}
 	
 	public boolean updateName(Ingredient ingredient, String newValue) {
-        String sql = update(TABLE_NAME, "name=?" + where("id=?"));
+        String sql = update(TABLE_INGREDIENTS_NAME, "name=?" + where("id=?"));
         ingredient = this.findIngredient(ingredient);
         ingredient.setName(newValue);
         return updateIngredient(sql, ingredient, newValue);
 	}
 
 	public boolean updateDescription(Ingredient ingredient, String newValue) {
-        String sql = update(TABLE_NAME, "description=?" + where("id=?"));
+        String sql = update(TABLE_INGREDIENTS_NAME, "description=?" + where("id=?"));
         ingredient = this.findIngredient(ingredient);
         ingredient.setDescription(newValue);
         return updateIngredient(sql, ingredient, newValue);
 	}
 
 	public boolean updateAmount(Ingredient ingredient, double newValue) {
-        String sql = update(TABLE_NAME, "amount=?" + where("id=?"));
+        String sql = update(TABLE_INGREDIENTS_NAME, "amount=?" + where("id=?"));
         ingredient = this.findIngredient(ingredient);
         ingredient.setAmount(newValue);
         return updateIngredient(sql, ingredient, Double.toString(newValue));

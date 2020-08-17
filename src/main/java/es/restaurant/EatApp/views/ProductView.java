@@ -25,6 +25,10 @@ public class ProductView extends View {
 		super(res);
 	}
 	
+	public ProductView(Model model, HttpServletResponse res) {
+		super(model, res);
+	}
+
 	public int getUserId() {
 		return Integer.decode(this.request.getParameter(TAG_USER_ID));
 	}

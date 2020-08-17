@@ -21,6 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	ManageProductStatusControllerTest.class,
 	CancelProductControllerTest.class,
 	TakeBackToKitchenControllerTest.class
+	ManageMenuControllerTest.class
 })
 public class GeneralControllersTest {
 

@@ -13,8 +13,8 @@ public class OrderProductsDao extends Dao {
 
 	private static OrderProductsDao dao;
 	private static final String TABLE_ORDER_PRODUCTS = "order_products";
-	private static final String NAME_TAG = "name";
-	private static final String AMOUNT_TAG = "amount";
+	private static final String TAG_NAME = "name";
+	private static final String TAG_AMOUNT = "amount";
 	
 	public static OrderProductsDao getOrderProductsDao() {
 		if(dao == null) {
@@ -30,14 +30,14 @@ public class OrderProductsDao extends Dao {
 	private RowMapper<Pair<String,Integer>> buildProductToReview() {
 		return new RowMapper<Pair<String,Integer>>() {
 			public Pair<String,Integer> mapRow(ResultSet result, int rowNum) throws SQLException {
-				Pair<String,Integer> product = new Pair<String,Integer>(result.getString(NAME_TAG),result.getInt(AMOUNT_TAG));
+				Pair<String,Integer> product = new Pair<String,Integer>(result.getString(TAG_NAME),result.getInt(TAG_AMOUNT));
 				return product;
 			}
 		};
 	}
 
 	private List<Pair<String,Integer>> getAllProductsFromOrder(int orderId) {
-		String sql = select("products.name as " + NAME_TAG + ", " + TABLE_ORDER_PRODUCTS + ".amount as " + AMOUNT_TAG)
+		String sql = select("products.name as " + TAG_NAME + ", " + TABLE_ORDER_PRODUCTS + ".amount as " + TAG_AMOUNT)
 					+ from(ProductDao.TABLE_PRODUCTS +", " + TABLE_ORDER_PRODUCTS)
 					+ where("products.id = " + TABLE_ORDER_PRODUCTS +".productId" + and(TABLE_ORDER_PRODUCTS + ".orderId = " + orderId));
 		List<Pair<String,Integer>> products = this.db.getJdbcTemplate().query(sql,buildProductToReview());

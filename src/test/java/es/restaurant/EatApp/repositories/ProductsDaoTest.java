@@ -31,13 +31,13 @@ public class ProductsDaoTest {
 				.price(10)
 				.description("newDescription").priority(new ProductPriority(ProductPriority.productPriority.DESSERT)).build();
 		//insert
-		assertTrue("Error, cannot insert a new Product", dao.insert(product));
+		assertTrue("Error, cannot insert a new Product", dao.insertWithId(product));
 		//modify
 		assertTrue("Error updating name", dao.updateName(product, updatedProduct.getName()));
 		assertTrue("Error updating description", dao.updateDescription(product,updatedProduct.getDescription()));
 		assertTrue("Error updating price", dao.updatePrice(product, updatedProduct.getPrice()));
 		assertTrue("Error updating productPriority", dao.updatePriority(product, updatedProduct.getPriority()));
 		//remove
-		assertTrue("Error, unable to delete the product", dao.deleteProduct(updatedProduct));
+		assertTrue("Error, unable to delete the product", dao.deleteProduct(updatedProduct.getId()));
 	}
 }

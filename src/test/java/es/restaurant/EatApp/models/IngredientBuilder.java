@@ -12,6 +12,12 @@ public class IngredientBuilder {
 		this.ingredient.setMinimumAmount(newAmount);
 		return this;
 	}
+
+	public IngredientBuilder id(int newId) {
+		this.ingredient.setId(newId);
+		return this;
+	}
+
 	
 	public IngredientBuilder baseIngredient() {
 		//default ingredient in DB

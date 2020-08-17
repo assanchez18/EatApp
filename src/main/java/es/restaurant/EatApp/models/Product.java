@@ -20,6 +20,15 @@ public class Product {
 		this.priority = new ProductPriority(priority);
 	}
 	
+	public Product(String name, String description, double price, int priority) {
+		this.id = -1;
+		this.name = name;
+		this.state = new ProductState();
+		this.description = description;
+		this.price = price;
+		this.priority = new ProductPriority(priority);
+	}
+	
 	public Product(int id, String name, String description, double price, ProductPriority priority) {
 		this.id = id;
 		this.name = name;
@@ -27,6 +36,15 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.priority = priority;
+	}
+
+	public Product() {
+		this.id = -1;
+		this.name = "";
+		this.state = null;
+		this.description = "";
+		this.price = 0;
+		this.priority = new ProductPriority();
 	}
 
 	public ProductState getState() {
