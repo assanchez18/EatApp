@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import es.restaurant.EatApp.views.ConfigureQuantityOfIngredientsView;
+import es.restaurant.EatApp.views.ManageQuantityOfIngredientsView;
 
 @RunWith(SpringRunner.class)
 public class ManageQuantityOfIngredientsTest {
@@ -34,14 +34,14 @@ public class ManageQuantityOfIngredientsTest {
 				get("/manageQuantityOfIngredient"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.param(ConfigureQuantityOfIngredientsView.TAG_INGREDIENT_ID, "1")
-						.param(ConfigureQuantityOfIngredientsView.TAG_NEW_AMOUNT, "10"))
+						.param(ManageQuantityOfIngredientsView.TAG_INGREDIENT_ID, "1")
+						.param(ManageQuantityOfIngredientsView.TAG_NEW_AMOUNT, "10"))
 		.andExpect(status().isOk());
 		//restore ingredient
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.param(ConfigureQuantityOfIngredientsView.TAG_INGREDIENT_ID, "1")
-						.param(ConfigureQuantityOfIngredientsView.TAG_NEW_AMOUNT, "1"))
+						.param(ManageQuantityOfIngredientsView.TAG_INGREDIENT_ID, "1")
+						.param(ManageQuantityOfIngredientsView.TAG_NEW_AMOUNT, "1"))
 		.andExpect(status().isOk());
 
 	}
@@ -52,8 +52,8 @@ public class ManageQuantityOfIngredientsTest {
 				get("/manageQuantityOfIngredient"));
 		this.mockMvc.perform(
 				post("/manageQuantityOfIngredient")
-						.param(ConfigureQuantityOfIngredientsView.TAG_INGREDIENT_ID, "-1")
-						.param(ConfigureQuantityOfIngredientsView.TAG_NEW_AMOUNT, "10"))
+						.param(ManageQuantityOfIngredientsView.TAG_INGREDIENT_ID, "-1")
+						.param(ManageQuantityOfIngredientsView.TAG_NEW_AMOUNT, "10"))
 		.andExpect(status().isBadRequest());
 	}
 }

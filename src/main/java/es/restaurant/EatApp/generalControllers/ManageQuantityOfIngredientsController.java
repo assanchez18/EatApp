@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Ingredient;
 import es.restaurant.EatApp.repositories.IngredientDao;
-import es.restaurant.EatApp.views.ConfigureQuantityOfIngredientsView;
+import es.restaurant.EatApp.views.ManageQuantityOfIngredientsView;
 
 @Controller
 public class ManageQuantityOfIngredientsController {
 
 	@GetMapping("/manageQuantityOfIngredient")
 	public String showIngredientsToManage(Model model, HttpServletRequest req, HttpServletResponse res) {
-		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, res);
+		ManageQuantityOfIngredientsView view = new ManageQuantityOfIngredientsView(model, res);
 		return view.showIngredientsToManage(IngredientDao.getIngredientDao().getIngredients());
 	}
 
 	
 	@PostMapping("/manageQuantityOfIngredient")
 	public String manageQuantityOfIngredient(Model model, HttpServletRequest req, HttpServletResponse res) {
-		ConfigureQuantityOfIngredientsView view = new ConfigureQuantityOfIngredientsView(model, req, res);
+		ManageQuantityOfIngredientsView view = new ManageQuantityOfIngredientsView(model, req, res);
 		Ingredient ingredient = IngredientDao.getIngredientDao().findIngredient(view.getIngredientId());
 		if(ingredient == null) {
 			return view.errorIngredientNotFound();

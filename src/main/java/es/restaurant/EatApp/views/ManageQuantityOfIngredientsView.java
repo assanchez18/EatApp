@@ -9,18 +9,18 @@ import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Ingredient;
 
-public class ConfigureQuantityOfIngredientsView extends View {
+public class ManageQuantityOfIngredientsView extends View {
 
 	public final static String TAG_INGREDIENT_ID = "ingredientId";
 	public final static String TAG_NEW_AMOUNT = "newAmount";
 	private final static String MSG_ERROR = "El ingrediente no existe.";
 	private final static String VIEW_MANAGE_INGREDIENT = "manageIngredient";
 
-	public ConfigureQuantityOfIngredientsView(Model model, HttpServletResponse res) {
+	public ManageQuantityOfIngredientsView(Model model, HttpServletResponse res) {
 		super(model,res);
 	}
 
-	public ConfigureQuantityOfIngredientsView(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public ManageQuantityOfIngredientsView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model, req, res);
 	}
 
