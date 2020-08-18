@@ -13,7 +13,6 @@ public class View {
 	protected HttpServletResponse response;
 	protected Model model;
 
-	public static final String TAG_TABLE = "table";
 	public static final String TAG_EMAIL = "email";
 	protected static final String TAG_ERROR = "error";
 	protected static final String VIEW_MAIN_USER = "mainUserView";
@@ -26,7 +25,7 @@ public class View {
 		this.session = null;
 		this.model = null;
 	}
-	
+
 	public View(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.request = req;
 		this.session = req.getSession();
@@ -34,13 +33,6 @@ public class View {
 		this.model = model;
 	}
 
-	public View(HttpServletRequest req) {
-		this.request = req;
-		this.session = req.getSession();
-		this.response = null;
-		this.model = null;
-	}
-	
 	public View(HttpServletRequest req, HttpServletResponse res) {
 		this.request = req;
 		this.session = req.getSession();
@@ -55,6 +47,13 @@ public class View {
 		this.model = model;
 	}
 
+	public View(HttpServletRequest req) {
+		this.request = req;
+		this.session = req.getSession();
+		this.response = null;
+		this.model = null;
+	}
+
 	public View(HttpServletResponse res) {
 		this.request = null;
 		this.session = null;
@@ -64,10 +63,6 @@ public class View {
 
 	public String getEmail() {
 		return (String) this.session.getAttribute(TAG_EMAIL);
-	}
-
-	public Integer getTableCode() {
-		return (Integer) this.session.getAttribute(TAG_TABLE);
 	}
 
 	protected void setStatusOk() {

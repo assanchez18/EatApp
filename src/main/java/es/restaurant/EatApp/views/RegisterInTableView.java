@@ -4,18 +4,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
+import es.restaurant.EatApp.views.helpers.TableHelperView;
+
 public class RegisterInTableView extends View {
 	
-	public static final String TAG_CODE = "code";
 	private static final String MSG_CODE_ERROR = "El código escaneado es incorrecto";
 	public static final String VIEW_REGISTRY_IN_TABLE = "registryInTable";
 	
+	private TableHelperView tableHelper;
+	
 	public RegisterInTableView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
+		this.tableHelper = new TableHelperView(this.request, this.session);
 	}
 	
 	public String register() {
-		this.session.setAttribute(TAG_TABLE, this.getTableCode());
+		this.tableHelper.setTable();
 		setStatusOk();
 		return VIEW_MAIN_USER;
 	}
@@ -24,9 +28,8 @@ public class RegisterInTableView extends View {
 		return this.returnErrorWithMessage(MSG_CODE_ERROR, HttpServletResponse.SC_NOT_FOUND, VIEW_REGISTRY_IN_TABLE);
 	}
 	
-	@Override
-	public Integer getTableCode() {
-		return Integer.valueOf(this.request.getParameter(TAG_CODE));
+	public int getTableCode() {
+		return this.tableHelper.getRequestedTableCode();
 	}
 
 	public String interact() {

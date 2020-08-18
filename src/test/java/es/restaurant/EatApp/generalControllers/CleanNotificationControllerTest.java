@@ -17,6 +17,7 @@ import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.views.CleanNotificationView;
 import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 @RunWith(SpringRunner.class)
 public class CleanNotificationControllerTest {
@@ -45,7 +46,7 @@ public class CleanNotificationControllerTest {
 				get("/"));
 		this.mockMvc.perform(
                 get("/askForHelp")
-                        .sessionAttr(View.TAG_TABLE, tableCode))
+                        .sessionAttr(TableHelperView.TAG_TABLE, tableCode))
                 .andExpect(status().isOk());
 		this.mockMvc.perform(
 				post("/cleanNotification")

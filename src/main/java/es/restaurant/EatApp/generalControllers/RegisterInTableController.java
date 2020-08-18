@@ -21,13 +21,12 @@ public class RegisterInTableController {
 	}
 
 	@PostMapping("/registerInTable")
-	public String control(Model model, HttpServletRequest req, HttpServletResponse res) {
+	public String registerInTable(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		TableDao tableDao = TableDao.getTableDao();
-		if(tableDao.getTable(view.getTableCode()) == null) {
+		if(TableDao.getTableDao().getTable(view.getTableCode()) == null) {
 			return view.errorNotFound();
 		}
-		tableDao.linkUserToTable(UserDao.getUserDao().getUser(view.getEmail()).getId(), view.getTableCode());
+		TableDao.getTableDao().linkUserToTable(UserDao.getUserDao().getUser(view.getEmail()).getId(), view.getTableCode());
 		return view.register();
 	}
 }

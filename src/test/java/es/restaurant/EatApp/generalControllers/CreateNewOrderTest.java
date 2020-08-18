@@ -29,6 +29,7 @@ import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.CleanNotificationView;
 import es.restaurant.EatApp.views.OrderView;
 import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 @RunWith(SpringRunner.class)
 public class CreateNewOrderTest {
@@ -72,7 +73,7 @@ public class CreateNewOrderTest {
 		int table = 123;
 		this.mockMvc.perform(
 				get("/createOrder")
-				.sessionAttr(OrderView.TAG_TABLE, table))
+				.sessionAttr(TableHelperView.TAG_TABLE, table))
 		.andExpect(status().isOk());
 	}
 
@@ -82,7 +83,7 @@ public class CreateNewOrderTest {
 		Order order = new OrderBuilder().baseOrder().build();
 		this.mockMvc.perform(
 				get("/createOrder")
-				.sessionAttr(OrderView.TAG_TABLE, table)
+				.sessionAttr(TableHelperView.TAG_TABLE, table)
 				.sessionAttr(OrderView.TAG_ORDER, order))
 		.andExpect(status().isOk());
 	}
@@ -91,7 +92,7 @@ public class CreateNewOrderTest {
 	public void createOrderOkGetRequestWhenTableCodeIsNotNullAndThereIsOrderInSessionOpen() throws Exception {
 		int table = 123; Order order = new OrderBuilder().baseOrder().state(new OrderState(OrderState.orderState.OPEN)).build();
 		this.mockMvc.perform(get("/createOrder")
-				.sessionAttr(OrderView.TAG_TABLE, table)
+				.sessionAttr(TableHelperView.TAG_TABLE, table)
 				.sessionAttr(OrderView.TAG_ORDER, order))
 		.andExpect(status().isOk());
 	}
@@ -108,7 +109,7 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isOk());
 	}
 
@@ -121,7 +122,7 @@ public class CreateNewOrderTest {
 				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isOk());
 	}
 
@@ -136,7 +137,7 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 
@@ -151,7 +152,7 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isOk());
 	}
 
@@ -166,7 +167,7 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 
@@ -181,7 +182,7 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 
@@ -196,7 +197,7 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters)
-				.sessionAttr(OrderView.TAG_TABLE, tableCode))
+				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
 	}
 

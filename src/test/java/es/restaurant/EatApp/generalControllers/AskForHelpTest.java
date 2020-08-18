@@ -18,6 +18,7 @@ import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.CleanNotificationView;
 import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 @RunWith(SpringRunner.class)
 public class AskForHelpTest {
@@ -61,11 +62,11 @@ public class AskForHelpTest {
 				get("/"));
 		this.mockMvcAsk.perform(
 				get("/askForHelp")
-					.sessionAttr(View.TAG_TABLE, this.tableCode))
+					.sessionAttr(TableHelperView.TAG_TABLE, this.tableCode))
 				.andExpect(status().isOk());
 		this.mockMvcAsk.perform(
 				post("/showNotification")
-					.sessionAttr(View.TAG_TABLE, this.tableCode)
+					.sessionAttr(TableHelperView.TAG_TABLE, this.tableCode)
 					.sessionAttr(View.TAG_EMAIL, "waiter@waiter.com"))
 				.andExpect(status().isOk())
 				.andExpect(model().attribute("notifications",
@@ -78,7 +79,7 @@ public class AskForHelpTest {
 				get("/"));
 		this.mockMvcAsk.perform(
 				get("/askForHelp")
-					.sessionAttr(View.TAG_TABLE, -1))
+					.sessionAttr(TableHelperView.TAG_TABLE, -1))
 				.andExpect(status().isBadRequest());
 	}
 }

@@ -11,8 +11,8 @@
 			<div class="starter-template">
 				<form id="scanner" method="post" action="registerInTable">
 					<div id="reader" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
-					<input type="number" required="required" name="code" min="1"
-						max="100000" placeholder="Code" class="code" id="code" />
+					<input type="number" required="required" name="table" min="1"
+						max="100000" placeholder="Code" class="table" id="code" />
 					<div th:if="${error}" class="alert alert-danger" role="alert">
 						<p th:text="${error}"></p>
 					</div>

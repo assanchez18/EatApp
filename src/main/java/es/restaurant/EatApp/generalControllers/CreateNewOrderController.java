@@ -35,7 +35,7 @@ public class CreateNewOrderController extends OrderController {
 	@GetMapping("/createOrder")
 	public String prepareCreateOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new CreateNewOrderView(model, req, res);
-		if(this.view.getTableCode() == null) {
+		if(this.view.hasTableCode()) {
 			return this.view.redirectToRegistryInTable();
 		}
 		Order baseOrder = createEmptyOrder();

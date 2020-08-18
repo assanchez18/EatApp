@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import es.restaurant.EatApp.models.UserBuilder;
-import es.restaurant.EatApp.views.RegisterInTableView;
 import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 @RunWith(SpringRunner.class)
 public class RegisterInTableTest {
@@ -39,7 +39,7 @@ public class RegisterInTableTest {
         this.mockMvc.perform(
                 post("/registerInTable")
 				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-                        .param(RegisterInTableView.TAG_CODE, Integer.toString(code)))
+                        .param(TableHelperView.TAG_TABLE, Integer.toString(code)))
                 .andExpect(status().isOk());
     }
 	
@@ -55,7 +55,7 @@ public class RegisterInTableTest {
 		int code = 5000;
         this.mockMvc.perform(
                 post("/registerInTable")
-                        .param(RegisterInTableView.TAG_CODE, Integer.toString(code)))
+                        .param(TableHelperView.TAG_TABLE, Integer.toString(code)))
                 .andExpect(status().isNotFound());
     }
 

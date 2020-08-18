@@ -25,15 +25,20 @@ public class LoginController {
 		if(!UserDao.getUserDao().isUserCorrect(user)) {
 			return this.view.errorUnauthorized();
 		}
-		recuperateTableAndOrder(UserDao.getUserDao().getUser(view.getEmail()).getId());
+		int userId = UserDao.getUserDao().getUser(view.getEmail()).getId();
+		recuperateTable(userId);
+		recuperateOrder(userId);
 		return this.view.login(UserDao.getUserDao().getUser(user.getEmail()));
 	}
 
-	private void recuperateTableAndOrder(int userId) {
+	private void recuperateTable(int userId) {
 		int table = TableDao.getTableDao().getTableWithUserId(userId);
 		if(table != 0) {
-			this.view.recuperateTable(table);
+			this.view.setTable(table);
 		}
+	}
+
+	private void recuperateOrder(int userId) {
 		Order order = OrderDao.getOrderDao().takeFromCacheWithUserId(userId);
 		if(order != null) {
 			this.view.recuperateOrder(order);

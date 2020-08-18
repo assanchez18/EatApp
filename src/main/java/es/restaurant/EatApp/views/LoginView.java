@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 public class LoginView extends View {
 
@@ -14,8 +15,11 @@ public class LoginView extends View {
 	private static final String TAG_TYPE = "type";
 	private static final String MSG_LOGIN_ERROR = "El usuario o la contraseña son incorrectos";
 	
+	private TableHelperView tableHelperView;
+	
 	public LoginView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
+		this.tableHelperView = new TableHelperView(this.request, this.session);
 	}
 
 	public String login(User user) {
@@ -42,7 +46,7 @@ public class LoginView extends View {
 		return this.request.getParameter(TAG_EMAIL);
 	}
 
-	public void recuperateTable(int code) {
-		this.session.setAttribute(TAG_TABLE, code);
+	public void setTable(int code) {
+		this.tableHelperView.setTable(code);
 	}
 }
