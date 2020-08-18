@@ -29,6 +29,7 @@ import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.CleanNotificationView;
 import es.restaurant.EatApp.views.OrderView;
 import es.restaurant.EatApp.views.helpers.EmailHelperView;
+import es.restaurant.EatApp.views.helpers.OrderHelperView;
 import es.restaurant.EatApp.views.helpers.ParameterListReader;
 import es.restaurant.EatApp.views.helpers.TableHelperView;
 
@@ -85,7 +86,7 @@ public class CreateNewOrderTest {
 		this.mockMvc.perform(
 				get("/createOrder")
 				.sessionAttr(TableHelperView.TAG_TABLE, table)
-				.sessionAttr(OrderView.TAG_ORDER, order))
+				.sessionAttr(OrderHelperView.TAG_ORDER, order))
 		.andExpect(status().isOk());
 	}
 
@@ -94,7 +95,7 @@ public class CreateNewOrderTest {
 		int table = 123; Order order = new OrderBuilder().baseOrder().state(new OrderState(OrderState.orderState.OPEN)).build();
 		this.mockMvc.perform(get("/createOrder")
 				.sessionAttr(TableHelperView.TAG_TABLE, table)
-				.sessionAttr(OrderView.TAG_ORDER, order))
+				.sessionAttr(OrderHelperView.TAG_ORDER, order))
 		.andExpect(status().isOk());
 	}
 

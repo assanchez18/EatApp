@@ -18,6 +18,7 @@ public class Order extends Observable {
 	private double totalPrice;
 	
 	public Order() {
+		this.id = -1;
 		this.state = new OrderState();
 		this.products = new HashMap<Product, Integer>();
 		this.parameters = "";
@@ -130,5 +131,9 @@ public class Order extends Observable {
 	
 	public double getTotalPrice() {
 		return this.totalPrice;
+	}
+
+	public boolean isValid() {
+		return this.id != -1;
 	}
 }

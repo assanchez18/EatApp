@@ -43,7 +43,7 @@ public class TableDaoTest {
 		int userId = 1;
 		dao.linkUserToTable(userId, code);
 		dao.unlinkUserToTable(userId);
-		assertEquals("Table should be 0 (not found)", dao.getTableWithUserId(userId), 0);
+		assertEquals("Table should be -1 (not found)", dao.getTableWithUserId(userId), -1);
 	}
 
 }

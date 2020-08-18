@@ -27,21 +27,21 @@ public class LoginController {
 		}
 		int userId = UserDao.getUserDao().getUser(user.getEmail()).getId();
 		recuperateTable(userId);
-		recuperateOrder(userId);
+		recuperateOrderFromCache(userId);
 		return this.view.login(UserDao.getUserDao().getUser(user.getEmail()));
 	}
 
 	private void recuperateTable(int userId) {
 		int table = TableDao.getTableDao().getTableWithUserId(userId);
-		if(table != 0) {
+		if(table != -1) {
 			this.view.setTable(table);
 		}
 	}
 
-	private void recuperateOrder(int userId) {
+	private void recuperateOrderFromCache(int userId) {
 		Order order = OrderDao.getOrderDao().takeFromCacheWithUserId(userId);
-		if(order != null) {
-			this.view.recuperateOrder(order);
+		if(order.isValid()) {
+			this.view.setOrder(order);
 		}
 	}
 }

@@ -82,6 +82,6 @@ public class TableDao extends Dao{
 	}
 
 	public int getTableWithUserId(int userId) {
-		return usersInTables.getOrDefault(userId, 0);
+		return usersInTables.getOrDefault(userId, -1);
 	}
 }

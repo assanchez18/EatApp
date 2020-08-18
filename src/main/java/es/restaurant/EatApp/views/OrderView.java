@@ -7,11 +7,11 @@ import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.views.helpers.EmailHelperView;
+import es.restaurant.EatApp.views.helpers.OrderHelperView;
 import es.restaurant.EatApp.views.helpers.ParameterListReader;
 
 public class OrderView extends View {
 
-	public static final String TAG_ORDER = "order";
 	public static final String TAG_AMOUNTS = "amounts[]";
 	public static final String TAG_PARAMS = "parameters";
 	private final String MSG_EMPTY_ORDER_ERROR = "Vaya!, parece que tu pedido estaba vacío";
@@ -21,11 +21,13 @@ public class OrderView extends View {
 
 	private EmailHelperView emailHelper;
 	private ParameterListReader parameterListReader;
+	private OrderHelperView orderHelper;
 	
 	public OrderView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
 		this.emailHelper = new EmailHelperView(req);
 		this.parameterListReader = new ParameterListReader(req);
+		this.orderHelper = new OrderHelperView(model, req.getSession());
 	}
 
 	public OrderView(HttpServletResponse res) {
@@ -36,6 +38,7 @@ public class OrderView extends View {
 		super(req);
 		this.parameterListReader = new ParameterListReader(req);
 		this.emailHelper = new EmailHelperView(req);
+		this.orderHelper = new OrderHelperView(req.getSession());
 	}
 
 	public String getParameter() {
@@ -63,7 +66,7 @@ public class OrderView extends View {
 	}
 	
 	public Order getOrder() {
-		return (Order) this.session.getAttribute(TAG_ORDER);
+		return this.orderHelper.getOrder();
 	}
 	
 	public String getEmail() {
@@ -83,10 +86,10 @@ public class OrderView extends View {
 	}
 
 	public void prepareModel(Order order) {
-		this.model.addAttribute(TAG_ORDER, order);		
+		this.orderHelper.setOrder(order);
 	}
 
 	public void updateSession(Order order) {
-		this.session.setAttribute(TAG_ORDER, order);		
+		this.orderHelper.updateOrder(order);		
 	}
 }

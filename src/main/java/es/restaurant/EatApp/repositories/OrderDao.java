@@ -37,7 +37,7 @@ public class OrderDao extends Dao {
 	}
 
 	public Order takeFromCacheWithUserId(int userId) {
-		return this.orders.get(userId);
+		return this.orders.getOrDefault(userId, new Order());
 	}
 
 	public void deleteFromCache(int userId) {
