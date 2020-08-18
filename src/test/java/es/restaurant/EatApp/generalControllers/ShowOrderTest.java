@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.OrderView;
-import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 @RunWith(SpringRunner.class)
 public class ShowOrderTest {
@@ -45,7 +45,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -58,7 +58,7 @@ public class ShowOrderTest {
 		String[] amounts = {"1","2"};
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts))
 		.andExpect(status().isOk());
@@ -71,7 +71,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -85,7 +85,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -99,7 +99,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -113,7 +113,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
@@ -127,7 +127,7 @@ public class ShowOrderTest {
 		String parameters = "Text";
 
 		this.mockMvc.perform(post("/showNewOrder")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(OrderView.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))

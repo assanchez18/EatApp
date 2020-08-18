@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
+
 public class RegisterViewBuilder {
 
 	public RegisterViewBuilder() {
@@ -12,7 +14,7 @@ public class RegisterViewBuilder {
 	}
 	
 	public RegisterView build(Model model, HttpServletRequest req, HttpServletResponse res) {
-		View view = new View(model, req, res);
+		EmailHelperView view = new EmailHelperView(req);
 		return (view.getEmail() == null) ? new RegisterNewUserView(model, req, res)
 										 : new RegisterEmployeeView(model, req, res);
 	}

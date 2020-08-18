@@ -25,7 +25,7 @@ public class LoginController {
 		if(!UserDao.getUserDao().isUserCorrect(user)) {
 			return this.view.errorUnauthorized();
 		}
-		int userId = UserDao.getUserDao().getUser(view.getEmail()).getId();
+		int userId = UserDao.getUserDao().getUser(user.getEmail()).getId();
 		recuperateTable(userId);
 		recuperateOrder(userId);
 		return this.view.login(UserDao.getUserDao().getUser(user.getEmail()));

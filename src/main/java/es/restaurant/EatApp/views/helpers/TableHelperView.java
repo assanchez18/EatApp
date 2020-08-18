@@ -10,16 +10,15 @@ public class TableHelperView {
 	private HttpServletRequest request;
 	private HttpSession session;
 
-	public TableHelperView(HttpServletRequest req, HttpSession session) {
+	public TableHelperView(HttpServletRequest req) {
 		this.request = req;
-		this.session = session;
+		this.session = this.request.getSession();
 	}
 
 	public Integer getSessionTableCode() {
 		return (Integer) this.session.getAttribute(TAG_TABLE);
 	}
-	
-	
+
 	public void setTable(int code) {
 		this.session.setAttribute(TAG_TABLE, code);
 	}

@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.ReviewExperienceView;
-import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 @RunWith(SpringRunner.class)
 public class ReviewExperienceControllerTest {
@@ -35,7 +35,7 @@ public class ReviewExperienceControllerTest {
         User commensal = new UserBuilder().commensal().build();
 		this.mockMvc.perform(
                 get("/reviewExperience")
-                .sessionAttr(View.TAG_EMAIL, commensal.getEmail()))
+                .sessionAttr(EmailHelperView.TAG_EMAIL, commensal.getEmail()))
                 .andExpect(status().isOk());
     }
 	

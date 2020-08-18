@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.views.CleanNotificationView;
-import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 @RunWith(SpringRunner.class)
@@ -50,7 +50,7 @@ public class CleanNotificationControllerTest {
                 .andExpect(status().isOk());
 		this.mockMvc.perform(
 				post("/cleanNotification")
-					.sessionAttr(View.TAG_EMAIL, w.getEmail())
+					.sessionAttr(EmailHelperView.TAG_EMAIL, w.getEmail())
 					.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(tableCode)))
 		.andExpect(status().isOk())
 		.andExpect(model().attribute("notifications",
@@ -63,7 +63,7 @@ public class CleanNotificationControllerTest {
 		User w = new UserBuilder().email("wrong@email.com").build();
 		this.mockMvc.perform(
 				post("/cleanNotification")
-					.sessionAttr(View.TAG_EMAIL, w.getEmail())
+					.sessionAttr(EmailHelperView.TAG_EMAIL, w.getEmail())
 					.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(tableCode)))
 		.andExpect(status().isBadRequest());
 	}

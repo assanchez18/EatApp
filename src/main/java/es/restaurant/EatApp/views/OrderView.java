@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 public class OrderView extends View {
 
@@ -18,8 +19,11 @@ public class OrderView extends View {
 
 	protected static final String SHOW_ORDER_VIEW = "showOrder";
 
+	private EmailHelperView emailHelper;
+	
 	public OrderView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
+		this.emailHelper = new EmailHelperView(req);
 	}
 
 	public OrderView(HttpServletResponse res) {
@@ -28,6 +32,7 @@ public class OrderView extends View {
 
 	public OrderView(HttpServletRequest req) {
 		super(req);
+		this.emailHelper = new EmailHelperView(req);
 	}
 
 	public String getParameter() {
@@ -70,6 +75,10 @@ public class OrderView extends View {
 	
 	public Order getOrder() {
 		return (Order) this.session.getAttribute(TAG_ORDER);
+	}
+	
+	public String getEmail() {
+		return this.emailHelper.getEmail();
 	}
 
 }

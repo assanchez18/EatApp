@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 public class RegisterInTableView extends View {
@@ -12,10 +13,12 @@ public class RegisterInTableView extends View {
 	public static final String VIEW_REGISTRY_IN_TABLE = "registryInTable";
 	
 	private TableHelperView tableHelper;
+	private EmailHelperView emailHelper;
 	
 	public RegisterInTableView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
-		this.tableHelper = new TableHelperView(this.request, this.session);
+		this.tableHelper = new TableHelperView(req);
+		this.emailHelper = new EmailHelperView(req);
 	}
 	
 	public String register() {
@@ -32,8 +35,11 @@ public class RegisterInTableView extends View {
 		return this.tableHelper.getRequestedTableCode();
 	}
 
+	public String getEmail() {
+		return this.emailHelper.getEmail();
+	}
+
 	public String interact() {
 		return VIEW_REGISTRY_IN_TABLE;
 	}
-
 }

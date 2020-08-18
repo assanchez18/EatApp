@@ -18,7 +18,8 @@ import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.repositories.TableDao;
 import es.restaurant.EatApp.views.LoginView;
-import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
+
 
 @RunWith(SpringRunner.class)
 public class LoginTest {
@@ -43,7 +44,7 @@ public class LoginTest {
 		OrderDao.getOrderDao().saveInCache(order);
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.TAG_EMAIL, user.getEmail())
+                        .param(EmailHelperView.TAG_EMAIL, user.getEmail())
                         .param(LoginView.TAG_PASSWORD, user.getPassword()))
                 .andExpect(status().isOk());
 		OrderDao.getOrderDao().deleteFromCache(user.getId());
@@ -55,7 +56,7 @@ public class LoginTest {
 		User user = new UserBuilder().sergio().build();
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.TAG_EMAIL, user.getEmail())
+                        .param(EmailHelperView.TAG_EMAIL, user.getEmail())
                         .param(LoginView.TAG_PASSWORD, user.getPassword()))
                 .andExpect(status().isOk());
     }
@@ -67,7 +68,7 @@ public class LoginTest {
 
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.TAG_EMAIL, u.getEmail())
+                        .param(EmailHelperView.TAG_EMAIL, u.getEmail())
                         .param(LoginView.TAG_PASSWORD, wrongPassword))
                 .andExpect(status().isUnauthorized());
     }
@@ -78,7 +79,7 @@ public class LoginTest {
 
         this.mockMvc.perform(
                 post("/login")
-                        .param(View.TAG_EMAIL, u.getEmail())
+                        .param(EmailHelperView.TAG_EMAIL, u.getEmail())
                         .param(LoginView.TAG_PASSWORD, u.getPassword()))
                 .andExpect(status().isUnauthorized());
     }

@@ -13,7 +13,6 @@ public class View {
 	protected HttpServletResponse response;
 	protected Model model;
 
-	public static final String TAG_EMAIL = "email";
 	protected static final String TAG_ERROR = "error";
 	protected static final String VIEW_MAIN_USER = "mainUserView";
 	protected static final String VIEW_ERROR = "error";
@@ -59,10 +58,6 @@ public class View {
 		this.session = null;
 		this.response = res;
 		this.model = null;
-	}
-
-	public String getEmail() {
-		return (String) this.session.getAttribute(TAG_EMAIL);
 	}
 
 	protected void setStatusOk() {

@@ -17,6 +17,7 @@ import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.RegisterEmployeeView;
 import es.restaurant.EatApp.views.RemoveEmployeeView;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 @RunWith(SpringRunner.class)
 public class RegisterAndRemoveEmployeeControllerTest {
@@ -43,7 +44,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		
 		this.mockMvc.perform(
                 get("/register")
-                .sessionAttr(RegisterEmployeeView.TAG_EMAIL, user.getEmail()))
+                .sessionAttr(EmailHelperView.TAG_EMAIL, user.getEmail()))
                 .andExpect(status().isOk());
 
 		this.mockMvc.perform(
@@ -57,8 +58,8 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
                 post("/register")
-                	.sessionAttr(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
-                	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
+                	.sessionAttr(EmailHelperView.TAG_EMAIL, user.getEmail())
+                	.param(EmailHelperView.TAG_EMAIL, user.getEmail())
                     .param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
                     .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
                     .param(RegisterEmployeeView.TAG_REPEATED_PASSWORD, user.getPassword()))
@@ -75,7 +76,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().admin().build();
 		this.mockMvc.perform(
                 post("/register")
-                	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail()))
+                	.param(EmailHelperView.TAG_EMAIL, user.getEmail()))
                 .andExpect(status().isBadRequest());
 	}
 
@@ -84,7 +85,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 		User user = new UserBuilder().employee().build();
 		this.mockMvc.perform(
                 post("/register")
-                	.param(RegisterEmployeeView.TAG_EMAIL, user.getEmail())
+                	.param(EmailHelperView.TAG_EMAIL, user.getEmail())
                 	.param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
                     .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
                     .param(RegisterEmployeeView.TAG_REPEATED_PASSWORD, "1"))

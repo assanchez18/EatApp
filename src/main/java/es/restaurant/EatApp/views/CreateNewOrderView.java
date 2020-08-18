@@ -15,7 +15,7 @@ public class CreateNewOrderView extends OrderView {
 	
 	public CreateNewOrderView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
-		this.tableHelper = new TableHelperView(this.request, this.session);
+		this.tableHelper = new TableHelperView(this.request);
 	}
 	
 	public String interact(Order order) {

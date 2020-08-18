@@ -21,7 +21,7 @@ import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.views.CleanNotificationView;
 import es.restaurant.EatApp.views.ProductView;
-import es.restaurant.EatApp.views.View;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 @RunWith(SpringRunner.class)
 public class CancelProductControllerTest {
@@ -54,7 +54,7 @@ public class CancelProductControllerTest {
 		User w = new UserBuilder().waiter().build();
 		this.mockMvc.perform(
 				post("/cleanNotification")
-				.sessionAttr(View.TAG_EMAIL, w.getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, w.getEmail())
 				.param(CleanNotificationView.TAG_NOTIFICATION_ID, Integer.toString(this.tableCode)))
 		.andExpect(status().isOk())
 		.andExpect(model().attribute("notifications",
@@ -100,7 +100,7 @@ public class CancelProductControllerTest {
 
 		this.mockMvc.perform(
 				post("/cancelProduct")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().waiter().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().waiter().build().getEmail())
 				.queryParam(ProductView.TAG_USER_ID, String.valueOf(userId))
 				.queryParam(ProductView.TAG_PRODUCT_ID, String.valueOf(productId)))
 		.andExpect(status().isOk());
@@ -117,7 +117,7 @@ public class CancelProductControllerTest {
 
 		this.mockMvc.perform(
 				post("/cancelProduct")
-				.sessionAttr(View.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
+				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
 				.queryParam(ProductView.TAG_USER_ID, String.valueOf(userId))
 				.queryParam(ProductView.TAG_PRODUCT_ID, String.valueOf(productId)))
 		.andExpect(status().isOk());

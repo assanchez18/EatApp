@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 public class ProductView extends View {
 
@@ -17,8 +18,11 @@ public class ProductView extends View {
 	private static final String MSG_PRODUCT_MODIFICATION_ERROR = "Ha habido un problema modificando el producto";
 	protected static final String VIEW_MANAGE_PRODUCT_STATUS_ORDERS = "manageProductStatusOrders.html";
 
+	private EmailHelperView emailHelper;
+	
 	public ProductView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
+		this.emailHelper = new EmailHelperView(req);
 	}
 
 	public ProductView(HttpServletResponse res) {
@@ -51,4 +55,7 @@ public class ProductView extends View {
 		return VIEW_MANAGE_PRODUCT_STATUS_ORDERS;
 	}
 
+	public String getEmail() {
+		return this.emailHelper.getEmail();
+	}
 }
