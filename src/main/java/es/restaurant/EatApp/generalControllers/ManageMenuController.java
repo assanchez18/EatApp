@@ -41,13 +41,18 @@ public class ManageMenuController {
 		if(view.getProductDescription().isEmpty()) {
 			return view.errorNoProductDescription();
 		}
-		List<Ingredient> productIngredients = ProductIngredientsDao.getProductIngredientDao().getIngredientsOfProduct(view.getProductId());
-		if (productIngredients == null) {
-			return view.errorNoIngredients();
-		}
 		Product product = new Product(view.getProductId(), view.getProductName(), view.getProductDescription(), view.getProductPrice(), view.getProductPriority());
-		if(!ProductDao.getProductDao().updateProduct(product)) {
-			return view.errorInDB();
+		List<Ingredient> productIngredients = ProductIngredientsDao.getProductIngredientDao().getIngredientsOfProduct(product.getId());
+		if(product.isNew()) {
+			if(!ProductDao.getProductDao().insert(product)) {
+				return view.errorInDB();
+			}
+			product = ProductDao.getProductDao().getProductByNameAndDescription(view.getProductName(), view.getProductDescription());
+		}
+		else {
+			if (productIngredients == null) {
+				return view.errorNoIngredients();
+			}
 		}
 		List<Ingredient> noProductIngredients = ProductIngredientsDao.getProductIngredientDao().getAllIngredientsunlessOfProduct(view.getProductId());
 		return view.showIngredientsForm(product, productIngredients, noProductIngredients);
@@ -82,7 +87,8 @@ public class ManageMenuController {
 	@PostMapping("/removeProductInMenu")
 	public String removeMenuProduct(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ManageMenuView view = new ManageMenuView(model, req, res);
-		if(ProductDao.getProductDao().deleteProduct(view.getProductId())) {
+		ProductIngredientsDao.getProductIngredientDao().deleteAllIngredientsFromProduct(view.getProductId());
+		if(!ProductDao.getProductDao().deleteProduct(view.getProductId())) {
 			view.errorInDB();
 		}
 		return view.interact();
@@ -91,16 +97,6 @@ public class ManageMenuController {
 	@PostMapping("/addProductInMenu")
 	public String newMenuProduct(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ManageMenuView view = new ManageMenuView(model, res);
-		if(view.getProductName().isEmpty()) {
-			return view.errorNoProductName();
-		}
-		if(view.getProductDescription().isEmpty()) {
-			return view.errorNoProductDescription();
-		}
-		Product product = new Product(view.getProductName(), view.getProductDescription(), view.getProductPrice(), view.getProductPriority());
-		if(!ProductDao.getProductDao().insert(product)) {
-			return view.errorInDB();
-		}
 		return view.showProductForm(new Product());
 	}
 

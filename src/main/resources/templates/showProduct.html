@@ -8,7 +8,10 @@
 		<main role="main"
 			class="main container col-xl col-lg col-md col-sm col-">
 			<div class="starter-template">
-				<h2 class="intro">Modificar Producto</h2>
+				<h2 class="intro">
+					<span th:if="${product.id} != -1">Modificar Producto</span>
+					<span th:if="${product.id} == -1">Nuevo Producto</span>
+				</h2>
 				<form method="post">
 					<table id="dataTable" class="table table-striped display">
 						<thead>

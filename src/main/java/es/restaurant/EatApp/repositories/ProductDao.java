@@ -108,4 +108,10 @@ public class ProductDao extends Dao {
 													  product.getPriority().getTypeOrdinal(),
 													  product.getId()) == 1);
 	}
+
+	public Product getProductByNameAndDescription(String productName, String productDescription) {
+		String sql = selectAllFrom(TABLE_PRODUCTS) + where ("name = \"" + productName + "\""+ and ("description = \"" + productDescription + "\""));
+		List<Product> products = executeQuery(sql);
+		return products.isEmpty() ? null : products.get(0);
+	}
 }

@@ -131,5 +131,9 @@ public class Product {
 	public boolean isQueued() {
 		return this.state.isQueued();
 	}
+
+	public boolean isNew() {
+		return this.id == -1;
+	}
 	
 }

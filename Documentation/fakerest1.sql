@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-08-2020 a las 19:30:55
+-- Tiempo de generación: 18-08-2020 a las 08:30:36
 -- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.7
+-- Versión de PHP: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -106,8 +106,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `priority`) VALUES
-(1, 'Prod test1', 'Desc test 1', 10, 1),
-(2, 'Prod test2', 'Desc test 2', 20, 0);
+(1, 'Prod test1', 'Desc test 1', 10, 0),
+(2, 'Prod test2', 'Desc test 2', 20, 0),
+(3, 'Test', 'testDesc', 1, 1),
+(4, 'Test', 'testDesc', 1, 1),
+(5, 'Test', 'testDesc', 1, 1),
+(6, 'Test', 'testDesc', 1, 1),
+(7, 'Test', 'testDesc', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -231,13 +236,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- Restricciones para tablas volcadas
