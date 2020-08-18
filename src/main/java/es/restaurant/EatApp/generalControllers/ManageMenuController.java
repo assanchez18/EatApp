@@ -54,21 +54,22 @@ public class ManageMenuController {
 				return view.errorNoIngredients();
 			}
 		}
+		product.setIngredients(productIngredients);
 		List<Ingredient> noProductIngredients = ProductIngredientsDao.getProductIngredientDao().getAllIngredientsunlessOfProduct(view.getProductId());
-		return view.showIngredientsForm(product, productIngredients, noProductIngredients);
+		return view.showIngredientsForm(product, noProductIngredients);
 	}
 	
 	@PostMapping("/newProductIngredients")
 	public String updateProductIngredients(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ManageMenuView view = new ManageMenuView(model, req, res);
-		List<Integer> ingredientsInProduct = getNewIngredientsList(view.getIds(), view.areIngredientIncluded());
+		List<Integer> ingredientsInProduct = getNewIngredientsList(view.getIds(), view.getIngredientStatus());
 		if (ingredientsInProduct == null) {
 			return view.errorNoIngredients();
 		}
 		if(!ProductIngredientsDao.getProductIngredientDao().updateIngredientsInProduct(ingredientsInProduct, view.getProductId())) {
 			view.errorInDB();
 		}
-		return view.interact();
+		return view.mainView();
 	}
 	
 	private List<Integer> getNewIngredientsList(Integer[] ingredientsId, List<Boolean> areContained) {
@@ -91,7 +92,7 @@ public class ManageMenuController {
 		if(!ProductDao.getProductDao().deleteProduct(view.getProductId())) {
 			view.errorInDB();
 		}
-		return view.interact();
+		return view.mainView();
 	}
 	
 	@PostMapping("/addProductInMenu")

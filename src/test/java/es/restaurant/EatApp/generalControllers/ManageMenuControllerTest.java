@@ -21,8 +21,8 @@ import es.restaurant.EatApp.repositories.IngredientDao;
 import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.repositories.ProductIngredientsDao;
 import es.restaurant.EatApp.views.ManageMenuView;
-import es.restaurant.EatApp.views.OrderView;
 import es.restaurant.EatApp.views.ProductView;
+import es.restaurant.EatApp.views.helpers.ParameterListReader;
 
 @RunWith(SpringRunner.class)
 public class ManageMenuControllerTest {
@@ -63,44 +63,44 @@ public class ManageMenuControllerTest {
 				.andExpect(status().isOk());
 		this.mockMvc.perform(
 				post("/productChanged")
-				.param(ManageMenuView.TAG_PRODUCT_ID, wrongProductId)
-				.param(ManageMenuView.TAG_PRODUCT_NAME, ""))
+				.param(ProductView.TAG_PRODUCT_ID, wrongProductId)
+				.param(ProductView.TAG_PRODUCT_NAME, ""))
 				.andExpect(status().isBadRequest());
 		this.mockMvc.perform(
 				post("/productChanged")
-				.param(ManageMenuView.TAG_PRODUCT_ID, wrongProductId)
-				.param(ManageMenuView.TAG_PRODUCT_NAME, product.getName())
-				.param(ManageMenuView.TAG_PRODUCT_DESCRIPTION, ""))
+				.param(ProductView.TAG_PRODUCT_ID, wrongProductId)
+				.param(ProductView.TAG_PRODUCT_NAME, product.getName())
+				.param(ProductView.TAG_PRODUCT_DESCRIPTION, ""))
 				.andExpect(status().isBadRequest());
 		this.mockMvc.perform(
 				post("/productChanged")
-				.param(ManageMenuView.TAG_PRODUCT_ID, Integer.toString((product.getId())))
-				.param(ManageMenuView.TAG_PRODUCT_NAME, product.getName())
-				.param(ManageMenuView.TAG_PRODUCT_DESCRIPTION, product.getDescription())
-				.param(ManageMenuView.TAG_PRODUCT_PRICE, Double.toString(product.getPrice()))
-				.param(ManageMenuView.TAG_PRODUCT_PRIORITY, Integer.toString(product.getPriority().getTypeOrdinal())))
+				.param(ProductView.TAG_PRODUCT_ID, Integer.toString((product.getId())))
+				.param(ProductView.TAG_PRODUCT_NAME, product.getName())
+				.param(ProductView.TAG_PRODUCT_DESCRIPTION, product.getDescription())
+				.param(ProductView.TAG_PRODUCT_PRICE, Double.toString(product.getPrice()))
+				.param(ProductView.TAG_PRODUCT_PRIORITY, Integer.toString(product.getPriority().getTypeOrdinal())))
 				.andExpect(status().isOk());
 		//change ingredient
 		this.mockMvc.perform(
 				post("/newProductIngredients")
-				.param(ManageMenuView.TAG_PRODUCT_ID, Integer.toString((product.getId())))
-				.param(ManageMenuView.TAG_PRODUCT_NAME, product.getName())
-				.param(ManageMenuView.TAG_PRODUCT_DESCRIPTION, product.getDescription())
-				.param(ManageMenuView.TAG_PRODUCT_PRICE, Double.toString(product.getPrice()))
-				.param(ManageMenuView.TAG_PRODUCT_PRIORITY, Integer.toString(product.getPriority().getTypeOrdinal()))
-				.param(OrderView.TAG_IDS,"")
+				.param(ProductView.TAG_PRODUCT_ID, Integer.toString((product.getId())))
+				.param(ProductView.TAG_PRODUCT_NAME, product.getName())
+				.param(ProductView.TAG_PRODUCT_DESCRIPTION, product.getDescription())
+				.param(ProductView.TAG_PRODUCT_PRICE, Double.toString(product.getPrice()))
+				.param(ProductView.TAG_PRODUCT_PRIORITY, Integer.toString(product.getPriority().getTypeOrdinal()))
+				.param(ParameterListReader.TAG_IDS,"")
 				.param(ManageMenuView.TAG_CONTAINS_INGREDIENTS,""))
 				.andExpect(status().isBadRequest());
 		String[] ids = {Integer.toString(ingredientTest1.getId()),Integer.toString(ingredientTest2.getId())};
 		String[] newIngredients = {"0","1"};
 		this.mockMvc.perform(
 				post("/newProductIngredients")
-				.param(ManageMenuView.TAG_PRODUCT_ID, Integer.toString((product.getId())))
-				.param(ManageMenuView.TAG_PRODUCT_NAME, product.getName())
-				.param(ManageMenuView.TAG_PRODUCT_DESCRIPTION, product.getDescription())
-				.param(ManageMenuView.TAG_PRODUCT_PRICE, Double.toString(product.getPrice()))
-				.param(ManageMenuView.TAG_PRODUCT_PRIORITY, Integer.toString(product.getPriority().getTypeOrdinal()))
-				.param(OrderView.TAG_IDS,ids)
+				.param(ProductView.TAG_PRODUCT_ID, Integer.toString((product.getId())))
+				.param(ProductView.TAG_PRODUCT_NAME, product.getName())
+				.param(ProductView.TAG_PRODUCT_DESCRIPTION, product.getDescription())
+				.param(ProductView.TAG_PRODUCT_PRICE, Double.toString(product.getPrice()))
+				.param(ProductView.TAG_PRODUCT_PRIORITY, Integer.toString(product.getPriority().getTypeOrdinal()))
+				.param(ParameterListReader.TAG_IDS,ids)
 				.param(ManageMenuView.TAG_CONTAINS_INGREDIENTS,newIngredients))
 				.andExpect(status().isOk());
 		

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.OrderView;
 import es.restaurant.EatApp.views.helpers.EmailHelperView;
+import es.restaurant.EatApp.views.helpers.ParameterListReader;
 
 @RunWith(SpringRunner.class)
 public class ShowOrderTest {
@@ -46,7 +47,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
 		.andExpect(status().isOk());
@@ -59,7 +60,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts))
 		.andExpect(status().isOk());
 	}
@@ -72,7 +73,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
 		.andExpect(status().isBadRequest());
@@ -86,7 +87,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
 		.andExpect(status().isOk());
@@ -100,7 +101,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
 		.andExpect(status().isBadRequest());
@@ -114,7 +115,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
 		.andExpect(status().isBadRequest());
@@ -128,7 +129,7 @@ public class ShowOrderTest {
 
 		this.mockMvc.perform(post("/showNewOrder")
 				.sessionAttr(EmailHelperView.TAG_EMAIL, new UserBuilder().commensal().build().getEmail())
-				.queryParam(OrderView.TAG_IDS, ids)
+				.queryParam(ParameterListReader.TAG_IDS, ids)
 				.queryParam(OrderView.TAG_AMOUNTS, amounts)
 				.queryParam(OrderView.TAG_PARAMS, parameters))
 		.andExpect(status().isBadRequest());

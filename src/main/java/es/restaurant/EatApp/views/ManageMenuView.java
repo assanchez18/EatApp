@@ -11,16 +11,11 @@ import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Ingredient;
 import es.restaurant.EatApp.models.Product;
+import es.restaurant.EatApp.views.helpers.ParameterListReader;
 
-public class ManageMenuView extends ProductView {
+public class ManageMenuView extends View {
 
 	private static final String TAG_PRODUCTS = "products";
-	private static final String TAG_PRODUCT = "product";
-	public static final String TAG_PRODUCT_NAME = "productName";
-	public static final String TAG_PRODUCT_DESCRIPTION = "productDescription";
-	public static final String TAG_PRODUCT_PRICE = "productPrice";
-	public static final String TAG_PRODUCT_PRIORITY = "productPriority";
-	private static final String TAG_PRODUCT_INGREDIENTS = "productIngredients";
 	private static final String TAG_ALL_INGREDIENTS = "allIngredients";
 	public static final String TAG_CONTAINS_INGREDIENTS = "contains[]";
 
@@ -33,12 +28,18 @@ public class ManageMenuView extends ProductView {
 	private static final String VIEW_PRODUCT = "showProduct";
 	private static final String VIEW_CHANGE_PRODUCT_INGREDIENTS = "changeProductIngredients";
 
+	private ProductView productView;
+	private ParameterListReader parameterListReader;
+	
 	public ManageMenuView(Model model, HttpServletResponse res) {
 		super(model,res);
+		this.productView = new ProductView(model, res);
 	}
 
 	public ManageMenuView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);
+		this.productView = new ProductView(model, req, res);
+		this.parameterListReader = new ParameterListReader(req);
 	}
 
 	public String showMenuWithOptions(Collection<Product> products) {
@@ -48,30 +49,34 @@ public class ManageMenuView extends ProductView {
 	}
 
 	public String showProductForm(Product product) {
-		this.model.addAttribute(TAG_PRODUCT, product);
+		this.productView.prepareProductModel(product);
 		setStatusOk();
 		return VIEW_PRODUCT;
 	}
 
-	public String interact() {
+	public String mainView() {
 		setStatusOk();
 		return VIEW_MAIN_USER;
 	}
 
+	public int getProductId() {
+		return this.productView.getProductId();
+	}
+
 	public String getProductName() {
-		return this.request.getParameter(TAG_PRODUCT_NAME);
+		return this.productView.getProductName();
 	}
 
 	public String getProductDescription() {
-		return this.request.getParameter(TAG_PRODUCT_DESCRIPTION);
+		return this.productView.getProductDescription();
 	}
 
 	public double getProductPrice() {
-		return Double.parseDouble(this.request.getParameter(TAG_PRODUCT_PRICE));
+		return this.productView.getProductPrice();
 	}
 
 	public int getProductPriority() {
-		return Integer.parseInt(this.request.getParameter(TAG_PRODUCT_PRIORITY));
+		return this.productView.getProductPriority();
 	}
 
 	public String errorNoProductName() {
@@ -90,18 +95,15 @@ public class ManageMenuView extends ProductView {
 		return returnErrorWithMessageAndErrorCode(MSG_NO_INGREDIENTS_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
-	public String showIngredientsForm(Product product, List<Ingredient> productIngredients, List<Ingredient> allIngredients) {
-		this.model.addAttribute(TAG_PRODUCT_NAME, product.getName());
-		this.model.addAttribute(TAG_PRODUCT_ID, product.getId());
-		this.model.addAttribute(TAG_PRODUCT_INGREDIENTS, productIngredients);
+	public String showIngredientsForm(Product product, List<Ingredient> allIngredients) {
+		this.productView.prepareProductModel(product);
 		this.model.addAttribute(TAG_ALL_INGREDIENTS, allIngredients);
 		setStatusOk();
 		return VIEW_CHANGE_PRODUCT_INGREDIENTS;
 	}
 
-	public List<Boolean> areIngredientIncluded() {
-		OrderView view = new OrderView(this.request);
-		Integer[] contained = view.getParameterArray(TAG_CONTAINS_INGREDIENTS);
+	public List<Boolean> getIngredientStatus() {
+		Integer[] contained = this.parameterListReader.getParameterArray(TAG_CONTAINS_INGREDIENTS);
 		List<Boolean> ingredientsIncluded = new ArrayList<Boolean>();
 		for(Integer i : contained) {
 			ingredientsIncluded.add(isIncluded(i));				
@@ -114,8 +116,6 @@ public class ManageMenuView extends ProductView {
 	}
 
 	public Integer[] getIds() {
-		OrderView view = new OrderView(this.request);
-		return view.getIds();
+		return this.parameterListReader.getIds();
 	}
-
 }

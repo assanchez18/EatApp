@@ -1,5 +1,8 @@
 package es.restaurant.EatApp.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.restaurant.EatApp.models.ProductState.productState;
 
 public class Product {
@@ -10,6 +13,7 @@ public class Product {
 	private double price;
 	private ProductState state;
 	private ProductPriority priority;
+	private List<Ingredient> ingredients;
 	
 	public Product(int id, String name, String description, double price, int priority) {
 		this.id = id;
@@ -18,6 +22,7 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.priority = new ProductPriority(priority);
+		this.ingredients = new ArrayList<Ingredient>();
 	}
 	
 	public Product(String name, String description, double price, int priority) {
@@ -27,6 +32,7 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.priority = new ProductPriority(priority);
+		this.ingredients = new ArrayList<Ingredient>();
 	}
 	
 	public Product(int id, String name, String description, double price, ProductPriority priority) {
@@ -36,6 +42,7 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.priority = priority;
+		this.ingredients = new ArrayList<Ingredient>();
 	}
 
 	public Product() {
@@ -45,6 +52,7 @@ public class Product {
 		this.description = "";
 		this.price = 0;
 		this.priority = new ProductPriority();
+		this.ingredients = new ArrayList<Ingredient>();
 	}
 
 	public ProductState getState() {
@@ -134,6 +142,14 @@ public class Product {
 
 	public boolean isNew() {
 		return this.id == -1;
+	}
+
+	public void setIngredients(List<Ingredient> productIngredients) {
+		this.ingredients = productIngredients;		
+	}
+
+	public List<Ingredient> getIngredients() {
+		return this.ingredients;
 	}
 	
 }

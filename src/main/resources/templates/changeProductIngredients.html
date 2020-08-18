@@ -9,7 +9,7 @@
 			class="main container col-xl col-lg col-md col-sm col-">
 			<div class="starter-template">
 				<h2 class="intro">
-					Ingredientes actuales de <span th:text=${productName}></span>
+					Ingredientes actuales de <span th:text=${product.name}></span>
 				</h2>
 				<form method="post">
 					<table id="dataTable" class="table table-striped display">
@@ -22,7 +22,7 @@
 							</tr>
 						</thead>
 
-						<tr th:each="ingredient: ${productIngredients}">
+						<tr th:each="ingredient: ${product.ingredients}">
 							<td><input type="hidden" name="ids[]"
 								th:value="${ingredient.id}" /><span th:text="${ingredient.id}" /></td>
 							<td th:text="${ingredient.name}"></td>
@@ -48,7 +48,7 @@
 							<td />
 							<td>
 								<button type="submit" class="btn btn-success" name="productId"
-									th:value="${productId}" formaction="newProductIngredients">Confirmar</button>
+									th:value="${product.id}" formaction="newProductIngredients">Confirmar</button>
 							</td>
 						</tr>
 					</table>
