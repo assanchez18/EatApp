@@ -28,7 +28,9 @@ public class RegisterInTableView extends View {
 	}
 	
 	public String errorNotFound() {
-		return this.returnErrorWithMessage(MSG_CODE_ERROR, HttpServletResponse.SC_NOT_FOUND, VIEW_REGISTRY_IN_TABLE);
+		this.addError(MSG_CODE_ERROR);
+		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		return VIEW_REGISTRY_IN_TABLE;
 	}
 	
 	public int getTableCode() {

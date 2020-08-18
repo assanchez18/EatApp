@@ -27,7 +27,7 @@ public class RemoveEmployeeView extends LoginView {
 	}
 
 	public String errorInvalidUser() {
-		return returnErrorWithMessage(MSG_WRONG_USER_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_WRONG_USER_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String interact() {

@@ -27,7 +27,7 @@ public class AskForHelpView extends View {
 	}
 
 	public String wrongTableCode() {
-		return returnErrorWithMessage(MSG_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public int getTableCode() {

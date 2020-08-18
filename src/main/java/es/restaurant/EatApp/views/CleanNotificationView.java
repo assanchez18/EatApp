@@ -27,7 +27,7 @@ public class CleanNotificationView extends View {
 	}
 
 	public String errorNoEmployee() {
-		return returnErrorWithMessage(MSG_ERROR_NO_EMPLOYEE, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_ERROR_NO_EMPLOYEE, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String getEmail() {

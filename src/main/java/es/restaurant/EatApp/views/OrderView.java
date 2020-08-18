@@ -70,7 +70,7 @@ public class OrderView extends View {
 	}
 
 	protected String errorBadRequest(String message) {
-		return this.returnErrorWithMessage(message, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return this.returnErrorWithMessageAndErrorCode(message, HttpServletResponse.SC_BAD_REQUEST);
 	}
 	
 	public Order getOrder() {

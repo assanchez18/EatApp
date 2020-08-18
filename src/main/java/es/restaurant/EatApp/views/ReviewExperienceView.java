@@ -40,7 +40,7 @@ public class ReviewExperienceView extends OrderView {
 	}
 
 	public String errorIncorrectId() {
-		return returnErrorWithMessage(MSG_WRONG_ORDER_ID_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_WRONG_ORDER_ID_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String showOrderToReview(OrderToReview order) {

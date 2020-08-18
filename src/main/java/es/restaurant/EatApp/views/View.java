@@ -6,17 +6,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
-public class View {
+public abstract class View {
 	
 	protected HttpServletRequest request;
 	protected HttpSession session;
 	protected HttpServletResponse response;
 	protected Model model;
 
-	protected static final String TAG_ERROR = "error";
-	protected static final String VIEW_MAIN_USER = "mainUserView";
-	protected static final String VIEW_ERROR = "error";
-	protected static final String VIEW_INDEX = "index";
+	private final String TAG_ERROR = "error";
+	protected final String VIEW_MAIN_USER = "mainUserView";
+	protected final String VIEW_ERROR = "error";
+	protected final String VIEW_INDEX = "index";
 	
 	public View () {
 		this.request = null;
@@ -64,13 +64,13 @@ public class View {
 		this.response.setStatus(HttpServletResponse.SC_OK);
 	}
 	
-	public String returnErrorWithMessage(String message, int code, String view) {
-		this.addError(message);
-		this.response.setStatus(code);
-		return view;
+	public String returnErrorWithMessageAndErrorCode(String messageToSend, int errorCode) {
+		this.addError(messageToSend);
+		this.response.setStatus(errorCode);
+		return VIEW_ERROR;
 	}
 	
-	private void addError(String msg) {
+	protected void addError(String msg) {
 		this.model.addAttribute(TAG_ERROR, msg);
 	}
 }

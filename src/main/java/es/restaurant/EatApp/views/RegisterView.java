@@ -37,15 +37,15 @@ public abstract class RegisterView extends LoginView {
 	}
 	
 	public String errorUserExists() {
-		return returnErrorWithMessage(MSG_USER_EXISTS_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_USER_EXISTS_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String errorPasswordNotMatch() {
-		return returnErrorWithMessage(MSG_PASSWORD_NOT_MATCH_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_PASSWORD_NOT_MATCH_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 	
 	public String errorUnableToPersistUser() {
-		return returnErrorWithMessage(MSG_UNABLE_TO_PERSIST_ERROR, HttpServletResponse.SC_SERVICE_UNAVAILABLE, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_UNABLE_TO_PERSIST_ERROR, HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 	}
 
 	public String getRepeatedPassword() {

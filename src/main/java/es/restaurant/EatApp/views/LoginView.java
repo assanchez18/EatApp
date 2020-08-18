@@ -33,7 +33,7 @@ public class LoginView extends View {
 	}
 
 	public String errorUnauthorized() {
-		return this.returnErrorWithMessage(MSG_LOGIN_ERROR, HttpServletResponse.SC_UNAUTHORIZED, VIEW_ERROR);
+		return this.returnErrorWithMessageAndErrorCode(MSG_LOGIN_ERROR, HttpServletResponse.SC_UNAUTHORIZED);
 	}
 
 	public String getEmail() {

@@ -42,7 +42,7 @@ public class ProductView extends View {
 	}
 
 	public String error() {	
-		return returnErrorWithMessage(MSG_PRODUCT_MODIFICATION_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_PRODUCT_MODIFICATION_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	protected void setResponse(Collection<Order> orders) {

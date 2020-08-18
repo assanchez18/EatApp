@@ -75,19 +75,19 @@ public class ManageMenuView extends ProductView {
 	}
 
 	public String errorNoProductName() {
-		return returnErrorWithMessage(MSG_NO_NAME_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_NO_NAME_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String errorNoProductDescription() {
-		return returnErrorWithMessage(MSG_NO_DESCRIPTION_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_NO_DESCRIPTION_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String errorInDB() {
-		return returnErrorWithMessage(MSG_DB_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_DB_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String errorNoIngredients() {
-		return returnErrorWithMessage(MSG_NO_INGREDIENTS_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_NO_INGREDIENTS_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	public String showIngredientsForm(Product product, List<Ingredient> productIngredients, List<Ingredient> allIngredients) {

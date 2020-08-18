@@ -44,6 +44,6 @@ public class ManageQuantityOfIngredientsView extends View {
 	}
 
 	public String errorIngredientNotFound() {
-		return returnErrorWithMessage(MSG_ERROR, HttpServletResponse.SC_BAD_REQUEST, VIEW_ERROR);
+		return returnErrorWithMessageAndErrorCode(MSG_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 }
