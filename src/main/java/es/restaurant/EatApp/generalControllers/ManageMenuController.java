@@ -41,6 +41,7 @@ public class ManageMenuController {
 		if(view.getProductDescription().isEmpty()) {
 			return view.errorNoProductDescription();
 		}
+
 		Product product = new Product(view.getProductId(), view.getProductName(), view.getProductDescription(), view.getProductPrice(), view.getProductPriority());
 		List<Ingredient> productIngredients = ProductIngredientsDao.getProductIngredientDao().getIngredientsOfProduct(product.getId());
 		if(product.isNew()) {
@@ -55,8 +56,8 @@ public class ManageMenuController {
 			}
 		}
 		product.setIngredients(productIngredients);
-		List<Ingredient> noProductIngredients = ProductIngredientsDao.getProductIngredientDao().getAllIngredientsunlessOfProduct(view.getProductId());
-		return view.showIngredientsForm(product, noProductIngredients);
+		List<Ingredient> ingredientsNotIncludedInProduct = ProductIngredientsDao.getProductIngredientDao().getAllIngredientsUnlessOfProduct(view.getProductId());
+		return view.showIngredientsForm(product, ingredientsNotIncludedInProduct);
 	}
 	
 	@PostMapping("/newProductIngredients")

@@ -31,7 +31,7 @@ public class ProductIngredientsDaoTest {
 		newIngredientsId.add(ingredientTest2.getId());
 		assertTrue("Error including new Ingredients in a product.", ProductIngredientsDao.getProductIngredientDao().updateIngredientsInProduct(newIngredientsId, product.getId()));
 		assertFalse("Error no ingredients found in new product!", ProductIngredientsDao.getProductIngredientDao().getIngredientsOfProduct(product.getId()).isEmpty());
-		assertFalse("Error no ingredients found in DB!", ProductIngredientsDao.getProductIngredientDao().getAllIngredientsunlessOfProduct(product.getId()).isEmpty());
+		assertFalse("Error no ingredients found in DB!", ProductIngredientsDao.getProductIngredientDao().getAllIngredientsUnlessOfProduct(product.getId()).isEmpty());
 		assertTrue("Error removing the entry in product_ingredients table", ProductIngredientsDao.getProductIngredientDao().deleteAllIngredientsFromProduct(product.getId()));
 		assertTrue("Error removing Ingredient 1", IngredientDao.getIngredientDao().deleteIngredient(ingredientTest1));
 		assertTrue("Error removing Ingredient 2", IngredientDao.getIngredientDao().deleteIngredient(ingredientTest2));

@@ -71,7 +71,7 @@ public class ProductIngredientsDao extends Dao {
  						 FROM product_ingredients
  						 WHERE product_ingredients.productId = productId)
 	 */
-	public List<Ingredient> getAllIngredientsunlessOfProduct(int productId) {
+	public List<Ingredient> getAllIngredientsUnlessOfProduct(int productId) {
 		String sql = getIngredientsFromProductIngredients()
 					+ where(IngredientDao.TABLE_INGREDIENTS_NAME + "." + TAG_ID + " NOT IN ("
 								+ select(TABLE_PRODUCT_INGREDIENTS_NAME + "."+ TAG_INGREDIENT_ID)

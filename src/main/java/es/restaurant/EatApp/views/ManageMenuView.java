@@ -15,18 +15,19 @@ import es.restaurant.EatApp.views.helpers.ParameterListReader;
 
 public class ManageMenuView extends View {
 
-	private static final String TAG_PRODUCTS = "products";
-	private static final String TAG_ALL_INGREDIENTS = "allIngredients";
 	public static final String TAG_CONTAINS_INGREDIENTS = "contains[]";
 
-	private static final String MSG_NO_NAME_ERROR ="No has introducido nombre al producto";
-	private static final String MSG_NO_DESCRIPTION_ERROR ="No has introducido description al producto";
-	private static final String MSG_DB_ERROR ="No se ha podido realizar la acción sobre el producto en la base de datos";
-	private static final String MSG_NO_INGREDIENTS_ERROR ="El producto que quieres modificar no tiene ingredientes!";
+	private final String TAG_PRODUCTS = "products";
+	private final String TAG_ALL_INGREDIENTS = "allIngredients";
 
-	private static final String VIEW_MANAGE_MENU = "manageMenuView";
-	private static final String VIEW_PRODUCT = "showProduct";
-	private static final String VIEW_CHANGE_PRODUCT_INGREDIENTS = "changeProductIngredients";
+	private final String MSG_NO_NAME_ERROR ="No has introducido nombre al producto";
+	private final String MSG_NO_DESCRIPTION_ERROR ="No has introducido description al producto";
+	private final String MSG_DB_ERROR ="No se ha podido realizar la acción sobre el producto en la base de datos";
+	private final String MSG_NO_INGREDIENTS_ERROR ="El producto que quieres modificar no tiene ingredientes!";
+
+	private final String VIEW_MANAGE_MENU = "manageMenuView";
+	private final String VIEW_PRODUCT = "showProduct";
+	private final String VIEW_CHANGE_PRODUCT_INGREDIENTS = "changeProductIngredients";
 
 	private ProductView productView;
 	private ParameterListReader parameterListReader;
@@ -110,7 +111,7 @@ public class ManageMenuView extends View {
 		}
 		return ingredientsIncluded;
 	}
-	
+
 	private Boolean isIncluded(Integer i) {
 		return (i == 1) ? true : false;
 	}
