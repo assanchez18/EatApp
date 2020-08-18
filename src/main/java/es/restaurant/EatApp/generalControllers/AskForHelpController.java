@@ -22,6 +22,6 @@ public class AskForHelpController {
 			return view.wrongTableCode();
 		}
 		table.askForHelp();
-		return view.interact();
+		return view.askForHelp();
 	}
 }
