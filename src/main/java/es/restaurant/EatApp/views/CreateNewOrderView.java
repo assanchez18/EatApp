@@ -10,7 +10,8 @@ import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 public class CreateNewOrderView extends OrderView {
 
-	private static final String VIEW_CREATE_NEW_ORDER = "createNewOrder";
+	private final String VIEW_CREATE_NEW_ORDER = "createNewOrder";
+
 	private TableHelperView tableHelper;
 	
 	public CreateNewOrderView(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -19,17 +20,14 @@ public class CreateNewOrderView extends OrderView {
 	}
 	
 	public String interact(Order order) {
-		setStatusOk();
-		Order sessionOrder = this.getOrder();
-		if(sessionOrder != null && !(sessionOrder.isOpen())) {
-			return SHOW_ORDER_VIEW;
-		}
-		this.model.addAttribute(TAG_ORDER, order);
-		return VIEW_CREATE_NEW_ORDER;
+		this.updateSession(order);
+		return this.showOrderView();
 	}
-
-	public void updateSession(Order order) {
-		this.session.setAttribute(TAG_ORDER, order);
+	
+	public String createNewOrder(Order order) {
+		setStatusOk();
+		this.prepareModel(order);
+		return VIEW_CREATE_NEW_ORDER;
 	}
 
 	public String redirectToRegistryInTable() {
@@ -43,6 +41,14 @@ public class CreateNewOrderView extends OrderView {
 
 	public int getTableCode() {
 		return this.tableHelper.getSessionTableCode();
+	}
+
+	public boolean isOrderInProccess() {
+		return this.getOrder() != null;
+	}
+
+	public boolean isOrderOpen() {
+		return this.getOrder().isOpen();
 	}
 
 }

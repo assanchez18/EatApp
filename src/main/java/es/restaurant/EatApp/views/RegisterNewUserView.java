@@ -7,7 +7,7 @@ import es.restaurant.EatApp.models.UserType.userType;
 
 public class RegisterNewUserView extends RegisterView {
 
-	private static final String MSG_TITLE = "Introduce tus datos";
+	private final String MSG_TITLE = "Introduce tus datos";
 
 	public RegisterNewUserView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model, req, res);

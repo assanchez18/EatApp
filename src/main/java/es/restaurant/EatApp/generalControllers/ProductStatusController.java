@@ -4,6 +4,7 @@ import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.repositories.OrderDao;
+import es.restaurant.EatApp.repositories.TableDao;
 import es.restaurant.EatApp.views.ProductView;
 
 public abstract class ProductStatusController {
@@ -16,7 +17,7 @@ public abstract class ProductStatusController {
 				if(product.getId() == productId) {
 					this.doAction(product);
 					order.updateState();
-					this.processNotification(order, product, 123);
+					this.processNotification(order, product);
 					return this.interact();
 				}
 			}
@@ -24,9 +25,9 @@ public abstract class ProductStatusController {
 		return this.getView().error();
 	}
 
-	private void processNotification(Order order, Product product, int i) { // i will be order.getTable()
+	private void processNotification(Order order, Product product) { 
 		if(product.isCancelled() || product.isReady() || product.isQueued()) {
-			order.changeStatus(new Notification(product, i/* TODO table in order - order.getTable()*/));
+			order.changeStatus(new Notification(product, TableDao.getTableDao().getTableWithUserId(order.getUserId())));
 		}
 	}
 

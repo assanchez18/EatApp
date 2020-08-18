@@ -9,7 +9,7 @@ import es.restaurant.EatApp.views.helpers.TableHelperView;
 
 public class RegisterInTableView extends View {
 	
-	private static final String MSG_CODE_ERROR = "El código escaneado es incorrecto";
+	private final String MSG_CODE_ERROR = "El código escaneado es incorrecto";
 	public static final String VIEW_REGISTRY_IN_TABLE = "registryInTable";
 	
 	private TableHelperView tableHelper;

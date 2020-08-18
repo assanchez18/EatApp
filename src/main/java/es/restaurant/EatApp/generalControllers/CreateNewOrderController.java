@@ -39,8 +39,15 @@ public class CreateNewOrderController extends OrderController {
 			return this.view.redirectToRegistryInTable();
 		}
 		Order baseOrder = createEmptyOrder();
-		if(this.view.getOrder() != null && this.view.getOrder().getState().getTypeOrdinal() == OrderState.orderState.OPEN.ordinal()) {
-			baseOrder = mergeOrders(baseOrder, this.view.getOrder());
+		if (!this.view.isOrderInProccess()) {
+			return this.view.createNewOrder(baseOrder);
+		}
+		if (this.view.isOrderOpen()) {
+			baseOrder = mergeOrders(baseOrder);
+			return this.view.createNewOrder(mergeOrders(baseOrder));
+		}
+		if (this.view.getOrder() != null ) {
+			return this.view.interact(this.view.getOrder());
 		}
 		return view.interact(baseOrder);
 	}
@@ -51,13 +58,13 @@ public class CreateNewOrderController extends OrderController {
 		return createOrder();
 	}
 
-	protected String interact() {
+	protected String showOrder() {
 		this.order.setState(new OrderState(orderState.QUEUED));
 		this.initializeProductStates(new ProductState(productState.QUEUED));
+		this.order.calculateTotalPrice();
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployeesObserveOrder();
 		this.order.changeStatus(new Notification(Notification.Type.ORDER_QUEUED, view.getTableCode()));
-		this.view.updateSession(order);
 		return this.view.interact(this.order);
 	}
 
@@ -83,7 +90,11 @@ public class CreateNewOrderController extends OrderController {
 		return new Order(products);
 	}
 
-	Order mergeOrders(Order baseOrder, Order otherOrder) {
+	private Order mergeOrders(Order baseOrder) {
+		return mergeOrders(baseOrder, this.view.getOrder());
+	}
+
+	public Order mergeOrders(Order baseOrder, Order otherOrder) {
 		for(Entry<Product, Integer> product : otherOrder.getProducts().entrySet()) {
 			for(Entry<Product, Integer>baseProduct : baseOrder.getProducts().entrySet()) {
 				if(baseProduct.getKey().equals(product.getKey())) {

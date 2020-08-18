@@ -15,24 +15,28 @@ public class Order extends Observable {
 	private String parameters;
 	private int userId;
 	private List<Observer> observers;
-
+	private double totalPrice;
+	
 	public Order() {
 		this.state = new OrderState();
 		this.products = new HashMap<Product, Integer>();
 		this.parameters = "";
 		this.observers = new ArrayList<Observer>();
+		this.totalPrice = 0;
 	}
 
 	public Order(Map<Product, Integer> products, String parameters) {
 		this.products = products;
 		this.parameters = parameters;
 		this.state = new OrderState();
+		this.totalPrice = 0;
 	}
 
 	public Order(Map<Product, Integer> products) {
 		this.products = products;
 		this.parameters = "";
 		this.state = new OrderState();
+		this.totalPrice = 0;
 	}
 
 	public void addObservers(Employee waiter) {
@@ -115,5 +119,16 @@ public class Order extends Observable {
 
 	public boolean isOpen() {
 		return this.state.isOpen();
+	}
+	
+	public void calculateTotalPrice() {
+		this.totalPrice = 0;
+		for (Product p : this.products.keySet()) {
+			this.totalPrice += p.getPrice() * this.products.get(p);
+		}
+	}
+	
+	public double getTotalPrice() {
+		return this.totalPrice;
 	}
 }

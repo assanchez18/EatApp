@@ -42,7 +42,7 @@ public class ReviewExperienceController {
 	public String controlPost(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ReviewExperienceView view = new ReviewExperienceView(model, req, res);
 		OrderDao.getOrderDao().updateReview(view.getReview(), view.getOrderId());
-		return view.interact();
+		return view.showOrderView();
 	}
 	
 }

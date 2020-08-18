@@ -8,7 +8,7 @@
 		<main role="main" class="main container col-xl col-lg col-md col-sm col-">
 			<div class="starter-template">
 				<h2 class="intro">Por favor, deja tu opinion</h2>
-				<table th:if="ordersToReview" id="dataTable"
+				<table th:if="orders" id="dataTable"
 					class="table table-striped display">
 					<thead>
 						<tr>
@@ -16,7 +16,7 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tr th:each="order: ${ordersToReview}">
+					<tr th:each="order: ${orders}">
 						<form action="showOrderReview" method="post">
 						<td><input type="hidden" name="orderId" th:text="${order.id}"
 							th:value="${order.id}" /></td>

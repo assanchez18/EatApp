@@ -27,7 +27,7 @@ public abstract class OrderController {
 			return view.errorEmptyOrder();
 		}
 		this.order.setUserId(UserDao.getUserDao().getUser(this.getView().getEmail()).getId());
-		return interact();
+		return showOrder();
 	}
 
 	private Order createOrder(Integer[] ids, Integer[] amounts, String parameters) {
@@ -49,7 +49,7 @@ public abstract class OrderController {
 		}
 	}
 
-	protected abstract String interact();
+	protected abstract String showOrder();
 
 	protected abstract OrderView getView();
 }

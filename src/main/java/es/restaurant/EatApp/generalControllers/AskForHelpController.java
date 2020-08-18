@@ -18,7 +18,7 @@ public class AskForHelpController {
 	public String askForHelp(Model model, HttpServletRequest req, HttpServletResponse res) {
 		AskForHelpView view = new AskForHelpView(model, req, res); 
 		Table table = TableDao.getTableDao().getTable(view.getTableCode());
-		if (table == null) {
+		if (!table.isValid()) {
 			return view.wrongTableCode();
 		}
 		table.askForHelp();

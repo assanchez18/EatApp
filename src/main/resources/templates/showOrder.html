@@ -41,10 +41,9 @@
 							<td th:text="${product.key.state.state}"></td>
 						</tr>
 						<tr>
-							<td />Total
-							</td>
+							<td>Total</td>
 							<td></td>
-							<td></td>
+							<td th:text="${session.order.totalPrice}"/>
 							<!-- TODO Price -->
 							<td></td>
 							<td></td>

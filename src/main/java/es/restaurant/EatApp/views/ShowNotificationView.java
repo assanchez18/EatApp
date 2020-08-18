@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 
 public class ShowNotificationView extends View {
 
+	private final String TAG_NOTIFICATIONS = "notifications";
 	private EmailHelperView emailHelper;
+
 
 	public ShowNotificationView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model, req, res);
@@ -20,7 +22,7 @@ public class ShowNotificationView extends View {
 	}
 
 	public String interact(List<Notification> notifications) {
-		this.model.addAttribute("notifications", notifications);
+		this.model.addAttribute(TAG_NOTIFICATIONS, notifications);
 		setStatusOk();
 		return VIEW_MAIN_USER;
 	}

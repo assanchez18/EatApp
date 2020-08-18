@@ -31,4 +31,8 @@ public class Table extends Observable {
 	public boolean equals(Table t) {
 		return this.code == t.getCode();
 	}
+
+	public boolean isValid() {
+		return this.code != -1;
+	}
 }

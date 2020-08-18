@@ -12,7 +12,7 @@
 			<div class="starter-template">
 				<div>
 					<h2 class="intro">
-						Este es tu pedido: <span th:text="${order.id}"></span>
+						Este es tu pedido: <span th:text="${orderToReview.id}"></span>
 					</h2>
 					<table id="dataTable" class="table table-striped display">
 						<thead>
@@ -21,7 +21,7 @@
 								<th>Cantidad</th>
 							</tr>
 						</thead>
-						<tr th:each="product: ${order.productReviews}">
+						<tr th:each="product: ${orderToReview.productReviews}">
 							<td th:text="${product.value0}" /></td>
 							<td th:text="${product.value1}"></td>
 						</tr>
@@ -31,7 +31,7 @@
 							<textarea name="review" rows="2" cols="140" maxlength="140"
 								placeholder="Cual es tu opinion?" th:text="${review}"></textarea>
 						</div>
-						<div><input type="hidden" name="orderId" th:value="${order.id}" /></div>
+						<div><input type="hidden" name="orderId" th:value="${orderToReview.id}" /></div>
 						<button type="submit" class="btn btn-success">Dejar
 							opinion</button>
 					</form>

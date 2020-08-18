@@ -70,7 +70,7 @@ public class TableDao extends Dao{
 	}
 
 	public Table getTable(int code) {
-		return this.tables.get(code);
+		return this.tables.getOrDefault(code, new Table(-1));
 	}
 
 	public void linkUserToTable(int userId, int tableId) {

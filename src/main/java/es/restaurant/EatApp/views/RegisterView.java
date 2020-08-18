@@ -8,13 +8,13 @@ import org.springframework.ui.Model;
 public abstract class RegisterView extends LoginView {
 
 	public static final String TAG_REPEATED_PASSWORD = "repeatedPassword";
-	protected static final String VIEW_FORM = "registerForm";
-	protected static final String TAG_TITLE = "title";
-	private static final String TAG_REGISTER_USER = "registerUser";
+	protected final String VIEW_FORM = "registerForm";
+	protected final String TAG_TITLE = "title";
+	private final String TAG_REGISTER_USER = "registerUser";
 	
-	private static final String MSG_USER_EXISTS_ERROR = "El usuario que intentas crear ya existe";
-	private static final String MSG_PASSWORD_NOT_MATCH_ERROR = "Las contraseñas introducidas son distintas";
-	private static final String MSG_UNABLE_TO_PERSIST_ERROR = "No se ha podido crear el usuario en el sistema. Intentalo más tarde";
+	private final String MSG_USER_EXISTS_ERROR = "El usuario que intentas crear ya existe";
+	private final String MSG_PASSWORD_NOT_MATCH_ERROR = "Las contraseñas introducidas son distintas";
+	private final String MSG_UNABLE_TO_PERSIST_ERROR = "No se ha podido crear el usuario en el sistema. Intentalo más tarde";
 	
 	public RegisterView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model, req, res);

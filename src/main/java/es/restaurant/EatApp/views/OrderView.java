@@ -14,10 +14,10 @@ public class OrderView extends View {
 	public static final String TAG_ORDER = "order";
 	public static final String TAG_AMOUNTS = "amounts[]";
 	public static final String TAG_PARAMS = "parameters";
-	protected static final String MSG_EMPTY_ORDER_ERROR = "Vaya!, parece que tu pedido estaba vacío";
-	protected static final String MSG_ORDER_ERROR = "Ha habido un problema con tu pedido, vuelve a intentarlo";
+	private final String MSG_EMPTY_ORDER_ERROR = "Vaya!, parece que tu pedido estaba vacío";
+	private final String MSG_ORDER_ERROR = "Ha habido un problema con tu pedido, vuelve a intentarlo";
 
-	protected static final String SHOW_ORDER_VIEW = "showOrder";
+	private final String SHOW_ORDER_VIEW = "showOrder";
 
 	private EmailHelperView emailHelper;
 	private ParameterListReader parameterListReader;
@@ -70,4 +70,23 @@ public class OrderView extends View {
 		return this.emailHelper.getEmail();
 	}
 
+	public String interact(Order order) {
+		setStatusOk();
+		this.prepareModel(order);
+		this.updateSession(order);
+		return this.SHOW_ORDER_VIEW;
+	}
+
+	public String showOrderView() {
+		setStatusOk();
+		return this.SHOW_ORDER_VIEW;
+	}
+
+	public void prepareModel(Order order) {
+		this.model.addAttribute(TAG_ORDER, order);		
+	}
+
+	public void updateSession(Order order) {
+		this.session.setAttribute(TAG_ORDER, order);		
+	}
 }

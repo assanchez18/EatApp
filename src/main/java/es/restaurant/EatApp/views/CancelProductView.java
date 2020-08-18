@@ -11,7 +11,7 @@ import es.restaurant.EatApp.models.Order;
 
 public class CancelProductView extends ProductView {
 
-	private static final String VIEW_SHOW_ORDER = "showOrder.html";
+	private static final String VIEW_SHOW_ORDER = "showOrder";
 
 	public CancelProductView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model,req,res);

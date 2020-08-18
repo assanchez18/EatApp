@@ -23,7 +23,7 @@ public class RegisterInTableController {
 	@PostMapping("/registerInTable")
 	public String registerInTable(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		if(TableDao.getTableDao().getTable(view.getTableCode()) == null) {
+		if(!TableDao.getTableDao().getTable(view.getTableCode()).isValid()) {
 			return view.errorNotFound();
 		}
 		TableDao.getTableDao().linkUserToTable(UserDao.getUserDao().getUser(view.getEmail()).getId(), view.getTableCode());

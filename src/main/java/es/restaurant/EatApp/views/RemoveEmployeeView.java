@@ -11,10 +11,10 @@ import es.restaurant.EatApp.models.User;
 
 public class RemoveEmployeeView extends LoginView {
 
-	private static final String VIEW_REMOVE_EMPLOYEE = "removeEmployeeForm";
-	private static final String TAG_EMPLOYEES = "employees";
 	public static final String TAG_USER_TO_REMOVE = "userToRemove";
-	private static final String MSG_WRONG_USER_ERROR = "El usuario que quieres eliminar no existe";
+	private final String VIEW_REMOVE_EMPLOYEE = "removeEmployeeForm";
+	private final String TAG_EMPLOYEES = "employees";
+	private final String MSG_WRONG_USER_ERROR = "El usuario que quieres eliminar no existe";
 
 	public RemoveEmployeeView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model, req, res);
