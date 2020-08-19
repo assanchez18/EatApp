@@ -20,13 +20,10 @@ public class CancelProductView extends ProductView {
 	public CancelProductView(HttpServletResponse res) {
 		super(res);
 	}
-	
-	public String interact(Collection<Order> orders, boolean isCommensal) {
-		this.setResponse(orders);
-		if(isCommensal) {
-			return VIEW_SHOW_ORDER;
-		}
-		return VIEW_MANAGE_PRODUCT_STATUS_ORDERS;
-	}
 
+	public String showOrder(Collection<Order> orders) {
+		setStatusOk();
+		this.prepareModel(orders);
+		return VIEW_SHOW_ORDER;
+	}
 }

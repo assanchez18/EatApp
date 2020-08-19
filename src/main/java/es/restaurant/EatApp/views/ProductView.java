@@ -23,7 +23,7 @@ public class ProductView extends View {
 	
 	private final String TAG_ORDERS = "orders";
 	private final String MSG_PRODUCT_MODIFICATION_ERROR = "Ha habido un problema modificando el producto";
-	protected final String VIEW_MANAGE_PRODUCT_STATUS_ORDERS = "manageProductStatusOrders.html";
+	protected final String VIEW_MANAGE_PRODUCT_STATUS_ORDERS = "manageProductStatusOrders";
 
 	private EmailHelperView emailHelper;
 	
@@ -52,13 +52,13 @@ public class ProductView extends View {
 		return returnErrorWithMessageAndErrorCode(MSG_PRODUCT_MODIFICATION_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 
-	protected void setResponse(Collection<Order> orders) {
+	protected void prepareModel(Collection<Order> orders) {
 		this.model.addAttribute(TAG_ORDERS, orders);
 		setStatusOk();
 	}
 
-	public String interact(Collection<Order> orders) {
-		this.setResponse(orders);
+	public String manageProductStatus(Collection<Order> orders) {
+		this.prepareModel(orders);
 		return VIEW_MANAGE_PRODUCT_STATUS_ORDERS;
 	}
 

@@ -24,7 +24,7 @@ public class CancelProductController extends ProductStatusController {
 		return this.handleStates();
 	}
 
-	protected void doAction(Product product) {
+	protected void changeState(Product product) {
 		product.cancel();
 	}
 
@@ -35,7 +35,10 @@ public class CancelProductController extends ProductStatusController {
 
 	@Override
 	protected String interact() {
-		return this.view.interact(OrderDao.getOrderDao().getOrdersFromCache(), isCommensal());
+		if (isCommensal()) {
+			this.view.showOrder(OrderDao.getOrderDao().getOrdersFromCache());
+		}
+		return this.view.manageProductStatus(OrderDao.getOrderDao().getOrdersFromCache());
 	}
 
 	private boolean isCommensal() {

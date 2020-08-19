@@ -23,7 +23,7 @@ public class TakeBackToKitchenController extends ProductStatusController {
 		return this.handleStates();
 	}
 
-	protected void doAction(Product product) {
+	protected void changeState(Product product) {
 		product.setBackToKitchen();
 	}
 
@@ -34,7 +34,7 @@ public class TakeBackToKitchenController extends ProductStatusController {
 
 	@Override
 	protected String interact() {
-		return this.view.interact(OrderDao.getOrderDao().getOrdersFromCache());
+		return this.view.manageProductStatus(OrderDao.getOrderDao().getOrdersFromCache());
 	}
 
 }

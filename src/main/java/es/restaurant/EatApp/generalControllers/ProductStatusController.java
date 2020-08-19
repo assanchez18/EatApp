@@ -11,11 +11,10 @@ public abstract class ProductStatusController {
 
 	protected String handleStates() {
 		Order order = OrderDao.getOrderDao().takeFromCacheWithUserId(this.getView().getUserId());
-		if(order != null) {
-			int productId = this.getView().getProductId();
+		if(order.isValid()) {
 			for(Product product : order.getProducts().keySet()) {
-				if(product.getId() == productId) {
-					this.doAction(product);
+				if(product.getId() == this.getView().getProductId()) {
+					this.changeState(product);
 					order.updateState();
 					this.processNotification(order, product);
 					return this.interact();
@@ -33,7 +32,7 @@ public abstract class ProductStatusController {
 
 	protected abstract String interact();
 
-	protected abstract void doAction(Product product);
+	protected abstract void changeState(Product product);
 	
 	protected abstract ProductView getView();
 }
