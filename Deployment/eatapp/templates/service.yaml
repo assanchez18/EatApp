@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "eatapp.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "eatapp.name" . }}
+    helm.sh/chart: {{ include "eatapp.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: {{ template "eatapp.labels" }}
+    chart: {{ template "eatapp.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "eatapp.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: {{ template "eatapp.labels" }}
+    release: {{ .Release.Name }}

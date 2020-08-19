@@ -1,0 +1,41 @@
+replicaCount: 1
+
+images:
+  db:
+    repository: carlosv5/tfm-db
+    tag: v0
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 3306
+
+env:
+  mysql_root_password: root
+  mysql_database: fakerest1
+
+persistence:
+  enabled: true
+  volume:
+    mountpath: /var/lib/mysql
+    name: dbstorage
+  persistentvolume:
+    storage: 10Gi
+    accessmodes: ReadWriteOnce
+    path: /mnt/data
+  claim:
+    size: 3Gi
+    classname: manual
+
+  tls: []
+
+metrics:
+  enabled: false
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

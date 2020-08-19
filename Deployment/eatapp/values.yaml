@@ -1,0 +1,32 @@
+replicaCount: 2
+
+images:
+  eatapp:
+    repository: carlosv5/tfm-app
+    tag: v0
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 8080
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hosts:
+    - host: www.eatapp.com
+      paths: [/*]
+
+  tls: []
+
+metrics:
+  enabled: false
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

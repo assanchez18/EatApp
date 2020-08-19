@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "db.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "db.name" . }}
+    helm.sh/chart: {{ include "db.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: {{ template "db.label" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "db.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ template "db.label" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "db.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ template "db.label" . }}
+        release: {{ .Release.Name }}
+    spec:
+      volumes:
+        - name: {{ .Values.persistence.volume.name }}
+          persistentVolumeClaim:
+            claimName: pvc-{{ template "db.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.images.db.repository }}:{{ .Values.images.db.tag }}"
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: {{ .Values.env.mysql_root_password }}
+          - name: MYSQL_DATABASE
+            value: {{ .Values.env.mysql_database }}
+          volumeMounts:
+            - mountPath: {{ .Values.persistence.volume.mountpath }}
+              name: {{ .Values.persistence.volume.name }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{ if .Values.metrics.enabled }}
+          resources:
+  {{ toYaml .Values.resources | indent 11 }}
+          {{- end -}}

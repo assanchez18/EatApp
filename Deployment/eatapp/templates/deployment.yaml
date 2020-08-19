@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "eatapp.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "eatapp.name" . }}
+    helm.sh/chart: {{ include "eatapp.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: {{ template "eatapp.labels" }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "eatapp.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ template "eatapp.labels" }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "eatapp.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ template "eatapp.labels" }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.images.eatapp.repository }}:{{ .Values.images.eatapp.tag }}"
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: {{ .Values.env.mysql_root_password }}
+          - name: MYSQL_DATABASE
+            value: {{ .Values.env.mysql_database }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{ if .Values.metrics.enabled }}
+          resources:
+  {{ toYaml .Values.resources | indent 11 }}
+          {{- end -}}

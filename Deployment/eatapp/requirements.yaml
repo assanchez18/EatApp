@@ -1,0 +1,8 @@
+dependencies:
+  - name: db
+    version: 0.1.0
+    repository: charts/db
+    import-values:
+    - child: env
+      parent: env
+

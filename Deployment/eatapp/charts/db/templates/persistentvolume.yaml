@@ -1,0 +1,16 @@
+{{- if .Values.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-{{ template "db.fullname" . }}
+  labels:
+    app: {{ template "db.label" . }}
+spec:
+  capacity:
+    storage: {{ .Values.persistence.persistentvolume.storage }}
+  accessModes:
+    - {{ .Values.persistence.persistentvolume.accessmodes }}
+  hostPath:
+    path: {{ .Values.persistence.persistentvolume.path }}
+  storageClassName: {{ .Values.persistence.claim.classname }}
+{{ end -}}

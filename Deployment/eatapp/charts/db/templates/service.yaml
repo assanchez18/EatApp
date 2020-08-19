@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "db.name" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "db.name" . }}
+    helm.sh/chart: {{ include "db.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: {{ template "db.label" . }}
+    chart: {{ template "db.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "db.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: {{ template "db.label" . }}
+    release: {{ .Release.Name }}
