@@ -19,6 +19,10 @@ public class Table extends Observable {
 		this.observers.add(waiter);
 	}
 	
+	public Table() {
+		this.code = -1;
+		this.observers = null;
+	}
 	public int getCode() {
 		return this.code;
 	}

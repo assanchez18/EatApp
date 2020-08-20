@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.models.Table;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.repositories.OrderDao;
 import es.restaurant.EatApp.repositories.TableDao;
@@ -25,15 +26,14 @@ public class LoginController {
 		if(!UserDao.getUserDao().isUserCorrect(user)) {
 			return this.view.errorUnauthorized();
 		}
-		int userId = UserDao.getUserDao().getUser(user.getEmail()).getId();
-		getUserTable(userId);
-		recuperateOrderFromCache(userId);
+		user = UserDao.getUserDao().getUser(user.getEmail());
+		recuperateInformationFromCache(user.getId());
 		return this.view.login(UserDao.getUserDao().getUser(user.getEmail()));
 	}
 
-	private void getUserTable(int userId) {
-		int table = TableDao.getTableDao().getTableWithUserId(userId);
-		if(table != -1) {
+	private void recuperateInformationFromCache(int userId) {
+		Table table = TableDao.getTableDao().getTableWithUserId(userId);
+		if(table.isValid()) {
 			this.view.setTable(table);
 			recuperateOrderFromCache(userId); 
 		}

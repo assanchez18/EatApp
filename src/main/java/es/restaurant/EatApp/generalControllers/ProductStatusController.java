@@ -26,7 +26,7 @@ public abstract class ProductStatusController {
 
 	private void processNotification(Order order, Product product) { 
 		if(product.isCancelled() || product.isReady() || product.isQueued()) {
-			order.changeStatus(new Notification(product, TableDao.getTableDao().getTableWithUserId(order.getUserId())));
+			order.changeStatus(new Notification(product, TableDao.getTableDao().getTableWithUserId(order.getUserId()).getCode()));
 		}
 	}
 

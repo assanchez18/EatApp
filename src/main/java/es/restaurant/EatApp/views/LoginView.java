@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
 import es.restaurant.EatApp.models.Order;
+import es.restaurant.EatApp.models.Table;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.views.helpers.EmailHelperView;
 import es.restaurant.EatApp.views.helpers.OrderHelperView;
@@ -50,7 +51,7 @@ public class LoginView extends View {
 		this.orderHelper.updateOrder(order);
 	}
 
-	public void setTable(int code) {
-		this.tableHelper.setTable(code);
+	public void setTable(Table table) {
+		this.tableHelper.setTable(table.getCode());
 	}
 }
