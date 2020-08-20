@@ -73,8 +73,8 @@ public class TableDao extends Dao{
 		return this.tables.getOrDefault(code, new Table(-1));
 	}
 
-	public void linkUserToTable(int userId, int tableId) {
-		this.usersInTables.put(userId, this.tables.get(tableId));
+	public void linkUserToTable(int userId, Table table) {
+		this.usersInTables.put(userId, this.tables.get(table.getCode()));
 	}
 
 	public void unlinkUserToTable(int userId) {

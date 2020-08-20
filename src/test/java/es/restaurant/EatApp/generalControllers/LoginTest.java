@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderBuilder;
+import es.restaurant.EatApp.models.Table;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.repositories.OrderDao;
@@ -39,7 +40,7 @@ public class LoginTest {
     public void existingUserLoginWitOrderAndTableInCache() throws Exception {
 		User user = new UserBuilder().sergio().build();
 		Order order = new OrderBuilder().baseOrder().userId(user.getId()).build();
-		int table = 123;
+		Table table = new Table(123);
 		TableDao.getTableDao().linkUserToTable(user.getId(), table);
 		OrderDao.getOrderDao().saveInCache(order);
         this.mockMvc.perform(

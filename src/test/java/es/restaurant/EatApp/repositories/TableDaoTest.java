@@ -30,20 +30,20 @@ public class TableDaoTest {
 	@Test
 	public void linkUserToTableTest() {
 		TableDao dao = TableDao.getTableDao();
-		int code = 123;
+		Table table = new Table(123);
 		int userId = 1;
-		dao.linkUserToTable(userId, code);
-		assertEquals("Table should be 123", dao.getTableWithUserId(userId), code);
+		dao.linkUserToTable(userId, table);
+		assertTrue("Table should be 123", dao.getTableWithUserId(userId).equals(table));
 	}
 
 	@Test
 	public void unlinkUserToTableTest() {
 		TableDao dao = TableDao.getTableDao();
-		int code = 123;
+		Table table = new Table(123);
 		int userId = 1;
-		dao.linkUserToTable(userId, code);
+		dao.linkUserToTable(userId, table);
 		dao.unlinkUserToTable(userId);
-		assertEquals("Table should be -1 (not found)", dao.getTableWithUserId(userId), -1);
+		assertTrue("Table should be -1 (not found)", dao.getTableWithUserId(userId).equals(new Table()));
 	}
 
 }
