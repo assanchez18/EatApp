@@ -16,7 +16,7 @@ import es.restaurant.EatApp.views.LoginView;
 @Controller
 public class LoginController {
 
-	LoginView view;
+	private LoginView view;
 
 	@PostMapping("/login")
 	public String login(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -26,15 +26,16 @@ public class LoginController {
 			return this.view.errorUnauthorized();
 		}
 		int userId = UserDao.getUserDao().getUser(user.getEmail()).getId();
-		recuperateTable(userId);
+		getUserTable(userId);
 		recuperateOrderFromCache(userId);
 		return this.view.login(UserDao.getUserDao().getUser(user.getEmail()));
 	}
 
-	private void recuperateTable(int userId) {
+	private void getUserTable(int userId) {
 		int table = TableDao.getTableDao().getTableWithUserId(userId);
 		if(table != -1) {
 			this.view.setTable(table);
+			recuperateOrderFromCache(userId); 
 		}
 	}
 
