@@ -16,7 +16,7 @@ public class RegisterEmployeeView extends RegisterView {
 
 
 	@Override
-	protected void updateModel() {
+	protected void updateModelMsg() {
 		this.model.addAttribute(TAG_TITLE, MSG_TITLE);
 	}
 

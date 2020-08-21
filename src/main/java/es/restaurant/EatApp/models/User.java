@@ -36,6 +36,7 @@ public class User {
 	}
 	
 	public User() {
+		this.id = -1;
 		this.email = "";
 		this.password = "";
 		this.type = new UserType(userType.COMMENSAL);
@@ -72,4 +73,7 @@ public class User {
 		return this.type.isCommensal();
 	}
 
+	public boolean isValid() {
+		return this.id != -1;
+	}
 }

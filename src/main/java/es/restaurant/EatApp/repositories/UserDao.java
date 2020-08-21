@@ -42,7 +42,7 @@ public class UserDao extends Dao {
 	public User getUser(String email) {
 		List<User> u = executeQuery(getUserByEmailQuery(email));
 		if(u.size() == 0)
-			return null;
+			return new User();
 		else
 			return u.get(0);
 	}

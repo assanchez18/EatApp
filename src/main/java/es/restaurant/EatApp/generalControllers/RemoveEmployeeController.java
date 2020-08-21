@@ -26,7 +26,7 @@ public class RemoveEmployeeController {
 	public String removeEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RemoveEmployeeView view = new RemoveEmployeeView(model, req, res);
 		User user = UserDao.getUserDao().getUser(view.getUserToRemove());
-		if(user == null) {
+		if(!user.isValid()) {
 			return view.errorInvalidUser();
 		}
 		UserDao.getUserDao().deleteUser(user);

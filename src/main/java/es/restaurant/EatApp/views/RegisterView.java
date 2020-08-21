@@ -20,18 +20,18 @@ public abstract class RegisterView extends LoginView {
 		super(model, req, res);
 	}
 
-	public String showFrom() {
+	public String showRegisterFrom() {
 		setStatusOk();
+		updateModelMsg();
 		this.model.addAttribute(TAG_REGISTER_USER, true);
-		updateModel();
 		return VIEW_FORM;
 	}
 	
-	protected abstract void updateModel();
+	protected abstract void updateModelMsg();
 	public abstract int getUserType();
 	
 	
-	public String interact() {
+	public String registry() {
 		setStatusOk();
 		return VIEW_MAIN_USER;
 	}

@@ -35,7 +35,7 @@ public class UserDaoTest {
     public void selectWrongUserTest() {
     	UserDao dao = UserDao.getUserDao();
     	String wrongEmail = "wrong";
-        assertTrue("Error, unexisting user found in db", dao.getUser(wrongEmail) == null);        
+        assertFalse("Error, unexisting user found in db", dao.getUser(wrongEmail).isValid());        
     }
 
     @Test
@@ -71,11 +71,11 @@ public class UserDaoTest {
 
     	//Update email
     	assertTrue("Error at UPDATE email query", dao.updateEmail(user, updatedUser.getEmail()));
-    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.getUser(user.getEmail()) != null);
+    	assertFalse("The user email has not been updated properly, old data exists in DB",dao.getUser(user.getEmail()).isValid());
     	assertTrue("The user email has not been updated properly, does not exist in DB",dao.getUser(updatedUser.getEmail()).equals(updatedUser));
 
     	//Remove user
     	assertTrue("Error at DELETE  user query", dao.deleteUser(updatedUser));
-    	assertFalse("The user has not been delete properly, old data exists in DB",dao.getUser(updatedUser.getEmail()) != null);
+    	assertFalse("The user has not been delete properly, old data exists in DB",dao.getUser(updatedUser.getEmail()).isValid());
     }
 }

@@ -73,7 +73,7 @@ public class RegisterAndRemoveEmployeeControllerTest {
 	
 	@Test
 	public void wrongMailToRegisterThenError() throws Exception {
-		User user = new UserBuilder().admin().build();
+		User user = new UserBuilder().commensal().build();
 		this.mockMvc.perform(
                 post("/register")
                 	.param(EmailHelperView.TAG_EMAIL, user.getEmail()))

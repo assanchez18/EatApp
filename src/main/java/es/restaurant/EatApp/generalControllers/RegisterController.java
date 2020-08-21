@@ -18,13 +18,13 @@ public class RegisterController {
 	
 	@GetMapping("/register")
 	public String showRegisterFrom(Model model, HttpServletRequest req, HttpServletResponse res) {
-		return new RegisterViewBuilder().build(model, req, res).showFrom();
+		return new RegisterViewBuilder().build(model, req, res).showRegisterFrom();
 	}
 
 	@PostMapping("/register")
 	public String register(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterView view = new RegisterViewBuilder().build(model, req, res);
-		if (UserDao.getUserDao().getUser(view.getEmail()) != null) {
+		if (UserDao.getUserDao().getUser(view.getEmail()).isValid()) {
 			return view.errorUserExists();
 		}
 		if (!verifyPasswordMatchs(view.getPassword(), view.getRepeatedPassword())) {
@@ -34,7 +34,7 @@ public class RegisterController {
 		if(!UserDao.getUserDao().insertNewUser(correctUser)) {
 			return view.errorUnableToPersistUser();
 		}
-		return view.interact();
+		return view.registry();
 	}
 
 	private boolean verifyPasswordMatchs(String password1, String repeatedPass) {
