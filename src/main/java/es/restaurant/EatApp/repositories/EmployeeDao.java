@@ -26,6 +26,12 @@ public class EmployeeDao extends UserDao {
 		return (employee != null) ? employee : CookDao.getCookDao().getCook(email);
 	}
 	
+	public List<Employee> getAllEmployeesFromCache() {
+		List<Employee> employees = WaiterDao.getWaiterDao().getWaiters();
+		employees.addAll(CookDao.getCookDao().getCooks());
+		return employees;
+	}
+	
 	public List<User> getAllEmployeesBut(String email) {
 		String sql = selectAllFrom(TABLE_NAME) + where("(user.type = " + UserType.userType.ADMIN.ordinal()
 														+ or("user.type = " + UserType.userType.WAITER.ordinal()) 

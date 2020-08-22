@@ -74,4 +74,12 @@ public class ProductState {
 		return this.state == productState.QUEUED;
 	}
 
+	public void setAsOpen() {
+		this.state = productState.OPEN;
+	}
+
+	public void setAsQueued() {
+		this.state = productState.QUEUED;
+	}
+
 }

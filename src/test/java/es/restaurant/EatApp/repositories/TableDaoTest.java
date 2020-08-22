@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import es.restaurant.EatApp.models.Table;
+import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.models.UserBuilder;
 
 @RunWith(SpringRunner.class)
 public class TableDaoTest {
@@ -30,19 +32,19 @@ public class TableDaoTest {
 	public void linkUserToTableTest() {
 		TableDao dao = TableDao.getTableDao();
 		Table table = new Table(123);
-		int userId = 1;
-		dao.linkUserToTable(userId, table);
-		assertTrue("Table should be 123", dao.getTableWithUserId(userId).equals(table));
+		User user = new UserBuilder().id(1).build();
+		dao.linkUserToTable(user, table);
+		assertTrue("Table should be 123", dao.getTableWithUserId(user.getId()).equals(table));
 	}
 
 	@Test
 	public void unlinkUserToTableTest() {
 		TableDao dao = TableDao.getTableDao();
 		Table table = new Table(123);
-		int userId = 1;
-		dao.linkUserToTable(userId, table);
-		dao.unlinkUserToTable(userId);
-		assertTrue("Table should be -1 (not found)", dao.getTableWithUserId(userId).equals(new Table()));
+		User user = new UserBuilder().id(1).build();
+		dao.linkUserToTable(user, table);
+		dao.unlinkUserToTable(user);
+		assertTrue("Table should be -1 (not found)", dao.getTableWithUserId(user.getId()).equals(new Table()));
 	}
 
 }

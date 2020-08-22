@@ -45,11 +45,11 @@ public class OrderView extends View {
 		return this.request.getParameter(TAG_PARAMS);
 	}
 
-	public Integer[] getAmounts() {
+	public Integer[] getProductAmounts() {
 		return this.parameterListReader.getParameterArray(TAG_AMOUNTS);
 	}
 
-	public Integer[] getIds() {
+	public Integer[] getProductIds() {
 		return this.parameterListReader.getIds();
 	}
 
@@ -73,7 +73,7 @@ public class OrderView extends View {
 		return this.emailHelper.getEmail();
 	}
 
-	public String interact(Order order) {
+	public String shorOrder(Order order) {
 		setStatusOk();
 		this.prepareModel(order);
 		this.updateSession(order);

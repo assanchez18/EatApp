@@ -19,12 +19,12 @@ public class CreateNewOrderView extends OrderView {
 		this.tableHelper = new TableHelperView(this.request);
 	}
 	
-	public String interact(Order order) {
+	public String shorOrder(Order order) {
 		this.updateSession(order);
 		return this.showOrderView();
 	}
 	
-	public String createNewOrder(Order order) {
+	public String createNewOrderForm(Order order) {
 		setStatusOk();
 		this.prepareModel(order);
 		return VIEW_CREATE_NEW_ORDER;
@@ -36,7 +36,7 @@ public class CreateNewOrderView extends OrderView {
 	}
 
 	public boolean hasTableCode() {
-		return (this.tableHelper.getSessionTableCode() == null);
+		return !(this.tableHelper.getSessionTableCode() == null);
 	}
 
 	public int getTableCode() {

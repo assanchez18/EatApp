@@ -29,7 +29,8 @@ public class Table extends Observable {
 	
 	public void askForHelp() {
 		this.setChanged();
-		this.notifyObservers(new Notification(Notification.Type.HELP, this.code));
+		Notification notification = new NotificationBuilder(this.code).help().build();
+		this.notifyObservers(notification);
 	}
 
 	public boolean equals(Table t) {

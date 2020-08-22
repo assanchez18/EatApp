@@ -27,7 +27,7 @@ public class RegisterInTableView extends View {
 		return VIEW_MAIN_USER;
 	}
 	
-	public String errorNotFound() {
+	public String errorWrongTable() {
 		this.addError(MSG_CODE_ERROR);
 		this.response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		return VIEW_REGISTRY_IN_TABLE;
@@ -41,7 +41,7 @@ public class RegisterInTableView extends View {
 		return this.emailHelper.getEmail();
 	}
 
-	public String interact() {
+	public String showRegisterInTableForm() {
 		return VIEW_REGISTRY_IN_TABLE;
 	}
 }

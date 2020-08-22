@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import es.restaurant.EatApp.repositories.ProductDao;
+
 public class Order extends Observable {
 
 	protected int id;
@@ -20,10 +22,19 @@ public class Order extends Observable {
 	public Order() {
 		this.id = -1;
 		this.state = new OrderState();
-		this.products = new HashMap<Product, Integer>();
+		this.products = emptyProducts();
 		this.parameters = "";
 		this.observers = new ArrayList<Observer>();
 		this.totalPrice = 0;
+	}
+
+	private Map<Product, Integer> emptyProducts() {
+		Map<Product, Integer> products =  new HashMap<Product, Integer>();
+		ProductDao productDao = ProductDao.getProductDao();
+		for(Product product : productDao.getProducts()) {
+			products.put(product, 0);
+		}
+		return products;
 	}
 
 	public Order(Map<Product, Integer> products, String parameters) {
@@ -40,21 +51,45 @@ public class Order extends Observable {
 		this.totalPrice = 0;
 	}
 
+	public Order(Integer[] ids, Integer[] amounts, String parameters) {
+		this.products = createProducts(ids, amounts);
+		this.parameters = parameters;
+		this.state = new OrderState();
+		this.totalPrice = 0;
+	}
+
+	private Map<Product, Integer> createProducts(Integer[] ids, Integer[] amounts) {
+		Map<Product, Integer> products =  new HashMap<>();
+		ProductDao productDao = ProductDao.getProductDao();
+		for (int i = 0; i < ids.length; i++) {
+			Product product = productDao.getProductById(ids[i]);
+			if(amounts[i] == 0 || product == null) {
+				continue;
+			}
+			products.put(product, amounts[i]);
+		}
+		return products;
+	}
+
 	public void addObservers(Employee waiter) {
 		this.observers.add(waiter);
 	}
 
-	public void changeStatus(Notification notification) {
+	private void changeStatus(Notification notification) {
 		this.setChanged();
-		this.notifyObservers(new Notification(notification.getType(), notification.getOwner()));
+		this.notifyObservers(notification);
 	}
 
 	public OrderState getState() {
 		return state;
 	}
 
-	public void setState(OrderState state) {
-		this.state = state;
+	public void setStateToQueued() {
+		this.state.setToQueued();
+	}
+	
+	public void setStateToOpen() {
+		this.state.setToOpen();
 	}
 
 	public void updateState() {
@@ -114,10 +149,13 @@ public class Order extends Observable {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserId(User user) {
+		setUserId(user.getId());
 	}
 
+	protected void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public boolean isOpen() {
 		return this.state.isOpen();
 	}
@@ -135,5 +173,45 @@ public class Order extends Observable {
 
 	public boolean isValid() {
 		return this.id != -1;
+	}
+
+	public void setState(OrderState state) {
+		this.state = state;
+	}
+
+	public void changeStatusToQueued(int tableCode) {
+		this.setStateToQueued();
+		Notification notification = new NotificationBuilder(tableCode).orderQueued().build();
+		this.changeStatus(notification);
+	}
+
+	public void changeStatus(Product product, int code) {
+		Notification notification = new NotificationBuilder(product, code).build();
+		this.changeStatus(notification);
+	}
+
+	public void mergeOrder(Order otherOrder) {
+		
+		otherOrder.getProducts().forEach((otherOrderKey, otherOrderValue) ->
+						this.getProducts().forEach((localKey,localValue) -> {
+							if (localKey.equals(otherOrderKey)) 
+								localValue = otherOrderValue;
+						}));
+		this.setUserId(otherOrder.getUserId());
+		this.setParameters(otherOrder.getParameters());
+		this.setState(otherOrder.getState());
+		this.setId(otherOrder.getId());
+	}
+
+	public void initializeProductsAsQueued() {
+		this.getProducts().forEach((p,v) -> p.setStateQueued());
+	}
+
+	public void initializeProductsAsOpen() {
+		this.getProducts().forEach((p,v) -> p.setStateOpen());
+	}
+
+	public boolean hasProducts() {
+		return !this.getProducts().isEmpty();
 	}
 }

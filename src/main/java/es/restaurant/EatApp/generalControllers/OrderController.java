@@ -1,12 +1,6 @@
 package es.restaurant.EatApp.generalControllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import es.restaurant.EatApp.models.Order;
-import es.restaurant.EatApp.models.Product;
-import es.restaurant.EatApp.models.ProductState;
-import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.OrderView;
 
@@ -16,37 +10,18 @@ public abstract class OrderController {
 
 	protected String createOrder() {
 		OrderView view = this.getView();
-		Integer[] ids = view.getIds();
-		Integer[] amounts = view.getAmounts();
+		Integer[] ids = view.getProductIds();
+		Integer[] amounts = view.getProductAmounts();
 		String parameters = view.getParameter();
 		if(ids.length == 0 || amounts.length == 0) {
 			return view.errorWithOrder();
 		}
-		this.order = createOrder(ids, amounts, parameters);
-		if(order.getProducts().size() == 0) {
+		this.order = new Order(ids, amounts, parameters);
+		if(!order.hasProducts()) {
 			return view.errorEmptyOrder();
 		}
-		this.order.setUserId(UserDao.getUserDao().getUser(this.getView().getEmail()).getId());
+		this.order.setUserId(UserDao.getUserDao().getUser(this.getView().getEmail()));
 		return showOrder();
-	}
-
-	private Order createOrder(Integer[] ids, Integer[] amounts, String parameters) {
-		Map<Product, Integer> products =  new HashMap<>();
-		ProductDao productDao = ProductDao.getProductDao();
-		for (int i = 0; i < ids.length; i++) {
-			Product product = productDao.getProductById(ids[i]);
-			if(amounts[i] == 0 || product == null) {
-				continue;
-			}
-			products.put(product, amounts[i]);
-		}
-		return new Order(products, parameters);
-	}
-
-	protected void initializeProductStates(ProductState state) {
-		for(Product product : this.order.getProducts().keySet()) {
-			product.setState(state);
-		}
 	}
 
 	protected abstract String showOrder();

@@ -1,10 +1,6 @@
 
 package es.restaurant.EatApp.generalControllers;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,18 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
-import es.restaurant.EatApp.models.OrderState;
-import es.restaurant.EatApp.models.OrderState.orderState;
-import es.restaurant.EatApp.models.ProductState.productState;
-import es.restaurant.EatApp.models.Product;
-import es.restaurant.EatApp.models.ProductState;
-import es.restaurant.EatApp.models.Employee;
-import es.restaurant.EatApp.repositories.CookDao;
+import es.restaurant.EatApp.repositories.EmployeeDao;
 import es.restaurant.EatApp.repositories.OrderDao;
-import es.restaurant.EatApp.repositories.ProductDao;
-import es.restaurant.EatApp.repositories.WaiterDao;
 import es.restaurant.EatApp.views.CreateNewOrderView;
 
 @Controller
@@ -35,21 +22,21 @@ public class CreateNewOrderController extends OrderController {
 	@GetMapping("/createOrder")
 	public String prepareCreateOrder(Model model, HttpServletRequest req, HttpServletResponse res) {
 		this.view = new CreateNewOrderView(model, req, res);
-		if(this.view.hasTableCode()) {
+		if(!this.view.hasTableCode()) {
 			return this.view.redirectToRegistryInTable();
 		}
-		Order baseOrder = createEmptyOrder();
+		Order baseOrder = new Order();
 		if (!this.view.isOrderInProccess()) {
-			return this.view.createNewOrder(baseOrder);
+			return this.view.createNewOrderForm(baseOrder);
 		}
 		if (this.view.isOrderOpen()) {
-			baseOrder = mergeOrders(baseOrder);
-			return this.view.createNewOrder(mergeOrders(baseOrder));
+			baseOrder.mergeOrder(this.view.getOrder());
+			return this.view.createNewOrderForm(baseOrder);
 		}
 		if (this.view.getOrder() != null ) {
-			return this.view.interact(this.view.getOrder());
+			return this.view.shorOrder(this.view.getOrder());
 		}
-		return view.interact(baseOrder);
+		return view.shorOrder(baseOrder);
 	}
 
 	@PostMapping("/createOrder")
@@ -59,53 +46,19 @@ public class CreateNewOrderController extends OrderController {
 	}
 
 	protected String showOrder() {
-		this.order.setState(new OrderState(orderState.QUEUED));
-		this.initializeProductStates(new ProductState(productState.QUEUED));
+		this.order.changeStatusToQueued(view.getTableCode());
+		this.order.initializeProductsAsQueued();
 		this.order.calculateTotalPrice();
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployeesObserveOrder();
-		this.order.changeStatus(new Notification(Notification.Type.ORDER_QUEUED, view.getTableCode()));
-		return this.view.interact(this.order);
+		return this.view.shorOrder(this.order);
 	}
 
 	private void makeEmployeesObserveOrder() {
-		for (Employee w : WaiterDao.getWaiterDao().getWaiters()) {
-			w.addObserver(this.order);
-		}
-		for (Employee c : CookDao.getCookDao().getCooks()) {
-			c.addObserver(this.order);
-		}
+		EmployeeDao.getEmployeeDao().getAllEmployeesFromCache().forEach(e -> e.addObserver(this.order));
 	}
 
 	protected CreateNewOrderView getView() {
 		return this.view;
-	}
-
-	Order createEmptyOrder() {
-		Map<Product, Integer> products =  new HashMap<Product, Integer>();
-		ProductDao productDao = ProductDao.getProductDao();
-		for(Product product : productDao.getProducts()) {
-			products.put(product, 0);
-		}
-		return new Order(products);
-	}
-
-	private Order mergeOrders(Order baseOrder) {
-		return mergeOrders(baseOrder, this.view.getOrder());
-	}
-
-	public Order mergeOrders(Order baseOrder, Order otherOrder) {
-		for(Entry<Product, Integer> product : otherOrder.getProducts().entrySet()) {
-			for(Entry<Product, Integer>baseProduct : baseOrder.getProducts().entrySet()) {
-				if(baseProduct.getKey().equals(product.getKey())) {
-					baseProduct.setValue(product.getValue()); 
-				} 
-			} 
-		}
-		baseOrder.setUserId(otherOrder.getUserId());
-		baseOrder.setParameters(otherOrder.getParameters());
-		baseOrder.setState(otherOrder.getState());
-		baseOrder.setId(otherOrder.getId());
-		return baseOrder;
 	}
 }

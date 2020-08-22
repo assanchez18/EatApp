@@ -52,7 +52,6 @@ public class ProductDao extends Dao {
 		return findProduct(id);
 	}
 
-
 	public Product findProduct(Product product) {
 		return findProduct(product.getId());
 	}

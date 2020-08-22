@@ -2,7 +2,7 @@ package es.restaurant.EatApp.models;
 
 public class Notification {
 
-	public enum Type {
+	private enum Type {
 		HELP,
 		// Order status
 		ORDER_QUEUED,//More Order States whith ManageOrderStatus UC
@@ -18,19 +18,8 @@ public class Notification {
 	private Type type;
 	private int owner;
 
-	public Notification(Type type, int whoIsAskingFor) {
-		this.type = type;
-		this.owner = whoIsAskingFor;
-	}
-
-	public Notification(Product product, int whoIsAskingFor) {
-		if(product.isReady()) {
-			this.type = Type.PRODUCT_READY;
-		} else if(product.isCancelled()) {
-			this.type = Type.PRODUCT_CANCELLED;
-		} else if(product.isQueued()) {
-			this.type = Type.PRODUCT_QUEUED;
-		}
+	public Notification(int whoIsAskingFor) {
+		this.type = null;
 		this.owner = whoIsAskingFor;
 	}
 
@@ -44,5 +33,25 @@ public class Notification {
 
 	public boolean compareId(int id) {
 		return this.owner == id;
+	}
+
+	public void orderQueued() {
+		this.type = Type.ORDER_QUEUED;
+	}
+
+	public void help() {
+		this.type = Type.HELP;
+	}
+
+	public void productReady() {
+		this.type = Type.PRODUCT_READY;
+	}
+
+	public void productCancelled() {
+		this.type = Type.PRODUCT_CANCELLED;
+	}
+
+	public void productQueued() {
+		this.type = Type.PRODUCT_QUEUED;
 	}
 }

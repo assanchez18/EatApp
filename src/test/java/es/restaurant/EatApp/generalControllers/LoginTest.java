@@ -41,7 +41,7 @@ public class LoginTest {
 		User user = new UserBuilder().sergio().build();
 		Order order = new OrderBuilder().baseOrder().userId(user.getId()).build();
 		Table table = new Table(123);
-		TableDao.getTableDao().linkUserToTable(user.getId(), table);
+		TableDao.getTableDao().linkUserToTable(user, table);
 		OrderDao.getOrderDao().saveInCache(order);
         this.mockMvc.perform(
                 post("/login")
@@ -49,7 +49,7 @@ public class LoginTest {
                         .param(LoginView.TAG_PASSWORD, user.getPassword()))
                 .andExpect(status().isOk());
 		OrderDao.getOrderDao().deleteFromCache(user.getId());
-		TableDao.getTableDao().unlinkUserToTable(user.getId());
+		TableDao.getTableDao().unlinkUserToTable(user);
     }
 
     @Test

@@ -1,6 +1,5 @@
 package es.restaurant.EatApp.generalControllers;
 
-import es.restaurant.EatApp.models.Notification;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.Product;
 import es.restaurant.EatApp.repositories.OrderDao;
@@ -26,7 +25,7 @@ public abstract class ProductStatusController {
 
 	private void processNotification(Order order, Product product) { 
 		if(product.isCancelled() || product.isReady() || product.isQueued()) {
-			order.changeStatus(new Notification(product, TableDao.getTableDao().getTableWithUserId(order.getUserId()).getCode()));
+			order.changeStatus(product, TableDao.getTableDao().getTableWithUserId(order.getUserId()).getCode());
 		}
 	}
 

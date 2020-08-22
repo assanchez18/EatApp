@@ -98,4 +98,12 @@ public class OrderState {
 	public boolean isReady() {
 		return this.state == orderState.READY;
 	}
+
+	public void setToOpen() {
+		this.state = orderState.OPEN;
+	}
+	
+	public void setToQueued() {
+		this.state = orderState.QUEUED;
+	}
 }

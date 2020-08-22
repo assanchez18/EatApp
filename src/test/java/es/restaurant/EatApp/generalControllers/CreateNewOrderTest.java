@@ -1,14 +1,10 @@
 package es.restaurant.EatApp.generalControllers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Map.Entry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +18,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.Order;
 import es.restaurant.EatApp.models.OrderBuilder;
 import es.restaurant.EatApp.models.OrderState;
-import es.restaurant.EatApp.models.Product;
-import es.restaurant.EatApp.repositories.ProductDao;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.CleanNotificationView;
@@ -201,38 +195,5 @@ public class CreateNewOrderTest {
 				.queryParam(OrderView.TAG_PARAMS, parameters)
 				.sessionAttr(TableHelperView.TAG_TABLE, tableCode))
 		.andExpect(status().isBadRequest());
-	}
-
-	@Test
-	public void createEmptyOrder() throws Exception {
-		Order order = this.createNewOrderController.createEmptyOrder();
-		assertFalse("Error, empty order does not have base products!", order.getProducts().isEmpty());
-		assertEquals("Error, empty order does not have all base products!", order.getProducts().size(), ProductDao.getProductDao().getProducts().size());
-		assertTrue("Error, empty order has parameters!", order.getParameters().isEmpty());
-		assertEquals("Error, empty order does not have userId 0", order.getUserId(),0);
-		assertEquals("Error, empty order does not have Id 0", order.getId(), 0);
-		assertEquals("Error, empty order does not have state BASE", order.getState().getTypeOrdinal(), OrderState.orderState.BASE.ordinal());
-	}
-
-	@Test
-	public void mergeOrders() throws Exception {
-		Order baseOrder = this.createNewOrderController.createEmptyOrder();
-		Order otherOrder = new OrderBuilder().baseOrder().state(new OrderState(OrderState.orderState.COOKING)).parameters("test").userId(2).build();
-		Order mergedOrder = this.createNewOrderController.mergeOrders(baseOrder, otherOrder);
-		System.out.println("Donde");
-
-		assertEquals("Error, Merge Orders fails in id", mergedOrder.getId(), otherOrder.getId());
-		assertEquals("Error, Merge Orders fails in parameters", mergedOrder.getParameters(), otherOrder.getParameters());
-		assertEquals("Error, Merge Orders fails in state", mergedOrder.getState(), otherOrder.getState());
-		assertEquals("Error, Merge Orders fails in userId", mergedOrder.getUserId(), otherOrder.getUserId());
-		assertEquals("Error, Merged Order does not have all base products!", mergedOrder.getProducts().size(), ProductDao.getProductDao().getProducts().size());
-		for(Entry<Product, Integer> product : otherOrder.getProducts().entrySet()) {
-			for(Entry<Product, Integer>checkProduct : mergedOrder.getProducts().entrySet()) {
-				if(checkProduct.getKey().equals(product.getKey())) {
-					checkProduct.setValue(product.getValue());
-					assertTrue("Error, mergedOrder does not have the value it should have in product " + checkProduct.getKey().getName(), checkProduct.getValue() == product.getValue());
-				}
-			}
-		}
 	}
 }

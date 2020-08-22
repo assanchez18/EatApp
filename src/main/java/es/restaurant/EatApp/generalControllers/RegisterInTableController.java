@@ -18,7 +18,7 @@ public class RegisterInTableController {
 	@GetMapping("/registerInTable")
 	public String preapreRegisterInTableForm(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
-		return view.interact();
+		return view.showRegisterInTableForm();
 	}
 
 	@PostMapping("/registerInTable")
@@ -26,9 +26,9 @@ public class RegisterInTableController {
 		RegisterInTableView view = new RegisterInTableView(model, req, res);
 		Table table = TableDao.getTableDao().getTable(view.getTableCode()); 
 		if(!table.isValid()) {
-			return view.errorNotFound();
+			return view.errorWrongTable();
 		}
-		TableDao.getTableDao().linkUserToTable(UserDao.getUserDao().getUser(view.getEmail()).getId(), table);
+		TableDao.getTableDao().linkUserToTable(UserDao.getUserDao().getUser(view.getEmail()), table);
 		return view.register();
 	}
 }

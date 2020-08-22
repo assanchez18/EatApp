@@ -11,6 +11,7 @@ import java.util.Set;
 import org.springframework.jdbc.core.RowMapper;
 
 import es.restaurant.EatApp.models.Table;
+import es.restaurant.EatApp.models.User;
 
 public class TableDao extends Dao{
 	
@@ -73,12 +74,12 @@ public class TableDao extends Dao{
 		return this.tables.getOrDefault(code, new Table());
 	}
 
-	public void linkUserToTable(int userId, Table table) {
-		this.usersInTables.put(userId, this.tables.get(table.getCode()));
+	public void linkUserToTable(User user, Table table) {
+		this.usersInTables.put(user.getId(), this.tables.get(table.getCode()));
 	}
 
-	public void unlinkUserToTable(int userId) {
-		this.usersInTables.remove(userId);
+	public void unlinkUserToTable(User user) {
+		this.usersInTables.remove(user.getId());
 	}
 
 	public Table getTableWithUserId(int userId) {

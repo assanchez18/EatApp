@@ -37,6 +37,11 @@ public class OrderBuilder {
 		this.order.setUserId(id);
 		return this;
 	}
+	
+	public OrderBuilder id(int id) {
+		this.order.setId(id);
+		return this;
+	}
 
 	public Order build() {
 		return this.order;

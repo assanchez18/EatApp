@@ -151,5 +151,13 @@ public class Product {
 	public List<Ingredient> getIngredients() {
 		return this.ingredients;
 	}
+
+	public void setStateOpen() {
+		this.state.setAsOpen();
+	}
+
+	public void setStateQueued() {
+		this.state.setAsQueued();
+	}
 	
 }
