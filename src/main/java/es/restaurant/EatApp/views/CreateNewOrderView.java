@@ -19,7 +19,7 @@ public class CreateNewOrderView extends OrderView {
 		this.tableHelper = new TableHelperView(this.request);
 	}
 	
-	public String shorOrder(Order order) {
+	public String shorOrderView(Order order) {
 		this.updateSession(order);
 		return this.showOrderView();
 	}

@@ -73,7 +73,7 @@ public class OrderView extends View {
 		return this.emailHelper.getEmail();
 	}
 
-	public String shorOrder(Order order) {
+	public String shorOrderView(Order order) {
 		setStatusOk();
 		this.prepareModel(order);
 		this.updateSession(order);

@@ -30,7 +30,7 @@ public class ShowOrderController extends OrderController {
 	protected String showOrder() {
 		this.order.setStateToQueued();
 		this.order.initializeProductsAsOpen();
-		return this.view.shorOrder(this.order);
+		return this.view.shorOrderView(this.order);
 	}
 
 	protected OrderView getView() {

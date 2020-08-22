@@ -34,9 +34,9 @@ public class CreateNewOrderController extends OrderController {
 			return this.view.createNewOrderForm(baseOrder);
 		}
 		if (this.view.getOrder() != null ) {
-			return this.view.shorOrder(this.view.getOrder());
+			return this.view.shorOrderView(this.view.getOrder());
 		}
-		return view.shorOrder(baseOrder);
+		return view.shorOrderView(baseOrder);
 	}
 
 	@PostMapping("/createOrder")
@@ -51,7 +51,7 @@ public class CreateNewOrderController extends OrderController {
 		this.order.calculateTotalPrice();
 		OrderDao.getOrderDao().saveInCache(this.order);
 		makeEmployeesObserveOrder();
-		return this.view.shorOrder(this.order);
+		return this.view.shorOrderView(this.order);
 	}
 
 	private void makeEmployeesObserveOrder() {
