@@ -1,0 +1,53 @@
+https://dbdiagram.io/d/5f3faa217b2e2f40e9de4b0b
+// Creating tables
+Table ingredients as I {
+  id int(11) [pk, increment, not null] // auto-increment
+  name varchar(140) [not null]
+  amount dobule [not null]
+  description varchar(140) [not null]
+  minimumAmount double [not null]
+}
+
+Table orders as O {
+  id int(11) [pk, increment, not null] // auto-increment
+  state int(1) [not null]
+  parameters varchar(140)
+  userId int(1) [pk, not null]
+  review varchar(140) [not null]
+}
+
+Table products as P {
+  id int(11) [pk, increment, not null] // auto-increment
+  name varchar(140) [not null]
+  description varchar(140) [not null]
+  price double [not null]
+  priority int(1) [not null]
+}
+
+Table order_products as OP {
+  orderId int(11) [pk, not null] // auto-increment
+  amount int(2) [not null]
+  productId int(11) [pk, not null]
+}
+
+Table product_ingredients as PI {
+  productId int(11) [pk, not null] // auto-increment
+  ingredientId int(11) [pk, not null] // auto-increment
+}
+
+Table tables as T {
+  code int(11) [pk, not null]
+}
+
+Table user as U {
+  id int(11) [increment, not null] // auto-increment
+  email varchar(140) [pk, not null]
+  password varchar(20) [not null]
+  type int(11) [not null]
+}
+
+Ref: O.userId > U.id
+Ref: O.id > OP.orderId
+Ref: P.id > OP.productId
+Ref: I.id > PI.ingredientId
+Ref: P.id > PI.productId
