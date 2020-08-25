@@ -2,7 +2,6 @@ package es.restaurant.EatApp.views;
 
 import javax.servlet.http.HttpServletRequest;
 
-import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 public class LogoutView extends View {
@@ -14,7 +13,7 @@ public class LogoutView extends View {
 		this.emailHelper = new EmailHelperView(req);
 	}
 
-	public String logout(User user) {
+	public String logout() {
 		this.session.invalidate();		
 		return VIEW_INDEX;
 	}

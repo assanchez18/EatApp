@@ -21,9 +21,9 @@ public class EmployeeDao extends UserDao {
 		
 	}
 
-	public Employee getEmployeeFromCache(String email) {
+	public Employee getEmployeeByEmail(String email) {
 		Employee employee = WaiterDao.getWaiterDao().getWaiter(email);
-		return (employee != null) ? employee : CookDao.getCookDao().getCook(email);
+		return (employee.isValid()) ? employee : CookDao.getCookDao().getCook(email);
 	}
 	
 	public List<Employee> getAllEmployeesFromCache() {
@@ -38,5 +38,9 @@ public class EmployeeDao extends UserDao {
 														+ or("user.type = " + UserType.userType.COOK.ordinal() + ")")
 														+ and("user.email != \"" + email + "\""));
 		return executeQuery(sql);
+	}
+
+	public boolean removeEmployee(User employee) {
+		return UserDao.getUserDao().deleteUser(employee);
 	}
 }

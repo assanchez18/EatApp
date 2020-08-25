@@ -60,6 +60,6 @@ public class WaiterDao extends EmployeeDao {
 				return w;
 			}
 		}
-		return null;
+		return new Employee();
 	}
 }

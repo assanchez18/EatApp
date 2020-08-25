@@ -86,6 +86,6 @@ public class UserDao extends Dao {
 
 	public boolean deleteUser(User user) {
         String sql = delete(TABLE_NAME, where("email=?"));
-        return (this.db.getJdbcTemplate().update(sql, user.getEmail()) == 1);
+        return (this.db.getJdbcTemplate().update(sql, user.getEmail())== 1);
 	}
 }

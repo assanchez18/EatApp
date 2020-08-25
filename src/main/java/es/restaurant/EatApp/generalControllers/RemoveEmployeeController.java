@@ -8,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.restaurant.EatApp.models.User;
+import es.restaurant.EatApp.models.Employee;
 import es.restaurant.EatApp.repositories.EmployeeDao;
-import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.RemoveEmployeeView;
 
 @Controller
@@ -19,17 +18,16 @@ public class RemoveEmployeeController {
 	@GetMapping("/removeEmployee")
 	public String prepareRemoveEmployeeForm(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RemoveEmployeeView view = new RemoveEmployeeView(model, req, res);
-		return view.showForm(EmployeeDao.getEmployeeDao().getAllEmployeesBut(view.getEmail()));
+		return view.getShowEmployees(EmployeeDao.getEmployeeDao().getAllEmployeesBut(view.getEmail()));
 	}
 
 	@PostMapping("/removeEmployee")
 	public String removeEmployee(Model model, HttpServletRequest req, HttpServletResponse res) {
 		RemoveEmployeeView view = new RemoveEmployeeView(model, req, res);
-		User user = UserDao.getUserDao().getUser(view.getUserToRemove());
-		if(!user.isValid()) {
-			return view.errorInvalidUser();
+		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeByEmail(view.getEmployeToRemoveEmail());
+		if (!EmployeeDao.getEmployeeDao().removeEmployee(employee)) {
+			return view.getErrorRemovingEmployee();
 		}
-		UserDao.getUserDao().deleteUser(user);
-		return view.interact();
+		return view.getRemoveEmployee();
 	}
 }

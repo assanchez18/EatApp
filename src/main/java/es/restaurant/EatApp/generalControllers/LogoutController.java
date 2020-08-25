@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import es.restaurant.EatApp.models.User;
-import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.LogoutView;
 
 @Controller
@@ -16,7 +14,6 @@ public class LogoutController {
 	@GetMapping("/logout")
 	public String logout(Model model, HttpServletRequest req, HttpServletResponse res) {
 		LogoutView view = new LogoutView(req);
-		User user = UserDao.getUserDao().getUser(view.getEmail());
-		return view.logout(user);
+		return view.logout();
 	}
 }

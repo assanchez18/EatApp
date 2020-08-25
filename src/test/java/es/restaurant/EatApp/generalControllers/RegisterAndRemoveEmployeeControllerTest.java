@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.restaurant.EatApp.models.User;
 import es.restaurant.EatApp.models.UserBuilder;
 import es.restaurant.EatApp.views.RegisterEmployeeView;
-import es.restaurant.EatApp.views.RemoveEmployeeView;
 import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 @RunWith(SpringRunner.class)
@@ -54,24 +53,6 @@ public class RegisterAndRemoveEmployeeControllerTest {
 	}
 	
 	@Test
-	public void firstRegisterNewEmployeeThenRemoveThisEmployee() throws Exception {
-		User user = new UserBuilder().employee().build();
-		this.mockMvc.perform(
-                post("/register")
-                	.sessionAttr(EmailHelperView.TAG_EMAIL, user.getEmail())
-                	.param(EmailHelperView.TAG_EMAIL, user.getEmail())
-                    .param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
-                    .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
-                    .param(RegisterEmployeeView.TAG_REPEATED_PASSWORD, user.getPassword()))
-                .andExpect(status().isOk());
-		
-		this.mockMvc.perform(
-				post("/removeEmployee")
-					.param(RemoveEmployeeView.TAG_USER_TO_REMOVE, user.getEmail()))
-				.andExpect(status().isOk());
-	}
-	
-	@Test
 	public void wrongMailToRegisterThenError() throws Exception {
 		User user = new UserBuilder().commensal().build();
 		this.mockMvc.perform(
@@ -89,15 +70,6 @@ public class RegisterAndRemoveEmployeeControllerTest {
                 	.param(RegisterEmployeeView.TAG_PASSWORD, user.getPassword())
                     .param(RegisterEmployeeView.TAG_USER_TYPE, Integer.toString(user.getUserType().getTypeOrdinal()))
                     .param(RegisterEmployeeView.TAG_REPEATED_PASSWORD, "1"))
-                .andExpect(status().isBadRequest());
-	}
-
-	@Test
-	public void wrongUserToRemoveThenError() throws Exception {
-		User user = new UserBuilder().employee().build();
-		this.mockMvc.perform(
-                post("/removeEmployee")
-                	.param(RemoveEmployeeView.TAG_USER_TO_REMOVE, user.getEmail()))
                 .andExpect(status().isBadRequest());
 	}
 }

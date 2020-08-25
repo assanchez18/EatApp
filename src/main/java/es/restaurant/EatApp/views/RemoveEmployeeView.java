@@ -14,29 +14,29 @@ public class RemoveEmployeeView extends LoginView {
 	public static final String TAG_USER_TO_REMOVE = "userToRemove";
 	private final String VIEW_REMOVE_EMPLOYEE = "removeEmployeeForm";
 	private final String TAG_EMPLOYEES = "employees";
-	private final String MSG_WRONG_USER_ERROR = "El usuario que quieres eliminar no existe";
+	private final String MSG_DB_ERROR = "The DB is not working correctly.";
 
 	public RemoveEmployeeView(Model model, HttpServletRequest req, HttpServletResponse res) {
 		super(model, req, res);
 	}
 
-	public String showForm(List<User> employees) {
+	public String getShowEmployees(List<User> employees) {
 		this.model.addAttribute(TAG_EMPLOYEES, employees);
 		setStatusOk();
 		return VIEW_REMOVE_EMPLOYEE;
 	}
 
-	public String errorInvalidUser() {
-		return returnErrorWithMessageAndErrorCode(MSG_WRONG_USER_ERROR, HttpServletResponse.SC_BAD_REQUEST);
-	}
-
-	public String interact() {
+	public String getRemoveEmployee() {
 		setStatusOk();
 		return VIEW_MAIN_USER;
 	}
 	
-	public String getUserToRemove() {
+	public String getEmployeToRemoveEmail() {
 		return this.request.getParameter(TAG_USER_TO_REMOVE);
+	}
+
+	public String getErrorRemovingEmployee() {
+		return returnErrorWithMessageAndErrorCode(MSG_DB_ERROR, HttpServletResponse.SC_BAD_REQUEST);
 	}
 	
 }

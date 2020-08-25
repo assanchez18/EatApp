@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import es.restaurant.EatApp.models.Employee;
 import es.restaurant.EatApp.repositories.EmployeeDao;
-import es.restaurant.EatApp.repositories.UserDao;
 import es.restaurant.EatApp.views.CleanNotificationView;
 
 @Controller
@@ -18,11 +17,8 @@ public class CleanNotificationController {
 	@PostMapping("/cleanNotification")
 	public String cleanNotifications(Model model, HttpServletRequest req, HttpServletResponse res) {
 		CleanNotificationView view = new CleanNotificationView(model, req, res);
-		if (!UserDao.getUserDao().isUserCorrect(view.getEmail())) {
-			return view.errorNoEmployee();
-		}
-		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeFromCache(view.getEmail());
+		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeByEmail(view.getEmail());
 		employee.completeNotification(view.getNotificationId());
-		return view.interact(employee.getNotifications());
+		return view.getCleanNotifications(employee.getNotifications());
 	}
 }

@@ -17,8 +17,8 @@ public class UserBuilder {
 	}
 	
 	public UserBuilder employee() {
-		this.email = "test@test.com";
-		this.password = "test";
+		this.email = "employee@employee.com";
+		this.password = "employee";
 		this.type = new UserType(userType.WAITER);
 		return this;
 	}

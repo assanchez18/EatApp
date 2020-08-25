@@ -17,7 +17,7 @@ public class ShowNotificationsController {
 	@PostMapping("/showNotification")
 	public String showNotifications(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ShowNotificationView view = new ShowNotificationView(model,req,res);
-		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeFromCache(view.getEmail());
+		Employee employee = EmployeeDao.getEmployeeDao().getEmployeeByEmail(view.getEmail());
 		return view.interact(employee.getNotifications());
 	}
 

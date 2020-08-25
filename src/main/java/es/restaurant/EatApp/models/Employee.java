@@ -10,7 +10,9 @@ public class Employee extends User implements Observer {
 
 	private List<Notification> notifications;
 	
+	
 	public Employee() {
+		this.id = -1;
 		this.notifications = new ArrayList<Notification>();
 	}
 	

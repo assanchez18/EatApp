@@ -9,12 +9,13 @@ public class Database {
 	private SimpleDriverDataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	private static Database database = null;
+	private final Object lock = new Object();
 	
 	public static Database getDatabase() {
 		if (database == null) {
 			database = new Database();			
 		}
-		return database;
+			return database;
 	}
 	
 	private Database() {
@@ -32,7 +33,9 @@ public class Database {
 	}
 	
 	public JdbcTemplate getJdbcTemplate() {
-		return this.jdbcTemplate;
+		synchronized(lock) {
+			return this.jdbcTemplate;
+		}
 	}
 
 }

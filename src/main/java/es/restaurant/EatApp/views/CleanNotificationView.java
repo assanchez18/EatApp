@@ -12,9 +12,7 @@ import es.restaurant.EatApp.views.helpers.EmailHelperView;
 
 public class CleanNotificationView extends View {
 	
-	public static final String TAG_NOTIFICATION_ID = "notificationId";
-	private static final String MSG_ERROR_NO_EMPLOYEE = "El empleado no existe";
-	
+	public static final String TAG_NOTIFICATION_ID = "notificationId";	
 	private EmailHelperView emailHelper;
 	
 	public CleanNotificationView(Model model, HttpServletRequest req, HttpServletResponse res) {
@@ -26,15 +24,11 @@ public class CleanNotificationView extends View {
 		return Integer.decode(this.request.getParameter(TAG_NOTIFICATION_ID));
 	}
 
-	public String errorNoEmployee() {
-		return returnErrorWithMessageAndErrorCode(MSG_ERROR_NO_EMPLOYEE, HttpServletResponse.SC_BAD_REQUEST);
-	}
-
 	public String getEmail() {
 		return this.emailHelper.getEmail();
 	}
 	
-	public String interact(List<Notification> notifications) {
+	public String getCleanNotifications(List<Notification> notifications) {
 		this.model.addAttribute("notifications", notifications);
 		setStatusOk();
 		return VIEW_MAIN_USER;
